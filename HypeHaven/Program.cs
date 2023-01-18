@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using HypeHaven.Data;
+using HypeHaven.Models;
 using HypeHaven.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);

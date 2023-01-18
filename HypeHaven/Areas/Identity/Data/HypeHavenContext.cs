@@ -1,11 +1,14 @@
-﻿using HypeHaven.Areas.Identity.Data;
+﻿//todo - remove this class
+
+/*using HypeHaven.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HypeHaven.Data;
-
-public class HypeHavenContext : IdentityDbContext<HypeHavenUser>
+//It's a translator between database(sql) and models(c#)
+public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
 {
     public HypeHavenContext(DbContextOptions<HypeHavenContext> options)
         : base(options)
@@ -18,5 +21,20 @@ public class HypeHavenContext : IdentityDbContext<HypeHavenUser>
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
+
+        //creating new class
+        builder.ApplyConfiguration(new HypeHavenUserEntityConfiguration());
+
+
     }
 }
+
+public class HypeHavenUserEntityConfiguration : IEntityTypeConfiguration<HypeHavenUser>
+{
+    public void Configure(EntityTypeBuilder<HypeHavenUser> builder)
+    {
+        builder.Property(u => u.Name).HasMaxLength(255);
+        builder.Property(u => u.Address).HasMaxLength(255);
+    }
+}
+*/
