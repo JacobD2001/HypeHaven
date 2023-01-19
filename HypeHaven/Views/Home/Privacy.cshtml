@@ -1,6 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    
+<h1>YOU ARE AUTHENTHICATED ADMIN</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+
+
+}
+
+
+
+<h1>YOU ARE NOTTTTTT AUTHENTHICATED ADMIN</h1>
+
+
+  

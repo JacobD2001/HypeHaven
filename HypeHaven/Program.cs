@@ -8,7 +8,10 @@ var connectionString = builder.Configuration.GetConnectionString("HypeHavenConte
 
 builder.Services.AddDbContext<HypeHavenContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<HypeHavenContext>();
+builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>() //adding roles
+    .AddEntityFrameworkStores<HypeHavenContext>();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

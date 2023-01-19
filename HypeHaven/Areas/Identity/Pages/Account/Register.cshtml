@@ -26,6 +26,15 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>  
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Role" class="form-control" aria-required="true">
+@*                <option value="admin"> administrator </option>   
+*@                <option value="vendor"> business owner </option>   
+                <option value="customer"> customer </option>   
+                </select>
+                <label asp-for="Input.Role">select role</label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>

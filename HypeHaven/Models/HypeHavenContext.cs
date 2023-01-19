@@ -30,6 +30,8 @@ public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
+   // public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -291,6 +293,16 @@ public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__reviews__product__73BA3083");
         });
+
+/*        modelBuilder.Entity<AspNetRole>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedName] IS NOT NULL)");
+
+            entity.Property(e => e.Name).HasMaxLength(256);
+            entity.Property(e => e.NormalizedName).HasMaxLength(256);
+        });*/
 
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new HypeHavenUserEntityConfiguration());
