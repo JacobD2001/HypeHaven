@@ -1,6 +1,7 @@
 ﻿using HypeHaven.Interfaces;
 using HypeHaven.models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization.Metadata;
 
 namespace HypeHaven.Repositories
 {
@@ -33,12 +34,12 @@ namespace HypeHaven.Repositories
         public async Task<Brand> GetByIdAsync(int id)
         {
            return await _context.Brands
-          .Include(b => b.CategoryId)
-          .Where(c => c.CategoryId == id)
+         /* .Include(b => b.CategoryId)
+          .Where( b => b.CategoryId == id)*/
           .Include(b => b.Products)
           .Include(b => b.Reviews)
-          .Include(b => b.Id)
-          .SingleOrDefaultAsync(b => b.BrandId == id);
+          //.Include(b => b.Id)
+          .FirstOrDefaultAsync(b => b.BrandId == id);
         }
 
         public bool Save()

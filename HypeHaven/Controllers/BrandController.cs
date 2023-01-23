@@ -33,7 +33,7 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             Brand brand = await _brandRepository.GetByIdAsync(id);
             if (brand == null)
@@ -65,6 +65,7 @@ namespace HypeHaven.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            ViewBag.Categories = await _categoryRepository.GetAll();
             var brand = await _brandRepository.GetByIdAsync(id);
             if (brand == null)
                 return NotFound();
@@ -85,6 +86,7 @@ namespace HypeHaven.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            ViewBag.Categories = await _categoryRepository.GetAll();
             var brand = await _brandRepository.GetByIdAsync(id);
             if (brand == null)
                 return NotFound();

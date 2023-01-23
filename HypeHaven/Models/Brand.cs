@@ -38,4 +38,5 @@ public partial class Brand
     public virtual ICollection<Product> Products { get; } = new List<Product>();
 
     public virtual ICollection<Review> Reviews { get; } = new List<Review>();
+
 }
