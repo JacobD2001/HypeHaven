@@ -1,4 +1,4 @@
-﻿using HypeHaven.Models;
+﻿using HypeHaven.models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

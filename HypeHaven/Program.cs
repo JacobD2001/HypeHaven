@@ -1,13 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using HypeHaven.Models;
+using HypeHaven.models;
 using HypeHaven.Areas.Identity.Data;
+using HypeHaven.Interfaces;
+using HypeHaven.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HypeHavenContextConnection") ?? throw new InvalidOperationException("Connection string 'HypeHavenContextConnection' not found.");
 
+//Add dbcontext
 builder.Services.AddDbContext<HypeHavenContext>(options => options.UseSqlServer(connectionString));
 
+//Add identity fw
 builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>() //adding roles
     .AddEntityFrameworkStores<HypeHavenContext>();
@@ -16,7 +20,15 @@ builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.Req
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Add services for dependency injection
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+
 var app = builder.Build();
+
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,0 +1,84 @@
+﻿@using HypeHaven.models
+
+@model Brand
+@if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
+{
+    <h2>Edit Brand</h2>
+
+    <form method="post">
+        <input type="hidden" id="Id" name="Id" asp-for="Id" />
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Location">Location</label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input asp-for="Image" class="form-control" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="PhoneNumber">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Instagram">Instagram</label>
+            <input asp-for="Instagram" class="form-control" />
+            <span asp-validation-for="Instagram" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Facebook">Facebook</label>
+            <input asp-for="Facebook" class="form-control" />
+            <span asp-validation-for="Facebook" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Pinterest">Pinterest</label>
+            <input asp-for="Pinterest" class="form-control" />
+            <span asp-validation-for="Pinterest" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Tiktok">Tiktok</label>
+            <input asp-for="Tiktok" class="form-control" />
+            <span asp-validation-for="Tiktok" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Video">Video</label>
+            <input asp-for="Video" class="form-control" />
+            <span asp-validation-for="Video" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="CategoryId">Category</label>
+            <select asp-for="CategoryId" class="form-control">
+                <option value="">Select a category</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryId">@category.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+}
+
+<h2>Please log in in order to create a brand</h2>
+<a asp-action="Index">Back to List</a>
+

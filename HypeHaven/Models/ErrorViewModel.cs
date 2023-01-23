@@ -1,4 +1,4 @@
-namespace HypeHaven.Models
+namespace HypeHaven.models
 {
     public class ErrorViewModel
     {

@@ -22,7 +22,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 //using HypeHaven.ViewModels;
-using HypeHaven.Models;
+using HypeHaven.models;
 
 namespace HypeHaven.Areas.Identity.Pages.Account
 {

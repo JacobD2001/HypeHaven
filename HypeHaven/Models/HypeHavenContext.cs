@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HypeHaven.Models;
+namespace HypeHaven.models;
 
 public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
 {
@@ -30,6 +30,7 @@ public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
    // public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
 
