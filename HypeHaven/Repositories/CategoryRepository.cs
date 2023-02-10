@@ -18,6 +18,15 @@ namespace HypeHaven.Repositories
             return await _context.Categories.ToListAsync();
         }
 
-        
+        public async Task<Category> GetByIdAsync(int id)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
+        }  
+        public async Task<Category> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Categories.AsNoTracking().FirstOrDefaultAsync(c => c.CategoryId == id);
+        }
+
+
     }
 }

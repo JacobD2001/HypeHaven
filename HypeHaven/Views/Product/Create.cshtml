@@ -1,0 +1,89 @@
+﻿@using HypeHaven.ViewModels
+
+
+@model CreateProductViewModel
+@if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
+{
+    <h2>Create Product</h2>
+
+    <form method="post">
+        <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
+        <input type="hidden" id="Brands" name="Brands" asp-for="Brands" />
+       <div class="form-group">
+            <label for="Name">Name</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Price">Price</label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Image">Image</label>
+            <input asp-for="Image" class="form-control" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Size">Size</label>
+            <input asp-for="Size" class="form-control" />
+            <span asp-validation-for="Size" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Color">Color</label>
+            <input asp-for="Color" class="form-control" />
+            <span asp-validation-for="Color" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Material">Material</label>
+            <input asp-for="Material" class="form-control" />
+            <span asp-validation-for="Material" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Quantity">Quantity</label>
+            <input asp-for="Quantity" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+            <div class="form-group">
+                <label for="CategoryId">Category</label>
+                <select asp-for="CategoryId" class="form-control">
+                    <option value="">Select a category</option>
+                @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.CategoryId">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+       
+            
+
+            <div class="form-group">
+                <label for="BrandId">Brand</label>
+            <select asp-for="BrandId" class="form-control">
+                    <option value="">Select a brand</option>
+                @foreach (var brand in Model.Brands)
+                    {
+                        <option value="@brand.BrandId">@brand.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+
+    </form>
+}
+
+<h2>Please log in in order to create a brand</h2>
+<a asp-action="Index">Back to List</a>
+

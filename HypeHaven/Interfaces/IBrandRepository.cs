@@ -6,6 +6,8 @@ namespace HypeHaven.Interfaces
     {
         Task<IEnumerable<Brand>> GetAll();
         Task<Brand> GetByIdAsync(int id);
+        Task<Brand> GetByIdAsyncNoTracking(int id);
+
 
         bool Add(Brand brand);
         bool Update(Brand brand);

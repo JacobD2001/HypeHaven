@@ -1,4 +1,4 @@
-﻿namespace HypeHaven.ViewModels
+﻿/*namespace HypeHaven.ViewModels
 {
     public class CategoryViewModel
     {
@@ -6,3 +6,4 @@
         public List<string> Name { get; set; }
     }
 }
+*/

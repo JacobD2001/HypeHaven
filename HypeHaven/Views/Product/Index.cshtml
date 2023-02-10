@@ -1,12 +1,12 @@
 ﻿@using HypeHaven.models
 
-@model IEnumerable<Brand>
+@model IEnumerable<Product>
 
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create new brand</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Create">Create new product</a>
     </li>
 }
 
@@ -26,11 +26,11 @@
                                 <p class="card-text">@item.Description</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="btn btn-success" asp-controller="Brand" asp-action="Detail" asp-route-id="@item.BrandId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
                                         @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
                                         {
-                                            <a asp-controller="Brand" asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                            <a asp-controller="Brand" asp-action="Delete" asp-route-id="@item.BrandId" class="btn btn-sm btn-outline-secondary">Delete</a>
+                                            <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Delete</a>
                                         }
                                     </div>
                                 </div>

@@ -40,6 +40,17 @@ namespace HypeHaven.Repositories
           .Include(b => b.Reviews)
           //.Include(b => b.Id)
           .FirstOrDefaultAsync(b => b.BrandId == id);
+        }   
+
+        public async Task<Brand> GetByIdAsyncNoTracking(int id)
+        {
+           return await _context.Brands
+         /* .Include(b => b.CategoryId)
+          .Where( b => b.CategoryId == id)*/
+          .Include(b => b.Products)
+          .Include(b => b.Reviews)
+          //.Include(b => b.Id)
+          .AsNoTracking().FirstOrDefaultAsync(b => b.BrandId == id);
         }
 
         public bool Save()

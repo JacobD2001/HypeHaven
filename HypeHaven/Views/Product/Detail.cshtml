@@ -1,0 +1,33 @@
+﻿@using HypeHaven.models
+
+@model Product
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">
+        Product Name
+        <small>some product </small>
+    </h1>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="@Model.Image" alt="">
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">@Model.Name</h3>
+            <p>@Model.Description</p>
+            <h3 class="my-3">Location</h3>
+            <ul>
+                <li>@Model.Price</li>
+                <li>@Model.Color</li>
+                <li>@Model.Size</li>
+                <li>@Model.Material</li>
+                <li>@Model.Quantity</li>
+            </ul>
+        </div>
+
+    </div>
