@@ -30,7 +30,6 @@ namespace HypeHaven.Repositories
         {
             return await _context.Brands.ToListAsync();
         }
-        //todo - implement getbyidasync
         public async Task<Brand> GetByIdAsync(int id)
         {
            return await _context.Brands

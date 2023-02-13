@@ -1,11 +1,12 @@
-﻿@using HypeHaven.ViewModels
+﻿@    using HypeHaven.ViewModels;
+    using HypeHaven.ViewModels.Brand
 
-@model CreateBrandViewModel
+@model DeleteBrandViewModel
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
     <h2>Are you sure you want to delete your brand?</h2>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="hidden" id="Id" name="Id" asp-for="Id" />
         <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
         <div class="form-group">

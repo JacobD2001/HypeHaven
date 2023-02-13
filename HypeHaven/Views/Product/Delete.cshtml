@@ -1,7 +1,8 @@
-﻿@using HypeHaven.ViewModels
+﻿@    using HypeHaven.ViewModels;
+    using HypeHaven.ViewModels.Product
 
 
-@model CreateProductViewModel
+@model ProductViewModel
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
     <h2>Are you sure you want to delete this product?</h2>

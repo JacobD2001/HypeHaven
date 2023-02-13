@@ -1,13 +1,15 @@
-﻿@using HypeHaven.ViewModels
+﻿@    using HypeHaven.ViewModels;
+    using HypeHaven.ViewModels.Brand
 
-@model CreateBrandViewModel
+@model EditBrandViewModel
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
     <h2>Edit Brand</h2>
 
-    <form method="post">
+    <form method="post"  enctype="multipart/form-data">
         <input type="hidden" id="Id" name="Id" asp-for="Id" />
         <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
+        
 
         <div class="form-group">
             <label for="Name">Name</label>

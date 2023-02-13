@@ -46,7 +46,7 @@ namespace HypeHaven.Controllers
             //current user is adding a product
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var productModel = new Product { Brand = new Brand { Id = currentUserId } };
-            var productViewModel = new CreateProductViewModel
+            var productViewModel = new ProductViewModel
             {
                 BrandId = productModel.BrandId,
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
@@ -56,8 +56,9 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductViewModel productVM)
+        public async Task<IActionResult> Create(ProductViewModel productVM)
         {
+          
             if (ModelState.IsValid)
             {
                 var brand = await _brandRepository.GetByIdAsync(productVM.BrandId);
@@ -81,6 +82,12 @@ namespace HypeHaven.Controllers
                 _productRepository.Add(product);
                 return RedirectToAction("Index");
             }
+            else if (!ModelState.IsValid)
+            {
+                productVM.Categories = (List<Category>)await _categoryRepository.GetAll();
+                productVM.Brands = (List<Brand>)await _brandRepository.GetAll();
+                return View(productVM);
+            }
 
             return View(productVM);
         }
@@ -96,7 +103,7 @@ namespace HypeHaven.Controllers
             var brand = await _brandRepository.GetByIdAsync(product.BrandId);
 
 
-            var productViewModel = new CreateProductViewModel
+            var productViewModel = new ProductViewModel
             {
                 Name = product.Name,
                 Description = product.Description,
@@ -116,13 +123,15 @@ namespace HypeHaven.Controllers
         }
   
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CreateProductViewModel productVM)
+        public async Task<IActionResult> Edit(int id, ProductViewModel productVM)
         {
             //as no tracking
             var curProduct = await _productRepository.GetByIdAsyncNoTracking(id);
 
             if (curProduct == null)
                 return NotFound();
+
+          
 
 
             if (ModelState.IsValid)
@@ -149,6 +158,12 @@ namespace HypeHaven.Controllers
                 _productRepository.Update(product);
                 return RedirectToAction("Index");
             }
+            else if (!ModelState.IsValid)
+            {
+                productVM.Categories = (List<Category>)await _categoryRepository.GetAll();
+                productVM.Brands = (List<Brand>)await _brandRepository.GetAll();
+                return View(productVM);
+            }
 
             return View(productVM);
         }
@@ -167,7 +182,7 @@ namespace HypeHaven.Controllers
             var brand = await _brandRepository.GetByIdAsync(product.BrandId);
 
 
-            var productViewModel = new CreateProductViewModel
+            var productViewModel = new ProductViewModel
             {
                 Name = product.Name,
                 Description = product.Description,

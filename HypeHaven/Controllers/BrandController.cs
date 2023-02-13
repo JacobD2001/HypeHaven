@@ -2,6 +2,7 @@
 using HypeHaven.Helpers;
 using HypeHaven.Interfaces;
 using HypeHaven.models;
+using HypeHaven.NewFolder;
 using HypeHaven.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,14 +21,16 @@ namespace HypeHaven.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IProductRepository _productRepository;
+        private readonly IPhotoService _photoService;
 
 
-        public BrandController(IBrandRepository brandRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IProductRepository productRepository)
+        public BrandController(IBrandRepository brandRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IPhotoService photoService)
         {
             _brandRepository = brandRepository;
             _categoryRepository = categoryRepository;
             _httpContextAccessor = httpContextAccessor;
             _productRepository = productRepository;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -50,7 +53,7 @@ namespace HypeHaven.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var brandViewModel = new CreateBrandViewModel
+            var brandViewModel = new BrandViewModel
             {
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
                 Id = currentUserId
@@ -59,20 +62,21 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateBrandViewModel brandVM)
+        public async Task<IActionResult> Create(BrandViewModel brandVM)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-
+    
             if (ModelState.IsValid)
             {
                 var category = await _categoryRepository.GetByIdAsync(brandVM.CategoryId);
+                var result = await _photoService.AddPhotoAsync(brandVM.Image);
 
                 var brand = new Brand
                 {
                     Name= brandVM.Name,
                     Description = brandVM.Description,
                     Location= brandVM.Location,
-                    Image = brandVM.Location,
+                    Image = result.Url.ToString(),
                     Email = brandVM.Email,
                     PhoneNumber = brandVM.PhoneNumber,
                     Instagram = brandVM.Instagram,
@@ -87,6 +91,11 @@ namespace HypeHaven.Controllers
                 _brandRepository.Add(brand);
                 return RedirectToAction("Index");
             }
+            else if (!ModelState.IsValid)
+            {
+                brandVM.Categories = (List<Category>)await _categoryRepository.GetAll();
+                return View(brandVM);
+            }
             return View(brandVM);
         }
 
@@ -98,12 +107,13 @@ namespace HypeHaven.Controllers
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
 
-            var brandVM = new CreateBrandViewModel
+
+            var brandVM = new EditBrandViewModel
             {
                 Name = brand.Name,
                 Description = brand.Description,
                 Location = brand.Location,
-                Image = brand.Location,
+                URL = brand.Image,
                 Email = brand.Email,
                 PhoneNumber = brand.PhoneNumber,
                 Instagram = brand.Instagram,
@@ -120,12 +130,20 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, CreateBrandViewModel brandVM)
+        public async Task<IActionResult> Edit(int id, EditBrandViewModel brandVM)
         {
             var curBrand = await _brandRepository.GetByIdAsyncNoTracking(id);
             if (curBrand == null) return View("Error");
+            if (!string.IsNullOrEmpty(curBrand.Image))
+            {
+                _ = _photoService.DeletePhotoAsync(curBrand.Image);
+            }
 
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+            var result = await _photoService.AddPhotoAsync(brandVM.Image);
+
+           
+
 
             if (ModelState.IsValid)
             {
@@ -134,7 +152,7 @@ namespace HypeHaven.Controllers
                 curBrand.Name = brandVM.Name;
                 curBrand.Description = brandVM.Description;
                 curBrand.Location = brandVM.Location;
-                curBrand.Image = brandVM.Image;
+                curBrand.Image = result.Url.ToString();
                 curBrand.Email = brandVM.Email;
                 curBrand.PhoneNumber = brandVM.PhoneNumber;
                 curBrand.Instagram = brandVM.Instagram;
@@ -148,6 +166,12 @@ namespace HypeHaven.Controllers
                 _brandRepository.Update(curBrand);
                 return RedirectToAction("Index");
             }
+            else if (!ModelState.IsValid)
+            {
+                brandVM.Categories = (List<Category>)await _categoryRepository.GetAll();
+                return View(brandVM);
+            }
+
             return View(brandVM);
         }
 
@@ -159,13 +183,15 @@ namespace HypeHaven.Controllers
 
             var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+           // var result = await _photoService.AddPhotoAsync(brandVM.Image);
 
-            var brandVM = new CreateBrandViewModel
+
+            var brandVM = new DeleteBrandViewModel
             {
                 Name = brand.Name,
                 Description = brand.Description,
                 Location = brand.Location,
-                Image = brand.Location,
+                URL = brand.Image,
                 Email = brand.Email,
                 PhoneNumber = brand.PhoneNumber,
                 Instagram = brand.Instagram,
@@ -186,6 +212,10 @@ namespace HypeHaven.Controllers
             var brand = await _brandRepository.GetByIdAsync(id);
             if (brand == null)
                 return NotFound();
+            if (!string.IsNullOrEmpty(brand.Image))
+            {
+                _ = _photoService.DeletePhotoAsync(brand.Image);
+            }
             _brandRepository.Delete(brand);
             return RedirectToAction("Index");
         }

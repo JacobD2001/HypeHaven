@@ -4,6 +4,8 @@ using HypeHaven.models;
 using HypeHaven.Areas.Identity.Data;
 using HypeHaven.Interfaces;
 using HypeHaven.Repositories;
+using HypeHaven.Helpers;
+using HypeHaven.NewFolder;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HypeHavenContextConnection") ?? throw new InvalidOperationException("Connection string 'HypeHavenContextConnection' not found.");
@@ -19,11 +21,13 @@ builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.Req
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 // Add services for dependency injection
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 
 var app = builder.Build();

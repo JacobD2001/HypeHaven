@@ -47,7 +47,6 @@ namespace HypeHaven.Repositories
                 .Include(p => p.Orders)
                 .Include(p => p.Reviews)
                 .AsNoTracking().FirstOrDefaultAsync(p => p.ProductId == id);
-
         }
 
         public bool Save()
