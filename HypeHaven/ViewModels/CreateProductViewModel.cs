@@ -21,10 +21,7 @@ namespace HypeHaven.ViewModels
         public int CategoryId { get; set; }
         public int BrandId { get; set; }
        // public virtual Brand Brand { get; set; } = null!;
-
         public List<Category> Categories { get; set; }
-
-        //EXPERIMENT
         public List<Brand> Brands { get; set; }
     }
 }

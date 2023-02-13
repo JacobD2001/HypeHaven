@@ -1,12 +1,14 @@
-﻿@using HypeHaven.models
+﻿@using HypeHaven.ViewModels
 
-@model Brand
+@model CreateBrandViewModel
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
     <h2>Edit Brand</h2>
 
     <form method="post">
         <input type="hidden" id="Id" name="Id" asp-for="Id" />
+        <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
+
         <div class="form-group">
             <label for="Name">Name</label>
             <input asp-for="Name" class="form-control" />
@@ -66,7 +68,7 @@
             <label for="CategoryId">Category</label>
             <select asp-for="CategoryId" class="form-control">
                 <option value="">Select a category</option>
-                @foreach (var category in ViewBag.Categories)
+                @foreach (var category in Model.Categories)
                 {
                     <option value="@category.CategoryId">@category.Name</option>
                 }
@@ -74,7 +76,7 @@
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Edit" class="btn btn-primary" />
         </div>
     </form>
 }

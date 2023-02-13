@@ -1,7 +1,9 @@
-﻿/*namespace HypeHaven.ViewModels
+﻿using HypeHaven.models;
+
+namespace HypeHaven.ViewModels
 {
     public class CreateBrandViewModel
-    {
+    {//todo Id
         public string Name { get; set; } = null!;
 
         public string? Description { get; set; }
@@ -23,11 +25,11 @@
         public string? Tiktok { get; set; }
 
         public string? Video { get; set; }
-        public string Id { get; set; } = null!;
         public int CategoryId { get; set; }
+        public string Id { get; set; } = null!;
 
+        public List<Category> Categories { get; set; }
 
 
     }
 }
-*/

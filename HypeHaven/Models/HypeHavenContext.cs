@@ -261,7 +261,7 @@ public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
 
             entity.HasOne(d => d.Brand).WithMany(p => p.Products)
                 .HasForeignKey(d => d.BrandId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade) // tu zmienilem na kaskadowa
                 .HasConstraintName("FK__products__brand___6383C8BA");
         });
 
