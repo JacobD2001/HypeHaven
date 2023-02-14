@@ -2,12 +2,12 @@
 
 
 
-@model ProductViewModel
+@model CreateProductViewModel
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
     <h2>Create Product</h2>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
         <input type="hidden" id="Brands" name="Brands" asp-for="Brands" />
        <div class="form-group">

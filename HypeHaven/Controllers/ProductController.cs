@@ -5,6 +5,7 @@ using HypeHaven.Repositories;
 using HypeHaven.ViewModels;
 using HypeHaven.ViewModels.ProductViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Drawing.Drawing2D;
 
 
@@ -16,13 +17,15 @@ namespace HypeHaven.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBrandRepository _brandRepository;
+        private readonly IPhotoService _photoService;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _httpContextAccessor = httpContextAccessor;
             _brandRepository = brandRepository;
+            _photoService = photoService;
         }
 
         [HttpGet]
@@ -47,7 +50,7 @@ namespace HypeHaven.Controllers
             //current user is adding a product
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var productModel = new Product { Brand = new Brand { Id = currentUserId } };
-            var productViewModel = new ProductViewModel
+            var productViewModel = new CreateProductViewModel
             {
                 BrandId = productModel.BrandId,
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
@@ -57,21 +60,22 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductViewModel productVM)
+        public async Task<IActionResult> Create(CreateProductViewModel productVM)
         {
           
             if (ModelState.IsValid)
             {
                 var brand = await _brandRepository.GetByIdAsync(productVM.BrandId);
                 var category = await _categoryRepository.GetByIdAsync(productVM.CategoryId);
-     
+                var result = await _photoService.AddPhotoAsync(productVM.Image);
+
 
                 var product = new Product
                 {
                     Name = productVM.Name,
                     Description = productVM.Description,
                     Price = productVM.Price,
-                    Image = productVM.Image,
+                    Image = result.Url.ToString(),
                     Size = productVM.Size,
                     Color = productVM.Color,
                     Material = productVM.Material,
@@ -104,12 +108,12 @@ namespace HypeHaven.Controllers
             var brand = await _brandRepository.GetByIdAsync(product.BrandId);
 
 
-            var productViewModel = new ProductViewModel
+            var productViewModel = new EditProductViewModel
             {
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Image = product.Image,
+                URL = product.Image,
                 Size = product.Size,
                 Color = product.Color,
                 Material = product.Material,
@@ -124,15 +128,20 @@ namespace HypeHaven.Controllers
         }
   
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ProductViewModel productVM)
+        public async Task<IActionResult> Edit(int id, EditProductViewModel productVM)
         {
             //as no tracking
             var curProduct = await _productRepository.GetByIdAsyncNoTracking(id);
+            var result = await _photoService.AddPhotoAsync(productVM.Image);
+
 
             if (curProduct == null)
                 return NotFound();
+            if (!string.IsNullOrEmpty(curProduct.Image))
+            {
+                _ = _photoService.DeletePhotoAsync(curProduct.Image);
+            }
 
-          
 
 
             if (ModelState.IsValid)
@@ -147,7 +156,7 @@ namespace HypeHaven.Controllers
                     Name = productVM.Name,
                     Description = productVM.Description,
                     Price = productVM.Price,
-                    Image = productVM.Image,
+                    Image = result.Url.ToString(),
                     Size = productVM.Size,
                     Color = productVM.Color,
                     Material = productVM.Material,
@@ -183,12 +192,12 @@ namespace HypeHaven.Controllers
             var brand = await _brandRepository.GetByIdAsync(product.BrandId);
 
 
-            var productViewModel = new ProductViewModel
+            var productViewModel = new DeleteProductViewModel
             {
                 Name = product.Name,
                 Description = product.Description,
                 Price = product.Price,
-                Image = product.Image,
+                URL = product.Image,
                 Size = product.Size,
                 Color = product.Color,
                 Material = product.Material,
@@ -208,6 +217,10 @@ namespace HypeHaven.Controllers
             var product = await _productRepository.GetByIdAsync(id);
             if (product == null)
                 return NotFound();
+            if (!string.IsNullOrEmpty(product.Image))
+            {
+                _ = _photoService.DeletePhotoAsync(product.Image);
+            }
             _productRepository.Delete(product);
             return RedirectToAction("Index");
         }

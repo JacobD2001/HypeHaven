@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HypeHaven.ViewModels.ProductViewModels
 {
-    public class ProductViewModel
+    public class DeleteProductViewModel
     {
         public int Id { get; set; }
 
@@ -20,7 +20,8 @@ namespace HypeHaven.ViewModels.ProductViewModels
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Image is required.")]
-        public string Image { get; set; } = null!;
+        public IFormFile Image { get; set; }
+        public string? URL { get; set; }
 
         [StringLength(50, ErrorMessage = "Size cannot be longer than 50 characters.")]
         public string? Size { get; set; }

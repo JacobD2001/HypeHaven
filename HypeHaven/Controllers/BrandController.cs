@@ -184,7 +184,6 @@ namespace HypeHaven.Controllers
 
             var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-           // var result = await _photoService.AddPhotoAsync(brandVM.Image);
 
 
             var brandVM = new DeleteBrandViewModel
