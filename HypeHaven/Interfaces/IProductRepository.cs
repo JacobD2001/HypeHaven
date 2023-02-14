@@ -5,6 +5,8 @@ namespace HypeHaven.Interfaces
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetAll();
+        Task<IEnumerable<Product>> GetAllForSpecifedBrand(int id);
+
         Task<Product> GetByIdAsync(int id);
         Task<Product> GetByIdAsyncNoTracking(int id);
         bool Add(Product product);

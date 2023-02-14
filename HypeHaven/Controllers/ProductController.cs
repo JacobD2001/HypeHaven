@@ -4,6 +4,7 @@ using HypeHaven.models;
 using HypeHaven.Repositories;
 using HypeHaven.ViewModels;
 using HypeHaven.ViewModels.ProductViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Drawing.Drawing2D;
@@ -33,6 +34,15 @@ namespace HypeHaven.Controllers
         {
             IEnumerable<Product> products = await _productRepository.GetAll();
             return View(products);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "vendor")]
+        public async Task<IActionResult> MyProductIndex(int id) //controler 
+        {
+            //var products = await _productRepository.GetAllForSpecifedBrand(id);
+            IEnumerable<Product> products = await _productRepository.GetAllForSpecifedBrand(id); //model
+            return View(products); //view
         }
 
         [HttpGet]

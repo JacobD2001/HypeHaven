@@ -1,4 +1,5 @@
-﻿using HypeHaven.Interfaces;
+﻿using HypeHaven.Helpers;
+using HypeHaven.Interfaces;
 using HypeHaven.models;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,13 @@ namespace HypeHaven.Repositories
         public async Task<IEnumerable<Product>> GetAll()
         {
             return await _context.Products.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetAllForSpecifedBrand(int id)
+        {
+            return await _context.Products
+                .Where(p => p.BrandId == id)
+                .ToListAsync();
         }
 
         public async Task<Product> GetByIdAsync(int id)

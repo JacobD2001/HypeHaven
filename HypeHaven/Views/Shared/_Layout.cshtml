@@ -22,10 +22,7 @@
                         @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="MyBrandIndex">My Brand</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Create">My Product</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="MyBrandIndex">My Brands</a>
                             </li>
                         }
                         <li class="nav-item">

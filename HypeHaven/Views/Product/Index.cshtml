@@ -17,11 +17,11 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
-                                        @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
+                                    @*    @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
                                         {
                                             <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Edit</a>
                                             <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Delete</a>
-                                        }
+                                        }*@
                                     </div>
                                 </div>
                             </div>

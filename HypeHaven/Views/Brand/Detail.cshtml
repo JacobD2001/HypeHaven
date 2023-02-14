@@ -33,5 +33,8 @@
                 <li>@Model.Video</li>
             </ul>
         </div>
+        <h3 class="my-3">@Model.Name Products</h3>
+       <a asp-controller="Product" asp-action="MyProductIndex" asp-route-id="@Model.BrandId">View products</a>
+       
 
     </div>
