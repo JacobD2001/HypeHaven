@@ -6,8 +6,8 @@
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
-        Product Name
-        <small>some product </small>
+        @Model.Name
+        <small>@Model.Price </small>
     </h1>
 
     <!-- Portfolio Item Row -->
@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <h3 class="my-3">@Model.Name</h3>
             <p>@Model.Description</p>
-            <h3 class="my-3">Location</h3>
+            <h3 class="my-3">About @Model.Name</h3>
             <ul>
                 <li>@Model.Price</li>
                 <li>@Model.Color</li>

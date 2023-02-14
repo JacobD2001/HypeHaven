@@ -1,13 +1,14 @@
 ﻿@using HypeHaven.models
 
+
 @model Brand
 <!-- Page Content -->
 <div class="container">
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
-        Brand Name
-        <small>some brand </small>
+        @Model.Name
+        <small>@Model.Location</small>
     </h1>
 
     <!-- Portfolio Item Row -->
@@ -20,15 +21,15 @@
         <div class="col-md-4">
             <h3 class="my-3">@Model.Name</h3>
             <p>@Model.Description</p>
-            <h3 class="my-3">Location</h3>
+            <h3 class="my-3">About @Model.Name</h3>
             <ul>
                 <li>@Model.Location</li>
                 <li>@Model.Email</li>
                 <li>@Model.PhoneNumber</li>
-                <li>@Model.Instagram</li>
-                <li>@Model.Facebook</li>
-                <li>@Model.Pinterest</li>
-                <li>@Model.Tiktok</li>
+                 <li><a href="@Model.Instagram"><img src="/assets/instagram.png" alt="Instagram icon"></a></li>
+                <li><a href="@Model.Facebook"><img src="/assets/facebook.png" alt="Facebook icon"></a></li>
+                <li><a href="@Model.Pinterest"><img src="/assets/pinterest.png" alt="Pinterest icon"></a></li>
+                <li><a href="@Model.Tiktok"><img src="/assets/tiktok.png" alt="TikTok icon"></a></li>
                 <li>@Model.Video</li>
             </ul>
         </div>

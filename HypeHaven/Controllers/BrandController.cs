@@ -72,6 +72,7 @@ namespace HypeHaven.Controllers
                 var category = await _categoryRepository.GetByIdAsync(brandVM.CategoryId);
                 var result = await _photoService.AddPhotoAsync(brandVM.Image);
 
+
                 var brand = new Brand
                 {
                     Name= brandVM.Name,

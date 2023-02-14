@@ -37,7 +37,6 @@ namespace HypeHaven.ViewModels.BrandViewModels
         [Url(ErrorMessage = "Invalid Tiktok URL.")]
         public string? Tiktok { get; set; }
 
-        [Url(ErrorMessage = "Invalid Video URL.")]
         public string? Video { get; set; }
 
         public int CategoryId { get; set; }

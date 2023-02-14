@@ -1,15 +1,5 @@
 ﻿@using HypeHaven.models
-
 @model IEnumerable<Brand>
-
-
-@if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Brand" asp-action="Create">Create new brand</a>
-    </li>
-}
-
 
 <div class="album py-5 bg-light">
     <div class="container">
