@@ -1,9 +1,9 @@
 ﻿using HypeHaven.models;
 using System.ComponentModel.DataAnnotations;
 
-namespace HypeHaven.ViewModels.Brand
+namespace HypeHaven.ViewModels.BrandViewModels
 {
-    public class DeleteBrandViewModel
+    public class CreateBrandViewModel
     {
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
@@ -17,7 +17,6 @@ namespace HypeHaven.ViewModels.Brand
 
         [Required(ErrorMessage = "Image is required.")]
         public IFormFile Image { get; set; }
-        public string? URL { get; set; }
 
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid email address.")]
         public string? Email { get; set; }
@@ -47,5 +46,7 @@ namespace HypeHaven.ViewModels.Brand
 
         [Required(ErrorMessage = "Category is required.")]
         public List<Category> Categories { get; set; }
+
+
     }
 }

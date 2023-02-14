@@ -4,6 +4,7 @@ using HypeHaven.Interfaces;
 using HypeHaven.models;
 using HypeHaven.NewFolder;
 using HypeHaven.ViewModels;
+using HypeHaven.ViewModels.BrandViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,7 @@ namespace HypeHaven.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var brandViewModel = new BrandViewModel
+            var brandViewModel = new CreateBrandViewModel
             {
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
                 Id = currentUserId
@@ -62,7 +63,7 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BrandViewModel brandVM)
+        public async Task<IActionResult> Create(CreateBrandViewModel brandVM)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
     

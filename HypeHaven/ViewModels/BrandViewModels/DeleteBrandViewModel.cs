@@ -1,9 +1,9 @@
 ﻿using HypeHaven.models;
 using System.ComponentModel.DataAnnotations;
 
-namespace HypeHaven.ViewModels.Brand
+namespace HypeHaven.ViewModels.BrandViewModels
 {
-    public class EditBrandViewModel
+    public class DeleteBrandViewModel
     {
         [Required(ErrorMessage = "Name is required.")]
         [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]

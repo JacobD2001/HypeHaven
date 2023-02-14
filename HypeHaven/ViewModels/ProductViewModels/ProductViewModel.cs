@@ -1,7 +1,7 @@
 ﻿using HypeHaven.models;
 using System.ComponentModel.DataAnnotations;
 
-namespace HypeHaven.ViewModels.Product
+namespace HypeHaven.ViewModels.ProductViewModels
 {
     public class ProductViewModel
     {

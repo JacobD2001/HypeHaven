@@ -3,6 +3,7 @@ using HypeHaven.Interfaces;
 using HypeHaven.models;
 using HypeHaven.Repositories;
 using HypeHaven.ViewModels;
+using HypeHaven.ViewModels.ProductViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing.Drawing2D;
 
