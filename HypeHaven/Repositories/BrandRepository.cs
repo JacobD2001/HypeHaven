@@ -1,4 +1,5 @@
-﻿using HypeHaven.Interfaces;
+﻿using HypeHaven.Helpers;
+using HypeHaven.Interfaces;
 using HypeHaven.models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization.Metadata;
@@ -8,10 +9,13 @@ namespace HypeHaven.Repositories
     public class BrandRepository : IBrandRepository
     {
         private readonly HypeHavenContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BrandRepository(HypeHavenContext context)
+
+        public BrandRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public bool Add(Brand brand)
@@ -29,6 +33,15 @@ namespace HypeHaven.Repositories
         public async Task<IEnumerable<Brand>> GetAll()
         {
             return await _context.Brands.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Brand>> GetAllForSpecifedUser()
+        {
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+
+            return await _context.Brands
+                .Where(b => b.Id == currentUserId)                
+                .ToListAsync();
         }
         public async Task<Brand> GetByIdAsync(int id)
         {

@@ -5,6 +5,7 @@ namespace HypeHaven.Interfaces
     public interface IBrandRepository
     {
         Task<IEnumerable<Brand>> GetAll();
+        Task<IEnumerable<Brand>> GetAllForSpecifedUser();
         Task<Brand> GetByIdAsync(int id);
         Task<Brand> GetByIdAsyncNoTracking(int id);
 

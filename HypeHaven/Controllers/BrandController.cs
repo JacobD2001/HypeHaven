@@ -40,6 +40,13 @@ namespace HypeHaven.Controllers
             IEnumerable<Brand> brands = await _brandRepository.GetAll(); //model
             return View(brands); //view
         }
+        [HttpGet]
+        [Authorize(Roles = "vendor")]
+        public async Task<IActionResult> MyBrandIndex() //controler 
+        {            
+            IEnumerable<Brand> brands = await _brandRepository.GetAllForSpecifedUser(); //model
+            return View(brands); //view
+        }
 
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
@@ -51,6 +58,7 @@ namespace HypeHaven.Controllers
         }
  
         [HttpGet]
+        [Authorize(Roles = "vendor")]
         public async Task<IActionResult> Create()
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
@@ -63,6 +71,8 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "vendor")]
+
         public async Task<IActionResult> Create(CreateBrandViewModel brandVM)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
@@ -102,6 +112,8 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "vendor")]
+
         public async Task<IActionResult> Edit(int id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);
@@ -132,6 +144,8 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "vendor")]
+
         public async Task<IActionResult> Edit(int id, EditBrandViewModel brandVM)
         {
             var curBrand = await _brandRepository.GetByIdAsyncNoTracking(id);
@@ -178,6 +192,8 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "vendor")]
+
         public async Task<IActionResult> Delete(int id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);
@@ -208,6 +224,8 @@ namespace HypeHaven.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "vendor")]
+
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);

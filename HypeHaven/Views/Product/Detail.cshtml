@@ -7,7 +7,7 @@
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
         @Model.Name
-        <small>@Model.Price </small>
+        <small>@Model.Price PLN </small>
     </h1>
 
     <!-- Portfolio Item Row -->
@@ -22,11 +22,11 @@
             <p>@Model.Description</p>
             <h3 class="my-3">About @Model.Name</h3>
             <ul>
-                <li>@Model.Price</li>
-                <li>@Model.Color</li>
-                <li>@Model.Size</li>
-                <li>@Model.Material</li>
-                <li>@Model.Quantity</li>
+                <li>Cena: @Model.Price PLN</li>
+                <li>Kolor: @Model.Color</li>
+                <li>Rozmiar: @Model.Size</li>
+                <li>Materiał: @Model.Material</li>
+                <li>Dostępna ilość: @Model.Quantity</li>
             </ul>
         </div>
 
