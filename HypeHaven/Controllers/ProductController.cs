@@ -37,7 +37,6 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "vendor")]
         public async Task<IActionResult> MyProductIndex(int id) //controler 
         {
             //var products = await _productRepository.GetAllForSpecifedBrand(id);
@@ -233,6 +232,13 @@ namespace HypeHaven.Controllers
             }
             _productRepository.Delete(product);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BuyProduct()
+        {
+            return View(BuyProduct);
+
         }
 
     }
