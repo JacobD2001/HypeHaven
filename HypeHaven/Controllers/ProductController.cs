@@ -39,7 +39,6 @@ namespace HypeHaven.Controllers
         [HttpGet]
         public async Task<IActionResult> MyProductIndex(int id) //controler 
         {
-            //var products = await _productRepository.GetAllForSpecifedBrand(id);
             IEnumerable<Product> products = await _productRepository.GetAllForSpecifedBrand(id); //model
             return View(products); //view
         }
