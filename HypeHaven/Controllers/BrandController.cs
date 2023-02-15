@@ -236,7 +236,7 @@ namespace HypeHaven.Controllers
                 _ = _photoService.DeletePhotoAsync(brand.Image);
             }
             _brandRepository.Delete(brand);
-            return RedirectToAction("Index");
+            return RedirectToAction("MyBrandIndex");
         }
     }
 }

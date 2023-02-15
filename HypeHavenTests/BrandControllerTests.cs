@@ -51,9 +51,17 @@ namespace HypeHavenTests
             var result = await _brandController.MyBrandIndex(); //calling an action of controller(simulation of the actual execution)
             //Assert( on this step you verify if the code produced expected result)
             var viewResult = Assert.IsType<ViewResult>(result);//verifies that the result returned by the index action is of the correct type
-        }
+        } 
+  /*      [Fact] //it indicates that this is xUnit test
+        public async void BrandController_Detail_ReturnsSuccess() //whatcontroller_whataction_whatreturns(desired output)
+        {
+            //Arrange 
+            var brands = A.Fake<Brand>();
+            A.CallTo(() => _brandRepository.GetByIdAsync()).Returns(brands); //fake call to getall method
+            //Act
+            var result = await _brandController.MyBrandIndex(); //calling an action of controller(simulation of the actual execution)
+            //Assert( on this step you verify if the code produced expected result)
+            var viewResult = Assert.IsType<ViewResult>(result);//verifies that the result returned by the index action is of the correct type
+        }*/
     }
-
-
-
 }
