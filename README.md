@@ -11,8 +11,7 @@
 # Rejestracja
 ### Przy rejestracji użytkownik wybiera czy jest sprzedawcą czy kupującym, zgodnie z tym dostaje odpowiednia uprawnienia.![image](https://user-images.githubusercontent.com/93675889/219000872-afd68c84-7192-4dad-a96b-355371e78a3e.png)
 ### Jeżeli użytkownik jest sprzedawcą ma dostęp do zakładki MyBrands skąd może wykonywać wszystkie potrzebne operacje dla sprzedawcy. Pojawiają się tutaj również opcje dodawania, edytowania czy usuwania firm oraz produktów im odpowiadającym. ![image](https://user-images.githubusercontent.com/93675889/219001138-2b533f21-3f70-488c-bff5-4b931ab18248.png)![image](https://user-images.githubusercontent.com/93675889/219001340-f6c33f98-bd7b-4a5b-a4b1-cb6b86bd4080.png)![image](https://user-images.githubusercontent.com/93675889/219001386-23d57fd0-023b-42a0-93a4-f2bc59620689.png)![image](https://user-images.githubusercontent.com/93675889/219001414-58768b84-57ef-4814-ac92-065e577e3272.png)
-![image](https://user-images.githubusercontent.com/93675889/219001469-e768a657-8c9f-4403-be5c-cbc23ff9b861.png)
-####Aplikacja jest ciągle rozszerzana i rozwijana####
+:hole: Aplikacja jest ciągle rozszerzana i rozwijana :hole:
 
 
 
