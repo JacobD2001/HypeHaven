@@ -10,6 +10,8 @@
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
         <input type="hidden" id="Brands" name="Brands" asp-for="Brands" />
+
+
        <div class="form-group">
             <label for="Name">Name</label>
             <input asp-for="Name" class="form-control" />
@@ -63,11 +65,11 @@
             </div>
        
             
-
             <div class="form-group">
                 <label for="BrandId">Brand</label>
             <select asp-for="BrandId" class="form-control">
                     <option value="">Select a brand</option>
+
                 @foreach (var brand in Model.Brands)
                     {
                         <option value="@brand.BrandId">@brand.Name</option>

@@ -32,6 +32,7 @@ public partial class Brand
     public DateTime DateAdded { get; set; }
 
     public string Id { get; set; } = null!;
+    public string UserId { get; set; }
 
     public int CategoryId { get; set; }
 

@@ -67,10 +67,13 @@ namespace HypeHaven.Controllers
             return View(productViewModel);
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductViewModel productVM)
         {
-          
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+
             if (ModelState.IsValid)
             {
                 var brand = await _brandRepository.GetByIdAsync(productVM.BrandId);
@@ -89,9 +92,10 @@ namespace HypeHaven.Controllers
                     Material = productVM.Material,
                     Quantity = productVM.Quantity,
                     CategoryId = category.CategoryId,
+                    UserId = currentUserId,
                     BrandId = brand.BrandId
                 };
-               
+
                 _productRepository.Add(product);
                 return RedirectToAction("Index");
             }
@@ -106,35 +110,42 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "vendor")]
+
         public async Task<IActionResult> Edit(int id)
         {
-           var product = await _productRepository.GetByIdAsync(id);
+            var product = await _productRepository.GetByIdAsync(id);
             if (product == null) return View("Error");
 
 
             var category = await _categoryRepository.GetByIdAsync(product.CategoryId);
             var brand = await _brandRepository.GetByIdAsync(product.BrandId);
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
-
-            var productViewModel = new EditProductViewModel
+            if (product.UserId == currentUserId)
             {
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                URL = product.Image,
-                Size = product.Size,
-                Color = product.Color,
-                Material = product.Material,
-                Quantity = product.Quantity,
-                CategoryId = category.CategoryId,
-                Categories = (List<Category>)await _categoryRepository.GetAll(),
-                BrandId = brand.BrandId,
-                Brands = (List<Brand>)await _brandRepository.GetAll()
+                var productViewModel = new EditProductViewModel
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    URL = product.Image,
+                    Size = product.Size,
+                    Color = product.Color,
+                    Material = product.Material,
+                    Quantity = product.Quantity,
+                    CategoryId = category.CategoryId,
+                    Categories = (List<Category>)await _categoryRepository.GetAll(),
+                    BrandId = brand.BrandId,
+                    Brands = (List<Brand>)await _brandRepository.GetAll()
 
-            };
-            return View(productViewModel);
+                };
+                return View(productViewModel);
+            }
+            return RedirectToAction("Index");
+
         }
-  
+
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditProductViewModel productVM)
         {
@@ -198,26 +209,32 @@ namespace HypeHaven.Controllers
 
             var category = await _categoryRepository.GetByIdAsync(product.CategoryId);
             var brand = await _brandRepository.GetByIdAsync(product.BrandId);
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
-
-            var productViewModel = new DeleteProductViewModel
+            if (product.UserId == currentUserId)
             {
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                URL = product.Image,
-                Size = product.Size,
-                Color = product.Color,
-                Material = product.Material,
-                Quantity = product.Quantity,
-                CategoryId = category.CategoryId,
-                Categories = (List<Category>)await _categoryRepository.GetAll(),
-                BrandId = brand.BrandId,
-                Brands = (List<Brand>)await _brandRepository.GetAll()
+                var productViewModel = new DeleteProductViewModel
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    URL = product.Image,
+                    Size = product.Size,
+                    Color = product.Color,
+                    Material = product.Material,
+                    Quantity = product.Quantity,
+                    CategoryId = category.CategoryId,
+                    Categories = (List<Category>)await _categoryRepository.GetAll(),
+                    BrandId = brand.BrandId,
+                    Brands = (List<Brand>)await _brandRepository.GetAll()
 
-            };
-            return View(productViewModel);
+                };
+                return View(productViewModel);
+
+            }
+            return RedirectToAction("Index");
         }
+
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteProduct(int id)

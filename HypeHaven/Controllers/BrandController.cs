@@ -97,6 +97,8 @@ namespace HypeHaven.Controllers
                     Tiktok = brandVM.Tiktok,
                     Video = brandVM.Video,
                     CategoryId = category.CategoryId,
+                    //assaigning Id of current user to UserId
+                    UserId = currentUserId,
                     Id = currentUserId
                     
                 };
@@ -113,35 +115,43 @@ namespace HypeHaven.Controllers
 
         [HttpGet]
         [Authorize(Roles = "vendor")]
-
         public async Task<IActionResult> Edit(int id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);
             if (brand == null) return View("Error");
+
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
 
-
-            var brandVM = new EditBrandViewModel
+            //check if currentuser id is of user id who created the brand
+            if (brand.UserId == currentUserId)
             {
-                Name = brand.Name,
-                Description = brand.Description,
-                Location = brand.Location,
-                URL = brand.Image,
-                Email = brand.Email,
-                PhoneNumber = brand.PhoneNumber,
-                Instagram = brand.Instagram,
-                Facebook = brand.Facebook,
-                Pinterest = brand.Pinterest,
-                Tiktok = brand.Tiktok,
-                Video = brand.Video,
-                CategoryId = category.CategoryId,
-                Categories = (List<Category>)await _categoryRepository.GetAll(),
-                Id = currentUserId
-            };
+                var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
 
-            return View(brandVM);
+                var brandVM = new EditBrandViewModel
+                {
+                    Name = brand.Name,
+                    Description = brand.Description,
+                    Location = brand.Location,
+                    URL = brand.Image,
+                    Email = brand.Email,
+                    PhoneNumber = brand.PhoneNumber,
+                    Instagram = brand.Instagram,
+                    Facebook = brand.Facebook,
+                    Pinterest = brand.Pinterest,
+                    Tiktok = brand.Tiktok,
+                    Video = brand.Video,
+                    CategoryId = category.CategoryId,
+                    Categories = (List<Category>)await _categoryRepository.GetAll(),
+                    Id = currentUserId
+                };
+                return View(brandVM);
+
+            }
+            //if no redirect to index
+            return RedirectToAction("Index");
+
         }
+
 
         [HttpPost]
         [Authorize(Roles = "vendor")]
@@ -202,25 +212,30 @@ namespace HypeHaven.Controllers
             var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
-
-            var brandVM = new DeleteBrandViewModel
+            if (brand.UserId == currentUserId)
             {
-                Name = brand.Name,
-                Description = brand.Description,
-                Location = brand.Location,
-                URL = brand.Image,
-                Email = brand.Email,
-                PhoneNumber = brand.PhoneNumber,
-                Instagram = brand.Instagram,
-                Facebook = brand.Facebook,
-                Pinterest = brand.Pinterest,
-                Tiktok = brand.Tiktok,
-                Video = brand.Video,
-                CategoryId = category.CategoryId,
-                Categories = (List<Category>)await _categoryRepository.GetAll(),
-                Id = currentUserId
-            };
-            return View(brandVM);
+                var brandVM = new DeleteBrandViewModel
+                {
+                    Name = brand.Name,
+                    Description = brand.Description,
+                    Location = brand.Location,
+                    URL = brand.Image,
+                    Email = brand.Email,
+                    PhoneNumber = brand.PhoneNumber,
+                    Instagram = brand.Instagram,
+                    Facebook = brand.Facebook,
+                    Pinterest = brand.Pinterest,
+                    Tiktok = brand.Tiktok,
+                    Video = brand.Video,
+                    CategoryId = category.CategoryId,
+                    Categories = (List<Category>)await _categoryRepository.GetAll(),
+                    Id = currentUserId
+                };
+                return View(brandVM);
+            }
+            return RedirectToAction("Index");
+
+          
         }
 
         [HttpPost, ActionName("Delete")]

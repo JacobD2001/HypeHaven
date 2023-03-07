@@ -1,4 +1,5 @@
-﻿@using HypeHaven.models
+﻿@using HypeHaven.Helpers;
+@using HypeHaven.models
 @model IEnumerable<Product>
 
 <div class="album py-5 bg-light">
@@ -7,7 +8,10 @@
             <div class="text-center">
                 <h1>Products</h1>
             </div>
-            <a type="btn btn-success" asp-controller="Product" asp-action="Create" type="button" class="btn btn-sm btn-outline-secondary">Add product</a>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
+            {
+                            <a type="btn btn-success" asp-controller="Product" asp-action="Create" type="button" class="btn btn-sm btn-outline-secondary">Add product</a>
+            }
 
             @foreach (var item in Model)
             {
@@ -20,7 +24,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
-                                    @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("vendor") && item.UserId == User.GetUserId())
                                     {
                                         <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Edit</a>
                                         <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Delete</a>
