@@ -1,6 +1,7 @@
 ﻿@using HypeHaven.models
 @model IEnumerable<Product>
 
+<h1>Products</h1>
 @*Search bar for searching products*@
 <form action="@Url.Action("Search", "Product")" method="get">
     <input type="text" name="searchTerm" placeholder="Search Products...">
@@ -11,25 +12,24 @@
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
-            <h1>Products</h1>
             @if (Model != null)
             {
                 @foreach (var item in Model)
                 {
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="@item.Image" height="225" alt="Card image cap">
-                            <div class="card-body">
-                                <p class="card-text">@item.Name</p>
-                                <p class="card-text">@item.Description</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                            <div class="col-md-4">
+                                <div class="card mb-4 box-shadow">
+                                    <img class="card-img-top" src="@item.Image" height="225" alt="Card image cap">
+                                    <div class="card-body">
+                                        <p class="card-text">@item.Name</p>
+                                        <p class="card-text">@item.Description</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 }
             }
 
