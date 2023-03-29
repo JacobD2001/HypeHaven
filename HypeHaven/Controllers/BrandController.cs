@@ -58,7 +58,6 @@ namespace HypeHaven.Controllers
         }
  
         [HttpGet]
-        [Authorize(Roles = "vendor")]
         public async Task<IActionResult> Create()
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
@@ -97,7 +96,6 @@ namespace HypeHaven.Controllers
                     Tiktok = brandVM.Tiktok,
                     Video = brandVM.Video,
                     CategoryId = category.CategoryId,
-                    //assaigning Id of current user to UserId
                     UserId = currentUserId,
                     Id = currentUserId
                     
@@ -253,5 +251,20 @@ namespace HypeHaven.Controllers
             _brandRepository.Delete(brand);
             return RedirectToAction("MyBrandIndex");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return RedirectToAction("Index");
+            }
+
+            IEnumerable<Brand> brands = await _brandRepository.Search(searchTerm);
+            var model = (brands, searchTerm);
+            return View(model);
+        }
+
+
     }
 }

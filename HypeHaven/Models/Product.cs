@@ -26,7 +26,6 @@ public partial class Product
     public DateTime DateAdded { get; set; }
 
     public int BrandId { get; set; }
-    //TEST
     public string UserId { get; set; }
 
     public int CategoryId { get; set; }

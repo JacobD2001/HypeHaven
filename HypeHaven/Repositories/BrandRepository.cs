@@ -70,6 +70,13 @@ namespace HypeHaven.Repositories
             _context.Update(brand);
             return Save();
         }
+
+        public async Task<IEnumerable<Brand>> Search(string searchTerm)
+        {
+            return await _context.Brands
+                .Where(b => b.Name.ToLower().Contains(searchTerm))
+                .ToListAsync();
+        }
     }
 
 }

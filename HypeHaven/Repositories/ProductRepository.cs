@@ -68,5 +68,13 @@ namespace HypeHaven.Repositories
             _context.Update(product);
             return Save();
         }
+
+ 
+        public async Task<IEnumerable<Product>> Search(string searchTerm)
+        {
+            return await _context.Products
+                .Where(p => p.Name.ToLower().Contains(searchTerm))
+                .ToListAsync();
+        }
     }
 }

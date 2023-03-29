@@ -257,5 +257,18 @@ namespace HypeHaven.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return RedirectToAction("Index");
+            }
+
+            IEnumerable<Product> products = await _productRepository.Search(searchTerm);
+            var model = (products, searchTerm);
+            return View(model);
+        }
+
     }
 }
