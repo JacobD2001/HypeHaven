@@ -37,6 +37,10 @@ namespace HypeHaven.Repositories
                 .ToListAsync();
         }
 
+   
+
+
+
         public async Task<Product> GetByIdAsync(int id)
         {
             return await _context.Products
@@ -69,7 +73,7 @@ namespace HypeHaven.Repositories
             return Save();
         }
 
- 
+
         public async Task<IEnumerable<Product>> Search(string searchTerm)
         {
             return await _context.Products

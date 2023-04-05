@@ -7,6 +7,19 @@
     <input type="text" name="searchTerm" placeholder="Search Products...">
     <button type="submit">Search</button>
 </form>
+@*Browsing products for categories*@
+@*<form action="@Url.Action("Index", "Product")" method="get">
+    <label for="category">Filter by category:</label>
+    <select name="category" id="category">
+        <option value="">All categories</option>
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category.CategoryId ">@category.Name </option>
+        }
+    </select>
+    <button type="submit">Filter</button>
+</form>*@
+
 
 @*Displaying products*@
 <div class="album py-5 bg-light">

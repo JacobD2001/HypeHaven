@@ -6,6 +6,7 @@ using HypeHaven.ViewModels;
 using HypeHaven.ViewModels.ProductViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Drawing.Drawing2D;
 
@@ -62,7 +63,7 @@ namespace HypeHaven.Controllers
             {
                 BrandId = productModel.BrandId,
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
-                Brands = (List<Brand>)await _brandRepository.GetAll()
+                Brands = (List<Brand>)await _brandRepository.GetAllForSpecifedUser()
             };
             return View(productViewModel);
         }
@@ -269,6 +270,13 @@ namespace HypeHaven.Controllers
             var model = (products, searchTerm);
             return View(model);
         }
+
+
+
+
+
+
+
 
     }
 }
