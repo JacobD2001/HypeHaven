@@ -1,0 +1,74 @@
+﻿h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+input[type="text"] {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 1rem 0 0 1rem;
+    border: none;
+    border-right: 0.2rem solid #aaa;
+}
+
+button[type="submit"] {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 0 1rem 1rem 0;
+    cursor: pointer;
+}
+
+.album {
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.card-img-top {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.card-body {
+    padding: 1rem;
+    text-align: center;
+}
+
+.card-text {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.btn-group {
+    margin: 0.5rem 0;
+}
+
+.btn-outline-secondary {
+    color: #333;
+    border-color: #333;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
