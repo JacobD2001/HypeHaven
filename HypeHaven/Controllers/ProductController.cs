@@ -20,14 +20,16 @@ namespace HypeHaven.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBrandRepository _brandRepository;
         private readonly IPhotoService _photoService;
+        private readonly IFavoriteProductRepository _favoriteProductRepository;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService, IFavoriteProductRepository favoriteProductRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _httpContextAccessor = httpContextAccessor;
             _brandRepository = brandRepository;
             _photoService = photoService;
+            _favoriteProductRepository = favoriteProductRepository;
         }
 
         [HttpGet]
@@ -271,7 +273,30 @@ namespace HypeHaven.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddToFavorites(int productId)
+        {
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+            if (!_favoriteProductRepository.IsFavorite(currentUserId, productId))
+            {
+                var product = await _productRepository.AddToFavoritesAsync(productId);
+            }
 
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromFavorites(int productId)
+        {
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+            if (_favoriteProductRepository.IsFavorite(currentUserId, productId))
+            {
+                var product = await _productRepository.RemoveFromFavoritesAsync(productId);
+            }
+
+            return RedirectToAction("Index");
+        }
 
 
 

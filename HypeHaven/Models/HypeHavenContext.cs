@@ -31,6 +31,7 @@ public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
 
     public virtual DbSet<Review> Reviews { get; set; }
     public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<FavoriteProduct> FavoriteProducts { get; set; }
    // public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
 

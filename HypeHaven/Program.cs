@@ -28,8 +28,8 @@ builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.Req
 //TODO - not safe to store client id and secret in code, TODO - user has to pick a role somehow
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {  
-    googleOptions.ClientId = "239589040024-vi313gp6cqbnkuj52d07d88jm7t0s6ri.apps.googleusercontent.com";
-    googleOptions.ClientSecret = "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";
+    googleOptions.ClientId = "*******";
+    googleOptions.ClientSecret = "*******";
 });
 
 // Add services to the container.
@@ -41,6 +41,7 @@ builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
 
 
 var app = builder.Build();

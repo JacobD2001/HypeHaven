@@ -29,20 +29,38 @@
             {
                 @foreach (var item in Model)
                 {
-                            <div class="col-md-4">
-                                <div class="card mb-4 box-shadow">
-                                    <img class="card-img-top" src="@item.Image" height="225" alt="Card image cap">
-                                    <div class="card-body">
-                                        <p class="card-text">@item.Name</p>
-                                        <p class="card-text">@item.Description</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="btn-group">
-                                                <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
-                                            </div>
-                                        </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="@item.Image" height="225" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">@item.Name</p>
+                                <p class="card-text">@item.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            if (item.IsFavorite)
+                                            {
+                                                <form asp-controller="Product" asp-action="RemoveFromFavorites" method="post">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button type="submit" class="btn btn-success btn-sm">Remove from fav</button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-controller="Product" asp-action="AddToFavorites" method="post">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Add to fav</button>
+                                                </form>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 }
             }
 

@@ -4,6 +4,7 @@ using HypeHaven.models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HypeHaven.Migrations
 {
     [DbContext(typeof(HypeHavenContext))]
-    partial class HypeHavenContextModelSnapshot : ModelSnapshot
+    [Migration("20231018114814_test2_init_favproductadded")]
+    partial class test2initfavproductadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

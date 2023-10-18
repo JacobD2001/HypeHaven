@@ -10,6 +10,8 @@ namespace HypeHaven.Interfaces
         Task<Product> GetByIdAsync(int id);
         Task<Product> GetByIdAsyncNoTracking(int id);
         Task<IEnumerable<Product>> Search(string searchTerm);
+        Task<Product> AddToFavoritesAsync(int productId);
+        Task<Product> RemoveFromFavoritesAsync(int productId);
 
         bool Add(Product product);
         bool Update(Product product);

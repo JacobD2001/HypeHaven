@@ -29,6 +29,8 @@ public partial class Product
     public string UserId { get; set; }
 
     public int CategoryId { get; set; }
+    
+    public bool IsFavorite { get; set;} 
 
     public virtual Brand Brand { get; set; } = null!;
 
