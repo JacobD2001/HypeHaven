@@ -40,6 +40,23 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> FavoriteIndex()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+                IEnumerable<Product> favoriteProducts = await _productRepository.GetFavoriteProducts(currentUserId);
+                return View(favoriteProducts);
+            }
+            else
+            {
+                // Handle the case where the user is not authenticated (e.g., show a message or redirect to the login page)
+                return View("NotAuthenticated"); // You can create a view for this case.
+            }
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> MyProductIndex(int id) //controler 
         {
             IEnumerable<Product> products = await _productRepository.GetAllForSpecifedBrand(id); //model

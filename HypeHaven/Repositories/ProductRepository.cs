@@ -143,5 +143,14 @@ namespace HypeHaven.Repositories
             return product;
         }
 
+        public async Task<IEnumerable<Product>> GetFavoriteProducts(string userId)
+        {
+            return await _context.Products
+                .Where(p => p.IsFavorite && p.UserId == userId)
+                .ToListAsync();
+        }
+
+
+
     }
 }
