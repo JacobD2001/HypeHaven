@@ -1,6 +1,7 @@
 ﻿using HypeHaven.Helpers;
 using HypeHaven.Interfaces;
 using HypeHaven.models;
+using HypeHaven.Repositories;
 using HypeHaven.ViewModels.ReviewViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,8 +45,8 @@ namespace HypeHaven.Controllers
                     Text = review.Text,
                     Rating = review.Rating,
                     ProductId = review.ProductId,
-                    BrandId= review.BrandId,
-                    Id= review.Id
+                    BrandId = review.BrandId,
+                    Id = review.Id
                 };
 
                 return View(editReviewVM);
@@ -60,7 +61,7 @@ namespace HypeHaven.Controllers
             var curReview = await _reviewRepository.GetReviewByIdAsync(id);
 
             if (curReview == null)
-                return View("Error"); 
+                return View("Error");
 
             if (ModelState.IsValid)
             {
@@ -76,12 +77,49 @@ namespace HypeHaven.Controllers
 
             // If ModelState is not valid, return the view with validation errors
             return View(editReviewVM);
+        }
 
+        //this method deletes review
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var review = await _reviewRepository.GetReviewByIdAsync(id);
+
+            if (review == null)
+                return View("Error");
+
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
+
+            if (review.UserId == currentUserId)
+            {
+                var deleteReviewVM = new DeleteReviewViewModel
+                {
+                    Text = review.Text,
+                    Rating = review.Rating,
+                    ProductId = review.ProductId,
+                    BrandId = review.BrandId,
+                    Id = review.Id
+                };
+
+                return View(deleteReviewVM);
+            }
+            return View();
 
 
         }
 
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteReview(int id)
+        {
+            var review = await _reviewRepository.GetReviewByIdAsync(id);
 
+            if (review == null)
+                return View("Error");
+            _reviewRepository.Delete(review);
+            return RedirectToAction("Detail", "Product", new { id = review.ProductId });
+
+        }
 
     }
+ 
 }
