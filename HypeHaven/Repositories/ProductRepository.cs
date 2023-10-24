@@ -42,7 +42,12 @@ namespace HypeHaven.Repositories
                 .ToListAsync();
         }
 
-   
+        public async Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId)
+        {
+            return await _context.Reviews
+                .Where(r => r.ProductId == ProductId)
+                .ToListAsync();
+        }
 
 
 

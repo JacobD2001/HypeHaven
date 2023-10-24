@@ -50,8 +50,8 @@ namespace HypeHaven.Controllers
             }
             else
             {
-                // Handle the case where the user is not authenticated (e.g., show a message or redirect to the login page)
-                return View("NotAuthenticated"); // You can create a view for this case.
+                // Handle the case where the user is not authenticated 
+                return View("NotAuthenticated"); 
             }
         }
 
@@ -69,7 +69,17 @@ namespace HypeHaven.Controllers
             Product product = await _productRepository.GetByIdAsync(id);
             if (product == null)
                 return NotFound();
-            return View(product);
+            //return all reviews of this product
+            IEnumerable<Review> reviews = await _productRepository.GetReviewsForSpecifedProduct(id);
+            var viewModel = new ProductDetailViewModel
+            {
+                Product = product,
+                Reviews = reviews,
+
+
+            };
+      
+            return View(viewModel);
         }
 
         [HttpGet]

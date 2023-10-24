@@ -13,6 +13,8 @@ namespace HypeHaven.Interfaces
         Task<Product> AddToFavoritesAsync(int productId);
         Task<Product> RemoveFromFavoritesAsync(int productId);
         Task<IEnumerable<Product>> GetFavoriteProducts(string userId);
+        Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId);
+
 
 
         bool Add(Product product);

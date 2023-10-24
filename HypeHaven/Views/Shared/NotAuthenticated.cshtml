@@ -2,8 +2,8 @@
     <h2>You are not authenticated</h2>
     <p>Please sign in or register to access this feature.</p>
     <div>
-        <a asp-controller="Account" asp-action="Login">Login</a>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">Register</a>
         <span> or </span>
-        <a asp-controller="Account" asp-action="Register">Register</a>
+        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-secondary">Login</a>
     </div>
 </div>

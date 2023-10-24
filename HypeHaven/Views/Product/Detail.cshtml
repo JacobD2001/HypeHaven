@@ -1,34 +1,52 @@
-﻿@using HypeHaven.models
+﻿@using HypeHaven.ViewModels.ProductViewModels
 
-@model Product
+@model ProductDetailViewModel
 <!-- Page Content -->
 <div class="container">
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
-        @Model.Name
-        <small>@Model.Price PLN </small>
+        @Model.Product.Name
+        <small>@Model.Product.Price PLN </small>
     </h1>
 
     <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-8">
-            <img class="img-fluid" src="@Model.Image" alt="">
+            <img class="img-fluid" src="@Model.Product.Image" alt="">
         </div>
 
         <div class="col-md-4">
-            <h3 class="my-3">@Model.Name</h3>
+            <h3 class="my-3">@Model.Product.Name</h3>
             <p>@Model.Description</p>
-            <h3 class="my-3">About @Model.Name</h3>
+            <h3 class="my-3">About @Model.Product.Name</h3>
             <ul>
-                <li>Cena: @Model.Price PLN</li>
-                <li>Kolor: @Model.Color</li>
-                <li>Rozmiar: @Model.Size</li>
-                <li>Materiał: @Model.Material</li>
-                <li>Dostępna ilość: @Model.Quantity</li>
+                <li>Cena: @Model.Product.Price PLN</li>
+                <li>Kolor: @Model.Product.Color</li>
+                <li>Rozmiar: @Model.Product.Size</li>
+                <li>Materiał: @Model.Product.Material</li>
+                <li>Dostępna ilość: @Model.Product.Quantity</li>
             </ul>
         </div>
         <a type="btn btn-success" asp-controller="Product" asp-action="BuyProduct" type="button" class="btn btn-sm btn-outline-secondary">Buy This Product</a>
-
     </div>
+
+    <!-- Reviews Section -->
+    <h3>Reviews</h3>
+    @if (Model.Reviews.Any())
+    {
+        <ul>
+            @foreach (var review in Model.Reviews)
+            {
+                <li>
+                    <strong>Rating: @review.Rating</strong>
+                    <p>@review.Text</p>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No reviews yet. Be the first to leave a review!</p>
+    }
