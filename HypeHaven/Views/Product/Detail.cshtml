@@ -1,32 +1,32 @@
-﻿@using HypeHaven.ViewModels.ProductViewModels
+﻿@using HypeHaven.ViewModels.Helpers
 
-@model ProductDetailViewModel
+@model CompositeViewModel
 <!-- Page Content -->
 <div class="container">
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
-        @Model.Product.Name
-        <small>@Model.Product.Price PLN </small>
+        @Model.ProductDetailViewModel.Product.Name
+        <small>@Model.ProductDetailViewModel.Product.Price PLN </small>
     </h1>
 
     <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-8">
-            <img class="img-fluid" src="@Model.Product.Image" alt="">
+            <img class="img-fluid" src="@Model.ProductDetailViewModel.Product.Image" alt="">
         </div>
 
         <div class="col-md-4">
-            <h3 class="my-3">@Model.Product.Name</h3>
-            <p>@Model.Description</p>
-            <h3 class="my-3">About @Model.Product.Name</h3>
+            <h3 class="my-3">@Model.ProductDetailViewModel.Product.Name</h3>
+            <p>@Model.ProductDetailViewModel.Product.Description</p>
+            <h3 class="my-3">About @Model.ProductDetailViewModel.Product.Name</h3>
             <ul>
-                <li>Cena: @Model.Product.Price PLN</li>
-                <li>Kolor: @Model.Product.Color</li>
-                <li>Rozmiar: @Model.Product.Size</li>
-                <li>Materiał: @Model.Product.Material</li>
-                <li>Dostępna ilość: @Model.Product.Quantity</li>
+                <li>Cena: @Model.ProductDetailViewModel.Product.Price PLN</li>
+                <li>Kolor: @Model.ProductDetailViewModel.Product.Color</li>
+                <li>Rozmiar: @Model.ProductDetailViewModel.Product.Size</li>
+                <li>Materiał: @Model.ProductDetailViewModel.Product.Material</li>
+                <li>Dostępna ilość: @Model.ProductDetailViewModel.Product.Quantity</li>
             </ul>
         </div>
         <a type="btn btn-success" asp-controller="Product" asp-action="BuyProduct" type="button" class="btn btn-sm btn-outline-secondary">Buy This Product</a>
@@ -34,19 +34,74 @@
 
     <!-- Reviews Section -->
     <h3>Reviews</h3>
-    @if (Model.Reviews.Any())
+    @if (User.Identity.IsAuthenticated)
     {
-        <ul>
-            @foreach (var review in Model.Reviews)
-            {
-                <li>
-                    <strong>Rating: @review.Rating</strong>
-                    <p>@review.Text</p>
-                </li>
-            }
-        </ul>
+        <h3>Add a Review</h3>
+        <form asp-action="AddReview" asp-controller="Product" method="post">
+            <input type="hidden" id="Id" name="Id" asp-for="@Model.AddReviewViewModel.Id" />
+            <input type="hidden" id="ProductId" name="ProductId" asp-for="@Model.AddReviewViewModel.ProductId" />
+            <input type="hidden" id="BrandId" name="BrandId" asp-for="@Model.AddReviewViewModel.BrandId" />
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <select name="rating" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="text">Review Text:</label>
+                <input asp-for="@Model.AddReviewViewModel.Text" class="form-control"/>
+                <span asp-validation-for="@Model.AddReviewViewModel.Text" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+    }
+    <!-- Review Form -->
+
+</div>
+
+@if (Model.ProductDetailViewModel.Reviews.Any())
+{
+    <ul>
+        @foreach (var review in Model.ProductDetailViewModel.Reviews)
+        {
+            <li>
+                <strong>Rating: @review.Rating</strong>
+                <p>@review.Text</p>
+            </li>
+        }
+    </ul>
+    @if (!User.Identity.IsAuthenticated)
+    {
+         <p>Login to leave the review</p>
+
+        <div>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">Register</a>
+            <span> or </span>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-secondary">Login</a>
+        </div>
+    }
+}
+else
+{
+    @if(User.Identity.IsAuthenticated)
+    {
+        <p>No reviews yet. Be the first to leave a review!</p>
     }
     else
     {
         <p>No reviews yet. Be the first to leave a review!</p>
+        <p>Login to leave the review</p>
+
+        <div>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">Register</a>
+            <span> or </span>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-secondary">Login</a>
+        </div>
     }
+
+}
+

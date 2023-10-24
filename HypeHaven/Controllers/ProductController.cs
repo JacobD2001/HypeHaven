@@ -3,7 +3,9 @@ using HypeHaven.Interfaces;
 using HypeHaven.models;
 using HypeHaven.Repositories;
 using HypeHaven.ViewModels;
+using HypeHaven.ViewModels.Helpers;
 using HypeHaven.ViewModels.ProductViewModels;
+using HypeHaven.ViewModels.ReviewViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +23,9 @@ namespace HypeHaven.Controllers
         private readonly IBrandRepository _brandRepository;
         private readonly IPhotoService _photoService;
         private readonly IFavoriteProductRepository _favoriteProductRepository;
+        private readonly IReviewRepository _reviewRepository;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService, IFavoriteProductRepository favoriteProductRepository)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService, IFavoriteProductRepository favoriteProductRepository, IReviewRepository reviewRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
@@ -30,6 +33,7 @@ namespace HypeHaven.Controllers
             _brandRepository = brandRepository;
             _photoService = photoService;
             _favoriteProductRepository = favoriteProductRepository;
+            _reviewRepository = reviewRepository;
         }
 
         [HttpGet]
@@ -63,6 +67,7 @@ namespace HypeHaven.Controllers
             return View(products); //view
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
@@ -71,15 +76,59 @@ namespace HypeHaven.Controllers
                 return NotFound();
             //return all reviews of this product
             IEnumerable<Review> reviews = await _productRepository.GetReviewsForSpecifedProduct(id);
-            var viewModel = new ProductDetailViewModel
+
+            // Create and populate ProductDetailViewModel
+            var productDetailViewModel = new ProductDetailViewModel
             {
                 Product = product,
-                Reviews = reviews,
+                Reviews = reviews
+            };
 
+            // Create and populate AddReviewViewModel
+            var addReviewViewModel = new AddReviewViewModel
+            {
+                ProductId = product.ProductId, 
+                BrandId = product.BrandId,
+                Id = _httpContextAccessor.HttpContext.User.GetUserId()
 
+            };
+
+            var viewModel = new CompositeViewModel
+            {
+                ProductDetailViewModel = productDetailViewModel,
+                AddReviewViewModel = addReviewViewModel
             };
       
             return View(viewModel);
+        }
+
+        //adding a review to the product
+        [HttpPost]
+        public async Task<IActionResult> AddReview(AddReviewViewModel AddReviewVM) 
+        {
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId(); //here take current user id
+            AddReviewVM.Id = currentUserId; //set current user id to review
+            
+
+            if (ModelState.IsValid)
+            {
+                var brand = await _brandRepository.GetByIdAsync(AddReviewVM.BrandId);
+                var product = await _productRepository.GetByIdAsync(AddReviewVM.ProductId);
+
+                var review = new Review
+                {
+                    Text = AddReviewVM.Text,
+                    Rating = AddReviewVM.Rating,
+                    ProductId = product.ProductId,               
+                    BrandId = brand.BrandId,
+                    UserId = currentUserId,
+                    Id = currentUserId
+                };
+
+                _reviewRepository.Add(review);
+                return RedirectToAction("Detail", "Product", new { id = review.ProductId });
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

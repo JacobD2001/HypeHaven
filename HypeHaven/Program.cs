@@ -42,6 +42,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
+builder.Services.AddScoped<IReviewRepository , ReviewRepository>();
 
 
 var app = builder.Build();
