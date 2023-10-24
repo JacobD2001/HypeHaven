@@ -9,5 +9,7 @@ namespace HypeHaven.Interfaces
         bool Update(Review review);
         bool Delete(Review review);
         bool Save();
+        Task<Review> GetReviewByIdAsync(int id);
+
     }
 }

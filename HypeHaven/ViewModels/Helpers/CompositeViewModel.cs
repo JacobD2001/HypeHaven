@@ -7,5 +7,6 @@ namespace HypeHaven.ViewModels.Helpers
     {
         public AddReviewViewModel AddReviewViewModel { get; set; } = null!;
         public ProductDetailViewModel ProductDetailViewModel { get; set; } = null!;
+        public IHttpContextAccessor HttpContextAccessor { get; set; }
     }
 }

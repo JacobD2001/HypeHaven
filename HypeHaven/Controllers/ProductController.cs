@@ -89,14 +89,14 @@ namespace HypeHaven.Controllers
             {
                 ProductId = product.ProductId, 
                 BrandId = product.BrandId,
-                Id = _httpContextAccessor.HttpContext.User.GetUserId()
-
+                Id = _httpContextAccessor.HttpContext.User.GetUserId(),               
             };
 
             var viewModel = new CompositeViewModel
             {
                 ProductDetailViewModel = productDetailViewModel,
-                AddReviewViewModel = addReviewViewModel
+                AddReviewViewModel = addReviewViewModel,
+                HttpContextAccessor= _httpContextAccessor
             };
       
             return View(viewModel);

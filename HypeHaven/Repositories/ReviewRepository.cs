@@ -27,17 +27,25 @@ namespace HypeHaven.Repositories
             return Save();
         }
 
-     /*   public async Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId)
+        public async Task<Review> GetReviewByIdAsync(int id)
         {
             return await _context.Reviews
-                .Where(r => r.ProductId == ProductId)
-                .ToListAsync();
-        }*/
+        .Include(r => r.Brand)
+        .Include(r => r.Product)
+        .FirstOrDefaultAsync(r => r.ReviewId == id);
+        }
+
+        /*   public async Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId)
+           {
+               return await _context.Reviews
+                   .Where(r => r.ProductId == ProductId)
+                   .ToListAsync();
+           }*/
 
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved > 0 ? true: false;
+            return saved > 0 ? true : false;
         }
 
         public bool Update(Review review)
