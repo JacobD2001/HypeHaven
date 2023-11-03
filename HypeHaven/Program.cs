@@ -44,6 +44,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
 builder.Services.AddScoped<IReviewRepository , ReviewRepository>();
+builder.Services.AddScoped<ICartItemRepository , CartItemRepository>();
 builder.Services.AddScoped<ICartRepository , CartRepository>();
 
 

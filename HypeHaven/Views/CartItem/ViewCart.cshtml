@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CartItem>  
+
+<h1>Your Cart</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cartItem in Model)
+        {
+            <tr>
+                <td>@cartItem.Product.Name</td>
+                <td>@cartItem.Quantity</td>
+                <td>@cartItem.Product.Price</td>
+                <td>@(cartItem.Quantity * cartItem.Product.Price)</td>
+            </tr>
+        }
+    </tbody>
+</table>

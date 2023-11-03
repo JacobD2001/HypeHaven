@@ -4,11 +4,8 @@ namespace HypeHaven.Interfaces
 {
     public interface ICartRepository
     {
-        Task<IEnumerable<CartItem>> GetAllForSpecifedUser();
-        bool Add(CartItem cartItem);
-        bool Update(CartItem cartItem);
-        bool Delete(CartItem cartItem);
+        Task<Cart> GetCartByUserIdAsync(string userId);
+        bool Add(Cart cart);
         bool Save();
-
     }
 }

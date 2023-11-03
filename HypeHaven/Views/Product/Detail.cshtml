@@ -29,8 +29,19 @@
                 <li>Materiał: @Model.ProductDetailViewModel.Product.Material</li>
                 <li>Dostępna ilość: @Model.ProductDetailViewModel.Product.Quantity</li>
             </ul>
+            <!--Add To Cart Form-->
         </div>
-        <a type="btn btn-success" asp-controller="Product" asp-action="BuyProduct" type="button" class="btn btn-sm btn-outline-secondary">Buy This Product</a>
+        <form asp-controller="CartItem" asp-action="AddToCart" method="post">
+            <input type="hidden" asp-for="@Model.AddReviewViewModel.ProductId" name="productId" />
+            @if (User.Identity.IsAuthenticated)
+            {
+                <input type="submit" value="Add to Cart" class="btn btn-primary" />
+            }
+            else
+            {
+                <p>Please log in to add this product to your cart.</p>
+            }
+        </form>
     </div>
 
     <!-- Reviews Section -->

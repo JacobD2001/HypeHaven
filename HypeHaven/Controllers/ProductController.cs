@@ -329,11 +329,6 @@ namespace HypeHaven.Controllers
             _productRepository.Delete(product);
             return RedirectToAction("Index");
         }
-        #region payments
-        //PLATNOSC
-        
-        #endregion
-
 
         [HttpGet]
         public async Task<IActionResult> Search(string searchTerm)

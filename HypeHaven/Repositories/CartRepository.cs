@@ -1,5 +1,4 @@
-﻿using HypeHaven.Helpers;
-using HypeHaven.Interfaces;
+﻿using HypeHaven.Interfaces;
 using HypeHaven.models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,38 +15,23 @@ namespace HypeHaven.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public bool Add(CartItem cartItem)
+        public bool Add(Cart cart)
         {
-            _context.Add(cartItem);
+            _context.Add(cart);
             return Save();
-        }
-
-        public bool Delete(CartItem cartItem)
-        {
-            _context.Remove(cartItem);
-            return Save();
-        }
-
-        public async Task<IEnumerable<CartItem>> GetAllForSpecifedUser()
-        {
-            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-
-            return await _context.CartItems
-            .Include(ci => ci.Product)
-            .Where(ci => ci.Cart.UserId == currentUserId) // Filter by user ID from the Cart model
-            .ToListAsync();
         }
 
         public bool Save()
         {
-            var saved = _context.SaveChanges();  
-            return saved > 0 ? true : false; 
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
 
-        public bool Update(CartItem cartItem)
+        //TODO - INCLUDE PROB
+        public async Task<Cart> GetCartByUserIdAsync(string userId)
         {
-            _context.Update(cartItem);
-            return Save();
+            return await _context.Carts
+                .FirstOrDefaultAsync(c => c.UserId == userId);
         }
     }
 }
