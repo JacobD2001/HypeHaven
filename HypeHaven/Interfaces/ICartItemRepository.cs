@@ -9,6 +9,8 @@ namespace HypeHaven.Interfaces
         bool Update(CartItem cartItem);
         bool Delete(CartItem cartItem);
         bool Save();
+        Task<CartItem> GetCartItemByProductId(int cartId, int productId);
+        Task<CartItem> GetCartItemByIdAsync(int cartItemId);
 
     }
 }

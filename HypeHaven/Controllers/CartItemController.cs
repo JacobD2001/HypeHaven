@@ -45,14 +45,26 @@ namespace HypeHaven.Controllers
                 _cartRepository.Add(cart);
             }
 
-            var cartItem = new CartItem
-            {
-                ProductId = productId,
-                Quantity = 1,
-                Cart = cart  // Associate the cart with the cart item
-            };
+            // Check if the product already exists in the cart
+            var existingCartItem = await _cartItemRepository.GetCartItemByProductId(cart.CartId, productId);
 
-            _cartItemRepository.Add(cartItem);
+            if (existingCartItem != null)
+            {
+                // Increase the quantity of the existing cart item
+                existingCartItem.Quantity += 1;
+                _cartItemRepository.Update(existingCartItem);
+            }
+            else
+            {
+                var cartItem = new CartItem
+                {
+                    ProductId = productId,
+                    Quantity = 1,
+                    Cart = cart // Associate the cart with the cart item
+                };
+
+                _cartItemRepository.Add(cartItem);
+            }
 
             return RedirectToAction("ViewCart");
         }
@@ -67,9 +79,16 @@ namespace HypeHaven.Controllers
         [HttpPost]
         public async Task<IActionResult> CheckOut()
         {
+          
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var cart = await _cartRepository.GetCartByUserIdAsync(currentUserId);
             var cartItems = await _cartItemRepository.GetAllForSpecifedUser();
+
+            if (cart == null || cart.CartItems == null || cart.CartItems.Count == 0)
+            {
+                // Redirect to a page or display a message indicating that the cart is empty.
+                return RedirectToAction("Index", "Product");
+            }
 
             var domain = "https://localhost:7143/";
 
@@ -125,7 +144,45 @@ namespace HypeHaven.Controllers
             return View("OrderFailed");
         }
 
-   
+        //method for updating the quantity of the product in the cart
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int cartItemId, int quantity)
+        {
+            var cartItem = await _cartItemRepository.GetCartItemByIdAsync(cartItemId);
+
+            if (cartItem == null)
+            {
+                // Handle the case where the cart item does not exist
+                return RedirectToAction("ViewCart");
+            }
+
+            if (quantity <= 0)
+            {
+                // Handle the case where the quantity is less than 0 (remove the product)
+                _cartItemRepository.Delete(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity = quantity;
+                _cartItemRepository.Update(cartItem);
+            }
+
+            return RedirectToAction("ViewCart");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveProduct(int cartItemId)
+        {
+            var cartItem = await _cartItemRepository.GetCartItemByIdAsync(cartItemId);
+
+            if (cartItem != null)
+                _cartItemRepository.Delete(cartItem);
+            
+
+            return RedirectToAction("ViewCart");
+        }
+
+
 
     }
 }

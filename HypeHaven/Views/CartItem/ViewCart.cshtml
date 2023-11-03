@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CartItem>  
+﻿@model IEnumerable<CartItem>
 
 <h1>Your Cart</h1>
 
@@ -17,17 +17,31 @@
         {
             <tr>
                 <td>@cartItem.Product.Name</td>
-                <td><img src="@cartItem.Product.Image" style="width:130px;height:150px;"/></td>
-                <td>@cartItem.Quantity</td>
+                <td><img src="@cartItem.Product.Image" style="width:130px;height:150px;" /></td>
+                <td>
+                    <!-- Form for updating quantity -->
+                    <form asp-controller="CartItem" asp-action="UpdateQuantity" method="post">
+                        <input type="hidden" name="cartItemId" value="@cartItem.CartItemId" />
+                        <input type="number" name="quantity" value="@cartItem.Quantity" min="0" />
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
                 <td>@cartItem.Product.Price</td>
                 <td>@(cartItem.Quantity * cartItem.Product.Price)</td>
+                <td>
+                    <!-- Form for removing the product -->
+                    <form asp-controller="CartItem" asp-action="RemoveProduct" method="post">
+                        <input type="hidden" name="cartItemId" value="@cartItem.CartItemId" />
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 <br />
 <div>
-        <form asp-controller="CartItem" asp-action="CheckOut" method="post">
+    <form asp-controller="CartItem" asp-action="CheckOut" method="post">
         <button type="submit">Checkout</button>
-        </form>
+    </form>
 </div>

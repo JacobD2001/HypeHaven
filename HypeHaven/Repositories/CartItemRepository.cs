@@ -38,6 +38,20 @@ namespace HypeHaven.Repositories
             .ToListAsync();
         }
 
+        public async Task<CartItem> GetCartItemByProductId(int cartId, int productId)
+        {
+            return await _context.CartItems
+                .Include(ci => ci.Cart) // Include the related Cart for reference
+                .Where(ci => ci.Cart.CartId == cartId && ci.ProductId == productId)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<CartItem> GetCartItemByIdAsync(int cartItemId)
+        {
+            return await _context.CartItems
+                .FirstOrDefaultAsync(ci => ci.CartItemId == cartItemId);
+        }
+
+
         public bool Save()
         {
             var saved = _context.SaveChanges();  
