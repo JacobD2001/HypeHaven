@@ -6,6 +6,7 @@ using HypeHaven.Interfaces;
 using HypeHaven.Repositories;
 using HypeHaven.Helpers;
 using HypeHaven.NewFolder;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HypeHavenContextConnection") ?? throw new InvalidOperationException("Connection string 'HypeHavenContextConnection' not found.");
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
 builder.Services.AddScoped<IReviewRepository , ReviewRepository>();
+builder.Services.AddScoped<ICartRepository , CartRepository>();
 
 
 var app = builder.Build();
@@ -62,6 +64,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 app.UseAuthorization();
 

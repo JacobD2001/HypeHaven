@@ -7,6 +7,7 @@ using HypeHaven.ViewModels.Helpers;
 using HypeHaven.ViewModels.ProductViewModels;
 using HypeHaven.ViewModels.ReviewViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -328,13 +329,11 @@ namespace HypeHaven.Controllers
             _productRepository.Delete(product);
             return RedirectToAction("Index");
         }
+        #region payments
+        //PLATNOSC
+        
+        #endregion
 
-        [HttpGet]
-        public async Task<IActionResult> BuyProduct()
-        {
-            return View(BuyProduct);
-
-        }
 
         [HttpGet]
         public async Task<IActionResult> Search(string searchTerm)
