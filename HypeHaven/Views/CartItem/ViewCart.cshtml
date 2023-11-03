@@ -6,6 +6,7 @@
     <thead>
         <tr>
             <th>Product Name</th>
+            <th>Photo</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
@@ -16,6 +17,7 @@
         {
             <tr>
                 <td>@cartItem.Product.Name</td>
+                <td><img src="@cartItem.Product.Image" style="width:130px;height:150px;"/></td>
                 <td>@cartItem.Quantity</td>
                 <td>@cartItem.Product.Price</td>
                 <td>@(cartItem.Quantity * cartItem.Product.Price)</td>
@@ -23,3 +25,9 @@
         }
     </tbody>
 </table>
+<br />
+<div>
+        <form asp-controller="CartItem" asp-action="CheckOut" method="post">
+        <button type="submit">Checkout</button>
+        </form>
+</div>
