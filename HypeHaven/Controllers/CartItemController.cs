@@ -122,6 +122,10 @@ namespace HypeHaven.Controllers
                 };
 
                 options.LineItems.Add(sessionListItem);
+
+                //substracting bought amount of product from the quantity in the database
+                item.Product.Quantity -= item.Quantity;
+                _productRepository.Update(item.Product);
             }
 
             var service = new SessionService();
