@@ -1,5 +1,5 @@
-﻿@using HypeHaven.models
-@model IEnumerable<Product>
+﻿@using HypeHaven.ViewModels.ProductViewModels
+@model ProductViewModel
 
 <h1>Products</h1>
 @*Search bar for searching products*@
@@ -7,19 +7,31 @@
     <input type="text" name="searchTerm" placeholder="Search Products...">
     <button type="submit">Search</button>
 </form>
-@*Browsing products for categories*@
-@*<form action="@Url.Action("Index", "Product")" method="get">
-    <label for="category">Filter by category:</label>
-    <select name="category" id="category">
-        <option value="">All categories</option>
-        @foreach (var category in Model.Categories)
-        {
-            <option value="@category.CategoryId ">@category.Name </option>
-        }
-    </select>
-    <button type="submit">Filter</button>
-</form>*@
+@*Form for sorting*@
+<form asp-controller="Product" asp-action="Index" method="get">
+    <div class="form-group">
+        <label for="priceSortOrder">Sort by Price or Date:</label>
+        <select id="priceSortOrder" name="priceSortOrder" class="form-control">
+            <option value="Price">Price (Low to High)</option>
+            <option value="price_desc">Price (High to Low)</option>
+            <option value="date_added_desc">Date Added (Newest First)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter" name="categoryFilter" class="form-control">
+            <option value="">All categories</option>
+            <!-- Add options for available categories from your database -->
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.CategoryId">@category.Name   </option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
 
+<!--view(value sortOrder passed to controller than using method from repo values in switch)-->
 
 @*Displaying products*@
 <div class="album py-5 bg-light">
@@ -27,7 +39,7 @@
         <div class="row">
             @if (Model != null)
             {
-                @foreach (var item in Model)
+                @foreach (var item in Model.Products)
                 {
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">

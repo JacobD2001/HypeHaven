@@ -154,25 +154,34 @@ namespace HypeHaven.Controllers
         {
             var cartItem = await _cartItemRepository.GetCartItemByIdAsync(cartItemId);
 
+            // Handle the case where the cart item does not exist
             if (cartItem == null)
             {
-                // Handle the case where the cart item does not exist
                 return RedirectToAction("ViewCart");
             }
 
+            var product = await _productRepository.GetByIdAsync(cartItem.ProductId);
+
+            // Handle the case where the quantity is less than or equal to 0 (remove the product)
             if (quantity <= 0)
             {
-                // Handle the case where the quantity is less than 0 (remove the product)
                 _cartItemRepository.Delete(cartItem);
             }
-            else
+            // Handle the case when the quantity is less than the available quantity(so user can operate on this between 0 and avaliable quantity)
+            else if (quantity <= product.Quantity)
             {
                 cartItem.Quantity = quantity;
                 _cartItemRepository.Update(cartItem);
             }
+            // Handle the case where the requested quantity is higher than the available quantity
+            else
+            {
+                TempData["ErrorMessage"] = $"The requested quantity exceeds the available stock. Available quantity is: {product.Quantity}";
+            }
 
             return RedirectToAction("ViewCart");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> RemoveProduct(int cartItemId)

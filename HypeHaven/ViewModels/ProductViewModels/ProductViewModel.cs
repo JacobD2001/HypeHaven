@@ -1,4 +1,4 @@
-﻿/*using HypeHaven.models;
+﻿using HypeHaven.models;
 
 namespace HypeHaven.ViewModels.ProductViewModels
 {
@@ -6,8 +6,9 @@ namespace HypeHaven.ViewModels.ProductViewModels
     {
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+        public int? SelectedCategoryId { get; set; }
+        public string PriceSortOrder { get; set; }
 
     }
 
 }
-*/

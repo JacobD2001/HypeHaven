@@ -1,6 +1,9 @@
 ﻿using HypeHaven.Helpers;
 using HypeHaven.Interfaces;
 using HypeHaven.models;
+using HypeHaven.Repositories;
+using HypeHaven.ViewModels.ProductViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
@@ -155,7 +158,52 @@ namespace HypeHaven.Repositories
                 .ToListAsync();
         }
 
+        /* public async Task<IEnumerable<Product>> SortProductsAsync(string sortOrder)
+         {
+             var products = _context.Products.AsQueryable(); //allows using queryable methods, linq expressions
 
+             switch (sortOrder)
+             {
+                 case "Price":
+                     products = products.OrderBy(p => p.Price);
+                     break;
+                 case "price_desc":
+                     products = products.OrderByDescending(p => p.Price);
+                     break;
+                 case "Category":
+                     products = products.OrderBy(p => p.Category.Name); 
+                     break;
+                 case "category_desc":
+                     products = products.OrderByDescending(p => p.Category.Name);
+                     break;
+                 case "date_added_desc":
+                     products = products.OrderByDescending(p => p.DateAdded);
+                     break;
+                 default:
+                     products = products.OrderBy(p => p.DateAdded); //default dateadded asc
+                     break;
+             }
 
+             return await products.ToListAsync();
+         }*/
+
+        public async Task<IEnumerable<Product>> SortProductsByPrice(IEnumerable<Product> products, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "Price":
+                    return products.OrderBy(p => p.Price);
+                case "price_desc":
+                    return products.OrderByDescending(p => p.Price);
+                default:
+                    return products;
+            }
+        }
+
+        public async Task<IEnumerable<Product>> FilterProductsByCategory(IEnumerable<Product> products, int categoryId)
+        {
+            return products.Where(p => p.CategoryId == categoryId);
+        }
     }
 }
+

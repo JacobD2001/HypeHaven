@@ -37,12 +37,44 @@ namespace HypeHaven.Controllers
             _reviewRepository = reviewRepository;
         }
 
+        /* [HttpGet]
+         public async Task<IActionResult> Index(string sortOrder)
+         {
+             IEnumerable<Product> products = await _productRepository.SortProductsAsync(sortOrder);
+
+
+             return View(products);
+         }*/
+
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter)
         {
-            IEnumerable<Product> products = await _productRepository.GetAll();
-            return View(products);
+            var products = await _productRepository.GetAll();
+            var categories = await _categoryRepository.GetAll(); // Replace with your actual category retrieval logic.
+
+            if (!string.IsNullOrEmpty(priceSortOrder))
+            {
+                // Apply price sorting
+                products = await _productRepository.SortProductsByPrice(products, priceSortOrder);
+            }
+
+            if (categoryFilter.HasValue)
+            {
+                // Apply category filtering
+                products = await _productRepository.FilterProductsByCategory(products, categoryFilter.Value);
+            }
+
+            var viewModel = new ProductViewModel
+            {
+                Products = products,
+                Categories = categories,
+                SelectedCategoryId = categoryFilter,
+                PriceSortOrder = priceSortOrder
+            };
+
+            return View(viewModel);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> FavoriteIndex()
@@ -331,7 +363,7 @@ namespace HypeHaven.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search(string searchTerm)
+        public async Task<IActionResult> Search(string searchTerm, int? categoryFilter, string priceSortOrder)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
@@ -339,7 +371,22 @@ namespace HypeHaven.Controllers
             }
 
             IEnumerable<Product> products = await _productRepository.Search(searchTerm);
-            var model = (products, searchTerm);
+
+            if (!string.IsNullOrEmpty(priceSortOrder))
+            {
+                // Apply price sorting
+                products = await _productRepository.SortProductsByPrice(products, priceSortOrder);
+            }
+
+            if (categoryFilter.HasValue)
+            {
+                // Apply category filtering
+                products = await _productRepository.FilterProductsByCategory(products, categoryFilter.Value);
+            }
+            var categories = await _categoryRepository.GetAll(); 
+
+
+            var model = (products, searchTerm, categoryFilter, priceSortOrder, categories);
             return View(model);
         }
 

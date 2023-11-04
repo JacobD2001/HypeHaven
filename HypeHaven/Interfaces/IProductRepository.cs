@@ -14,7 +14,8 @@ namespace HypeHaven.Interfaces
         Task<Product> RemoveFromFavoritesAsync(int productId);
         Task<IEnumerable<Product>> GetFavoriteProducts(string userId);
         Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId);
-
+        Task<IEnumerable<Product>> SortProductsByPrice(IEnumerable<Product> products, string sortOrder);
+        Task<IEnumerable<Product>> FilterProductsByCategory(IEnumerable<Product> products, int categoryId);
 
 
         bool Add(Product product);

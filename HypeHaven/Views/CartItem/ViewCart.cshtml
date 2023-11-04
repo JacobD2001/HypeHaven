@@ -1,5 +1,13 @@
 ﻿@model IEnumerable<CartItem>
 
+<!--showng message to user-->
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <h1>Your Cart</h1>
 
 @if(!Model.Any())

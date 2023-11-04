@@ -1,12 +1,32 @@
 ﻿@using HypeHaven.models
-@model (IEnumerable<Product> products, string searchTerm)
+@model (IEnumerable<Product> products, string searchTerm, int? categoryFilter, string priceSortOrder, IEnumerable<Category> categories)
 
-@*Search bar for searching products*@
 <form action="@Url.Action("Search", "Product")" method="get">
-    <input type="text" name="searchTerm" placeholder="Search Products...">
+    <input type="text" name="searchTerm" placeholder="Search Products..." value="@Model.searchTerm">
     <button type="submit">Search</button>
 </form>
 
+<form action="@Url.Action("Search", "Product")" method="get">
+    <div class="form-group">
+        <label for="priceSortOrder">Sort by Price:</label>
+        <select id="priceSortOrder" name="priceSortOrder" class="form-control">
+            <option value="Price">Price (Low to High)</option>
+            <option value="price_desc">Price (High to Low)</option>
+            <option value="date_added_desc">Date Added (Newest First)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="categoryFilter">Filter by Category:</label>
+        <select id="categoryFilter" name="categoryFilter" class="form-control">
+            <option value="">All categories</option>
+            @foreach (var category in Model.categories)
+            {
+                <option value="@category.CategoryId">@category.Name   </option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
 @if (!Model.products.Any())
 {
     <h1>No products found for @Model.searchTerm</h1>

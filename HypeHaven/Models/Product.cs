@@ -33,6 +33,7 @@ public partial class Product
     public bool IsFavorite { get; set;} 
 
     public virtual Brand Brand { get; set; } = null!;
+    public virtual Category Category { get; set; } = null!;
 
     public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
 
