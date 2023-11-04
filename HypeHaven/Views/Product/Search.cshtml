@@ -2,31 +2,39 @@
 @model (IEnumerable<Product> products, string searchTerm, int? categoryFilter, string priceSortOrder, IEnumerable<Category> categories)
 
 <form action="@Url.Action("Search", "Product")" method="get">
-    <input type="text" name="searchTerm" placeholder="Search Products..." value="@Model.searchTerm">
-    <button type="submit">Search</button>
-</form>
+    <!-- Search input -->
+    <div class="form-group">
+        <label for="searchTerm">Search Products:</label>
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search Products..." value="@Model.searchTerm">
+    </div>
 
-<form action="@Url.Action("Search", "Product")" method="get">
+    <!-- Filter by Price -->
     <div class="form-group">
         <label for="priceSortOrder">Sort by Price:</label>
         <select id="priceSortOrder" name="priceSortOrder" class="form-control">
+            <option value="">Default</option>
             <option value="Price">Price (Low to High)</option>
             <option value="price_desc">Price (High to Low)</option>
             <option value="date_added_desc">Date Added (Newest First)</option>
         </select>
     </div>
+
+    <!-- Filter by Category -->
     <div class="form-group">
         <label for="categoryFilter">Filter by Category:</label>
         <select id="categoryFilter" name="categoryFilter" class="form-control">
             <option value="">All categories</option>
             @foreach (var category in Model.categories)
             {
-                <option value="@category.CategoryId">@category.Name   </option>
+                <option value="@category.CategoryId">@category.Name</option>
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
+
+    <!-- Search and Filter Button -->
+    <button type="submit" class="btn btn-primary">Search and Filter</button>
 </form>
+
 @if (!Model.products.Any())
 {
     <h1>No products found for @Model.searchTerm</h1>

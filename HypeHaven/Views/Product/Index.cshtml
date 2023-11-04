@@ -2,16 +2,16 @@
 @model ProductViewModel
 
 <h1>Products</h1>
-@*Search bar for searching products*@
-<form action="@Url.Action("Search", "Product")" method="get">
-    <input type="text" name="searchTerm" placeholder="Search Products...">
-    <button type="submit">Search</button>
-</form>
-@*Form for sorting*@
+@* Search and Filter Form *@
 <form asp-controller="Product" asp-action="Index" method="get">
     <div class="form-group">
-        <label for="priceSortOrder">Sort by Price or Date:</label>
+        <label for="searchTerm">Search Products:</label>
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search Products..." value="@Model.SearchTerm">
+    </div>
+    <div class="form-group">
+        <label for="priceSortOrder">Sort by Price:</label>
         <select id="priceSortOrder" name="priceSortOrder" class="form-control">
+            <option value="">Default</option>
             <option value="Price">Price (Low to High)</option>
             <option value="price_desc">Price (High to Low)</option>
             <option value="date_added_desc">Date Added (Newest First)</option>
@@ -24,13 +24,12 @@
             <!-- Add options for available categories from your database -->
             @foreach (var category in Model.Categories)
             {
-                <option value="@category.CategoryId">@category.Name   </option>
+                <option value="@category.CategoryId">@category.Name</option>
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Filter</button>
+    <button type="submit" class="btn btn-primary">Search and Filter</button>
 </form>
-
 <!--view(value sortOrder passed to controller than using method from repo values in switch)-->
 
 @*Displaying products*@

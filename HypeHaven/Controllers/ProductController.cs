@@ -47,7 +47,7 @@ namespace HypeHaven.Controllers
          }*/
 
         [HttpGet]
-        public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter)
+        public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter, string searchTerm)
         {
             var products = await _productRepository.GetAll();
             var categories = await _categoryRepository.GetAll(); // Replace with your actual category retrieval logic.
@@ -69,8 +69,15 @@ namespace HypeHaven.Controllers
                 Products = products,
                 Categories = categories,
                 SelectedCategoryId = categoryFilter,
-                PriceSortOrder = priceSortOrder
+                PriceSortOrder = priceSortOrder,
+                SearchTerm = searchTerm
             };
+
+            if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(priceSortOrder) || categoryFilter.HasValue)
+            {
+                // If any of the filters or the search term is present, redirect to the Search action.
+                return RedirectToAction("Search", new { searchTerm, categoryFilter, priceSortOrder });
+            }
 
             return View(viewModel);
         }
@@ -366,23 +373,19 @@ namespace HypeHaven.Controllers
         public async Task<IActionResult> Search(string searchTerm, int? categoryFilter, string priceSortOrder)
         {
             if (string.IsNullOrWhiteSpace(searchTerm))
-            {
                 return RedirectToAction("Index");
-            }
 
             IEnumerable<Product> products = await _productRepository.Search(searchTerm);
 
+            // Apply price sorting
             if (!string.IsNullOrEmpty(priceSortOrder))
-            {
-                // Apply price sorting
                 products = await _productRepository.SortProductsByPrice(products, priceSortOrder);
-            }
 
+
+            // Apply category filtering
             if (categoryFilter.HasValue)
-            {
-                // Apply category filtering
                 products = await _productRepository.FilterProductsByCategory(products, categoryFilter.Value);
-            }
+
             var categories = await _categoryRepository.GetAll(); 
 
 

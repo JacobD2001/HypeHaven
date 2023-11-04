@@ -1,4 +1,5 @@
 ﻿using HypeHaven.models;
+using System.Composition.Convention;
 
 namespace HypeHaven.ViewModels.ProductViewModels
 {
@@ -8,6 +9,7 @@ namespace HypeHaven.ViewModels.ProductViewModels
         public IEnumerable<Category> Categories { get; set; }
         public int? SelectedCategoryId { get; set; }
         public string PriceSortOrder { get; set; }
+        public string SearchTerm { get; set; }
 
     }
 
