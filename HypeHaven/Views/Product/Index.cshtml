@@ -30,6 +30,28 @@
     </div>
     <button type="submit" class="btn btn-primary">Search and Filter</button>
 </form>
+<!--info about filters-->
+<div>
+    <h3>Current Filters:</h3>
+    @if (!string.IsNullOrEmpty(Model.SearchTerm))
+    {
+        <p>Search Term: @Model.SearchTerm</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.PriceSortOrder) && Model.PriceSortOrder != "Default")
+    {
+        <p>Sort by Price: @Model.PriceSortOrder</p>
+    }
+
+    @if (Model.SelectedCategoryId.HasValue)
+    {
+        var selectedCategory = Model.Categories.FirstOrDefault(c => c.CategoryId == Model.SelectedCategoryId.Value);
+        if (selectedCategory != null)
+        {
+            <p>Category Filter: @selectedCategory.Name</p>
+        }
+    }
+</div>
 <!--view(value sortOrder passed to controller than using method from repo values in switch)-->
 @*Displaying products*@
 <div class="album py-5 bg-light">

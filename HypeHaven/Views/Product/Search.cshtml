@@ -34,6 +34,29 @@
     <!-- Search and Filter Button -->
     <button type="submit" class="btn btn-primary">Search and Filter</button>
 </form>
+<!--info about filters-->
+<div>
+    <h3>Current Filters:</h3>
+    @if (!string.IsNullOrEmpty(Model.searchTerm))
+    {
+        <p>Search Term: @Model.searchTerm</p>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.priceSortOrder) && Model.priceSortOrder != "Default")
+    {
+        <p>Sort by Price: @Model.priceSortOrder</p>
+    }
+
+    @if (Model.categoryFilter.HasValue)
+    {
+        var selectedCategory = Model.categories.FirstOrDefault(c => c.CategoryId == Model.categoryFilter.Value);
+        if (selectedCategory != null)
+        {
+            <p>Category Filter: @selectedCategory.Name</p>
+        }
+    }
+</div>
+
 
 @if (!Model.products.Any())
 {

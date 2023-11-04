@@ -73,14 +73,9 @@ namespace HypeHaven.Controllers
                 SearchTerm = searchTerm
             };
 
-            if (string.IsNullOrWhiteSpace(searchTerm))
+            if (!string.IsNullOrWhiteSpace(searchTerm))
                 return RedirectToAction("Search", "Product", new { searchTerm, categoryFilter, priceSortOrder }); 
-
-                // If any of the filters or the search term is present, redirect to the Search action.
-            /* if (!string.IsNullOrEmpty(searchTerm) || !string.IsNullOrEmpty(priceSortOrder) || categoryFilter.HasValue)
-                 return RedirectToAction("Search", "Product", new { searchTerm, categoryFilter, priceSortOrder });*/
-
-
+    
                 return View(viewModel);
         }
 
