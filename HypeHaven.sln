@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HypeHaven", "HypeHaven\HypeHaven.csproj", "{9B8E81F4-201A-4F0A-BB50-74EDD00280F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HypeHavenTests", "HypeHavenTests\HypeHavenTests.csproj", "{C86F09F1-E8C3-452A-AC34-B8EBF9F4327B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HypeHavenTests", "HypeHavenTests\HypeHavenTests.csproj", "{C86F09F1-E8C3-452A-AC34-B8EBF9F4327B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

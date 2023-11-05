@@ -1,6 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using HypeHaven.Helpers;
+using HypeHaven.Helpers.Models;
 using HypeHaven.Interfaces;
 using Microsoft.Extensions.Options;
 

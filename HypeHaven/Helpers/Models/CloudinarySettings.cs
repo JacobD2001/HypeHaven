@@ -1,4 +1,4 @@
-﻿namespace HypeHaven.Helpers
+﻿namespace HypeHaven.Helpers.Models
 {
     public class CloudinarySettings
     {

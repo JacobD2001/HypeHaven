@@ -4,9 +4,9 @@ using HypeHaven.models;
 using HypeHaven.Areas.Identity.Data;
 using HypeHaven.Interfaces;
 using HypeHaven.Repositories;
-using HypeHaven.Helpers;
 using HypeHaven.NewFolder;
 using Stripe;
+using HypeHaven.Helpers.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HypeHavenContextConnection") ?? throw new InvalidOperationException("Connection string 'HypeHavenContextConnection' not found.");
