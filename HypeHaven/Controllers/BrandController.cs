@@ -60,6 +60,7 @@ namespace HypeHaven.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var brandViewModel = new CreateBrandViewModel
             {

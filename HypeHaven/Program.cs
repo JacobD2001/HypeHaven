@@ -29,8 +29,8 @@ builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.Req
 //TODO - not safe to store client id and secret in code, TODO - user has to pick a role somehow
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {  
-    googleOptions.ClientId = "*******";
-    googleOptions.ClientSecret = "*******";
+    googleOptions.ClientId = "239589040024-vi313gp6cqbnkuj52d07d88jm7t0s6ri.apps.googleusercontent.com";
+    googleOptions.ClientSecret = "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";
 });
 
 // Add services to the container.
