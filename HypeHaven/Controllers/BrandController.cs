@@ -24,7 +24,14 @@ namespace HypeHaven.Controllers
         private readonly IProductRepository _productRepository;
         private readonly IPhotoService _photoService;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BrandController"/> class.
+        /// </summary>
+        /// <param name="brandRepository">The brand repository.</param>
+        /// <param name="categoryRepository">The category repository.</param>
+        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
+        /// <param name="productRepository">The product repository.</param>
+        /// <param name="photoService">The photo service.</param>
         public BrandController(IBrandRepository brandRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IPhotoService photoService)
         {
             _brandRepository = brandRepository;
@@ -34,20 +41,34 @@ namespace HypeHaven.Controllers
             _photoService = photoService;
         }
 
+        /// <summary>
+        /// Returns the view for the Index page.
+        /// </summary>
+        /// <returns>The Index view.</returns>
         [HttpGet]
-        public async Task<IActionResult> Index() //controler 
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<Brand> brands = await _brandRepository.GetAll(); //model
-            return View(brands); //view
-        }
-        [HttpGet]
-        [Authorize(Roles = "vendor")]
-        public async Task<IActionResult> MyBrandIndex() //controler 
-        {            
-            IEnumerable<Brand> brands = await _brandRepository.GetAllForSpecifedUser(); //model
-            return View(brands); //view
+            IEnumerable<Brand> brands = await _brandRepository.GetAll();
+            return View(brands);
         }
 
+        /// <summary>
+        /// Returns the view for the MyBrandIndex page.
+        /// </summary>
+        /// <returns>The MyBrandIndex view.</returns>
+        [HttpGet]
+        [Authorize(Roles = "vendor")]
+        public async Task<IActionResult> MyBrandIndex()
+        {
+            IEnumerable<Brand> brands = await _brandRepository.GetAllForSpecifedUser();
+            return View(brands);
+        }
+
+        /// <summary>
+        /// Returns the view for the Detail page.
+        /// </summary>
+        /// <param name="id">The ID of the brand to display.</param>
+        /// <returns>The Detail view.</returns>
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
         {
@@ -56,11 +77,14 @@ namespace HypeHaven.Controllers
                 return NotFound();
             return View(brand);
         }
- 
+
+        /// <summary>
+        /// Returns the view for the Create page.
+        /// </summary>
+        /// <returns>The Create view.</returns>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var brandViewModel = new CreateBrandViewModel
             {
@@ -70,13 +94,17 @@ namespace HypeHaven.Controllers
             return View(brandViewModel);
         }
 
+        /// <summary>
+        /// Creates a new brand.
+        /// </summary>
+        /// <param name="brandVM">The view model containing the brand data.</param>
+        /// <returns>The Index view.</returns>
         [HttpPost]
         [Authorize(Roles = "vendor")]
-
         public async Task<IActionResult> Create(CreateBrandViewModel brandVM)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-    
+
             if (ModelState.IsValid)
             {
                 var category = await _categoryRepository.GetByIdAsync(brandVM.CategoryId);
@@ -85,9 +113,9 @@ namespace HypeHaven.Controllers
 
                 var brand = new Brand
                 {
-                    Name= brandVM.Name,
+                    Name = brandVM.Name,
                     Description = brandVM.Description,
-                    Location= brandVM.Location,
+                    Location = brandVM.Location,
                     Image = result.Url.ToString(),
                     Email = brandVM.Email,
                     PhoneNumber = brandVM.PhoneNumber,
@@ -99,7 +127,7 @@ namespace HypeHaven.Controllers
                     CategoryId = category.CategoryId,
                     UserId = currentUserId,
                     Id = currentUserId
-                    
+
                 };
                 _brandRepository.Add(brand);
                 return RedirectToAction("Index");
@@ -112,6 +140,11 @@ namespace HypeHaven.Controllers
             return View(brandVM);
         }
 
+        /// <summary>
+        /// Returns the view for the Edit page.
+        /// </summary>
+        /// <param name="id">The ID of the brand to edit.</param>
+        /// <returns>The Edit view.</returns>
         [HttpGet]
         [Authorize(Roles = "vendor")]
         public async Task<IActionResult> Edit(int id)
@@ -151,10 +184,14 @@ namespace HypeHaven.Controllers
 
         }
 
-
+        /// <summary>
+        /// Edits an existing brand.
+        /// </summary>
+        /// <param name="id">The ID of the brand to edit.</param>
+        /// <param name="brandVM">The view model containing the updated brand data.</param>
+        /// <returns>The Index view.</returns>
         [HttpPost]
         [Authorize(Roles = "vendor")]
-
         public async Task<IActionResult> Edit(int id, EditBrandViewModel brandVM)
         {
             var curBrand = await _brandRepository.GetByIdAsyncNoTracking(id);
@@ -166,9 +203,6 @@ namespace HypeHaven.Controllers
 
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var result = await _photoService.AddPhotoAsync(brandVM.Image);
-
-           
-
 
             if (ModelState.IsValid)
             {
@@ -200,9 +234,13 @@ namespace HypeHaven.Controllers
             return View(brandVM);
         }
 
+        /// <summary>
+        /// Returns the view for the Delete page.
+        /// </summary>
+        /// <param name="id">The ID of the brand to delete.</param>
+        /// <returns>The Delete view.</returns>
         [HttpGet]
         [Authorize(Roles = "vendor")]
-
         public async Task<IActionResult> Delete(int id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);
@@ -233,13 +271,15 @@ namespace HypeHaven.Controllers
                 return View(brandVM);
             }
             return RedirectToAction("Index");
-
-          
         }
 
+        /// <summary>
+        /// Deletes an existing brand.
+        /// </summary>
+        /// <param name="id">The ID of the brand to delete.</param>
+        /// <returns>The MyBrandIndex view.</returns>
         [HttpPost, ActionName("Delete")]
         [Authorize(Roles = "vendor")]
-
         public async Task<IActionResult> DeleteBrand(int id)
         {
             var brand = await _brandRepository.GetByIdAsync(id);
@@ -253,6 +293,11 @@ namespace HypeHaven.Controllers
             return RedirectToAction("MyBrandIndex");
         }
 
+        /// <summary>
+        /// Returns the view for the Search page.
+        /// </summary>
+        /// <param name="searchTerm">The search term to use.</param>
+        /// <returns>The Search view.</returns>
         [HttpGet]
         public async Task<IActionResult> Search(string searchTerm)
         {
@@ -265,7 +310,6 @@ namespace HypeHaven.Controllers
             var model = (brands, searchTerm);
             return View(model);
         }
-
-
     }
 }
+

@@ -26,6 +26,16 @@ namespace HypeHaven.Controllers
         private readonly IFavoriteProductRepository _favoriteProductRepository;
         private readonly IReviewRepository _reviewRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductController"/> class.
+        /// </summary>
+        /// <param name="productRepository">The product repository.</param>
+        /// <param name="categoryRepository">The category repository.</param>
+        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
+        /// <param name="brandRepository">The brand repository.</param>
+        /// <param name="photoService">The photo service.</param>
+        /// <param name="favoriteProductRepository">The favorite product repository.</param>
+        /// <param name="reviewRepository">The review repository.</param>
         public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService, IFavoriteProductRepository favoriteProductRepository, IReviewRepository reviewRepository)
         {
             _productRepository = productRepository;
@@ -37,15 +47,13 @@ namespace HypeHaven.Controllers
             _reviewRepository = reviewRepository;
         }
 
-        /* [HttpGet]
-         public async Task<IActionResult> Index(string sortOrder)
-         {
-             IEnumerable<Product> products = await _productRepository.SortProductsAsync(sortOrder);
-
-
-             return View(products);
-         }*/
-
+        /// <summary>
+        /// Returns the view for the Index page.
+        /// </summary>
+        /// <param name="priceSortOrder">The sort order for the price.</param>
+        /// <param name="categoryFilter">The ID of the category to filter by.</param>
+        /// <param name="searchTerm">The search term to filter by.</param>
+        /// <returns>The Index view.</returns>
         [HttpGet]
         public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter, string searchTerm)
         {
@@ -79,7 +87,10 @@ namespace HypeHaven.Controllers
                 return View(viewModel);
         }
 
-
+        /// <summary>
+        /// Returns the view for the FavoriteIndex page.
+        /// </summary>
+        /// <returns>The FavoriteIndex view.</returns>
         [HttpGet]
         public async Task<IActionResult> FavoriteIndex()
         {
@@ -96,7 +107,11 @@ namespace HypeHaven.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Returns the view for the MyProductIndex page.
+        /// </summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <returns>The MyProductIndex view.</returns>
         [HttpGet]
         public async Task<IActionResult> MyProductIndex(int id) //controler 
         {
@@ -104,6 +119,11 @@ namespace HypeHaven.Controllers
             return View(products); //view
         }
 
+        /// <summary>
+        /// Returns the view for the Detail page.
+        /// </summary>
+        /// <param name="id">The ID of the brand to display.</param>
+        /// <returns>The Detail view.</returns>
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
@@ -139,7 +159,11 @@ namespace HypeHaven.Controllers
             return View(viewModel);
         }
 
-        //adding a review to the product
+        /// <summary>
+        /// Adds a review to the database.
+        /// </summary>
+        /// <param name="AddReviewVM">The AddReviewViewModel to add.</param>
+        /// <returns>The Detail view.</returns>
         [HttpPost]
         public async Task<IActionResult> AddReview(AddReviewViewModel AddReviewVM) 
         {
@@ -168,6 +192,10 @@ namespace HypeHaven.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Returns the view for the Create page.
+        /// </summary>
+        /// <returns>The Create view.</returns>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -183,8 +211,11 @@ namespace HypeHaven.Controllers
             return View(productViewModel);
         }
 
-
-
+        /// <summary>
+        /// Adds a product to the database.
+        /// </summary>
+        /// <param name="productVM">The CreateProductViewModel to add.</param>
+        /// <returns>The Index view.</returns>
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductViewModel productVM)
         {
@@ -221,13 +252,16 @@ namespace HypeHaven.Controllers
                 productVM.Brands = (List<Brand>)await _brandRepository.GetAll();
                 return View(productVM);
             }
-
             return View(productVM);
         }
 
+        /// <summary>
+        /// Returns the view for the Edit page.
+        /// </summary>
+        /// <param name="id">The ID of the product to edit.</param>
+        /// <returns>The Edit view.</returns>
         [HttpGet]
         [Authorize(Roles = "vendor")]
-
         public async Task<IActionResult> Edit(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
@@ -259,16 +293,20 @@ namespace HypeHaven.Controllers
                 return View(productViewModel);
             }
             return RedirectToAction("Index");
-
         }
 
+        /// <summary>
+        /// Edits a product in the database.
+        /// </summary>
+        /// <param name="id">The ID of the product to edit.</param>
+        /// <param name="productVM">The EditProductViewModel to edit.</param>
+        /// <returns>The Index view.</returns>
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditProductViewModel productVM)
         {
             //as no tracking
             var curProduct = await _productRepository.GetByIdAsyncNoTracking(id);
             var result = await _photoService.AddPhotoAsync(productVM.Image);
-
 
             if (curProduct == null)
                 return NotFound();
@@ -277,13 +315,10 @@ namespace HypeHaven.Controllers
                 _ = _photoService.DeletePhotoAsync(curProduct.Image);
             }
 
-
-
             if (ModelState.IsValid)
             {
                 var brand = await _brandRepository.GetByIdAsyncNoTracking(productVM.BrandId);
                 var category = await _categoryRepository.GetByIdAsyncNoTracking(productVM.CategoryId);
-
 
                 var product = new Product
                 {
@@ -313,8 +348,11 @@ namespace HypeHaven.Controllers
             return View(productVM);
         }
 
-
-
+        /// <summary>
+        /// Returns the view for the Delete page.
+        /// </summary>
+        /// <param name="id">The ID of the product to delete.</param>
+        /// <returns>The Delete view.</returns>
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -351,7 +389,11 @@ namespace HypeHaven.Controllers
             return RedirectToAction("Index");
         }
 
-
+        /// <summary>
+        /// Deletes a product from the database.
+        /// </summary>
+        /// <param name="id">The ID of the product to delete.</param>
+        /// <returns>The Index view.</returns>
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
@@ -366,6 +408,13 @@ namespace HypeHaven.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Returns the view for the Search page.
+        /// </summary>
+        /// <param name="searchTerm">The search term to filter by.</param>
+        /// <param name="categoryFilter">The ID of the category to filter by.</param>
+        /// <param name="priceSortOrder">The sort order for the price.</param>
+        /// <returns>The Index view.</returns>
         [HttpGet]
         public async Task<IActionResult> Search(string searchTerm, int? categoryFilter, string priceSortOrder)
         {
@@ -390,6 +439,11 @@ namespace HypeHaven.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Adds a product to the user's favorites.
+        /// </summary>
+        /// <param name="productId">The ID of the product to add.</param>
+        /// <returns>The index view.</returns>
         [HttpPost]
         public async Task<IActionResult> AddToFavorites(int productId)
         {
@@ -403,6 +457,11 @@ namespace HypeHaven.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Removes a product from the user's favorites.
+        /// </summary>
+        /// <param name="productId">The ID of the product to remove.</param>
+        /// <returns>The index view.</returns>
         [HttpPost]
         public async Task<IActionResult> RemoveFromFavorites(int productId)
         {

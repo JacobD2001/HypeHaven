@@ -1,11 +1,9 @@
-﻿//PLATNOSC
-using HypeHaven.Helpers;
+﻿using HypeHaven.Helpers;
 using HypeHaven.Interfaces;
 using HypeHaven.models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
-//using Stripe.BillingPortal;
 using Stripe;
 
 namespace HypeHaven.Controllers
@@ -17,6 +15,13 @@ namespace HypeHaven.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ICartRepository _cartRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CartItemController"/> class.
+        /// </summary>
+        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
+        /// <param name="cartItemRepository">The cart item repository.</param>
+        /// <param name="productRepository">The product repository.</param>
+        /// <param name="cartRepository">The cart repository.</param>
         public CartItemController(IHttpContextAccessor httpContextAccessor, ICartItemRepository cartItemRepository, IProductRepository productRepository, ICartRepository cartRepository)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -25,6 +30,10 @@ namespace HypeHaven.Controllers
             _cartRepository = cartRepository;
         }
 
+        /// <summary>
+        /// Adds a product to the user's cart.
+        /// </summary>
+        /// <param name="productId">The ID of the product to add to the
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId)
         {
@@ -34,23 +43,20 @@ namespace HypeHaven.Controllers
             if (product == null)
                 return NotFound();
 
-            // Check if the user has an existing cart or create a new one
             var cart = await _cartRepository.GetCartByUserIdAsync(currentUserId);
             if (cart == null)
             {
                 cart = new Cart
                 {
-                    UserId = currentUserId //if cart dosen't exist create a new cart and assaign it to a certain user
+                    UserId = currentUserId
                 };
                 _cartRepository.Add(cart);
             }
 
-            // Check if the product already exists in the cart
             var existingCartItem = await _cartItemRepository.GetCartItemByProductId(cart.CartId, productId);
 
             if (existingCartItem != null)
             {
-                // Increase the quantity of the existing cart item
                 existingCartItem.Quantity += 1;
                 _cartItemRepository.Update(existingCartItem);
             }
@@ -60,7 +66,7 @@ namespace HypeHaven.Controllers
                 {
                     ProductId = productId,
                     Quantity = 1,
-                    Cart = cart // Associate the cart with the cart item
+                    Cart = cart
                 };
 
                 _cartItemRepository.Add(cartItem);
@@ -69,6 +75,9 @@ namespace HypeHaven.Controllers
             return RedirectToAction("ViewCart");
         }
 
+        /// <summary>
+        /// Displays the user's cart items.
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> ViewCart()
         {
@@ -76,17 +85,18 @@ namespace HypeHaven.Controllers
             return View(cartItems);
         }
 
+        /// <summary>
+        /// Initiates the checkout process for the user's cart.
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CheckOut()
         {
-          
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var cart = await _cartRepository.GetCartByUserIdAsync(currentUserId);
             var cartItems = await _cartItemRepository.GetAllForSpecifedUser();
 
             if (cart == null || cart.CartItems == null || cart.CartItems.Count == 0)
             {
-                // Redirect to a page or display a message indicating that the cart is empty.
                 return RedirectToAction("Index", "Product");
             }
 
@@ -104,14 +114,13 @@ namespace HypeHaven.Controllers
 
             foreach (var item in cartItems)
             {
-                // Calculate the unit amount based on the price and quantity in the smallest currency unit (grosze for PLN)
-                long unitAmount = (long)(item.Product.Price * 100); // Convert to grosze
+                long unitAmount = (long)(item.Product.Price * 100);
 
                 var sessionListItem = new SessionLineItemOptions
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        UnitAmount = unitAmount,  // Set the unit amount
+                        UnitAmount = unitAmount,
                         Currency = "pln",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
@@ -123,7 +132,6 @@ namespace HypeHaven.Controllers
 
                 options.LineItems.Add(sessionListItem);
 
-                //substracting bought amount of product from the quantity in the database
                 item.Product.Quantity -= item.Quantity;
                 _productRepository.Update(item.Product);
             }
@@ -132,12 +140,13 @@ namespace HypeHaven.Controllers
             Session session = service.Create(options);
 
             TempData["Session"] = session.Id;
-            // Used for redirection
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);
         }
 
-        //no need for async
+        /// <summary>
+        /// Displays the order confirmation page if the payment was successful, otherwise displays the order failed page.
+        /// </summary>
         public IActionResult OrderConfirmation()
         {
             var service = new SessionService();
@@ -148,13 +157,16 @@ namespace HypeHaven.Controllers
             return View("OrderFailed");
         }
 
-        //method for updating the quantity of the product in the cart
+        /// <summary>
+        /// Updates the quantity of a cart item in the user's cart.
+        /// </summary>
+        /// <param name="cartItemId">The ID of the cart item to update.</param>
+        /// <param name="quantity">The new quantity of the cart item.</param>
         [HttpPost]
         public async Task<IActionResult> UpdateQuantity(int cartItemId, int quantity)
         {
             var cartItem = await _cartItemRepository.GetCartItemByIdAsync(cartItemId);
 
-            // Handle the case where the cart item does not exist
             if (cartItem == null)
             {
                 return RedirectToAction("ViewCart");
@@ -162,18 +174,15 @@ namespace HypeHaven.Controllers
 
             var product = await _productRepository.GetByIdAsync(cartItem.ProductId);
 
-            // Handle the case where the quantity is less than or equal to 0 (remove the product)
             if (quantity <= 0)
             {
                 _cartItemRepository.Delete(cartItem);
             }
-            // Handle the case when the quantity is less than the available quantity(so user can operate on this between 0 and avaliable quantity)
             else if (quantity <= product.Quantity)
             {
                 cartItem.Quantity = quantity;
                 _cartItemRepository.Update(cartItem);
             }
-            // Handle the case where the requested quantity is higher than the available quantity
             else
             {
                 TempData["ErrorMessage"] = $"The requested quantity exceeds the available stock. Available quantity is: {product.Quantity}";
@@ -182,7 +191,10 @@ namespace HypeHaven.Controllers
             return RedirectToAction("ViewCart");
         }
 
-
+        /// <summary>
+        /// Removes a product from the user's cart.
+        /// </summary>
+        /// <param name="cartItemId">The ID of the cart item to remove.</param>
         [HttpPost]
         public async Task<IActionResult> RemoveProduct(int cartItemId)
         {
@@ -190,12 +202,8 @@ namespace HypeHaven.Controllers
 
             if (cartItem != null)
                 _cartItemRepository.Delete(cartItem);
-            
 
             return RedirectToAction("ViewCart");
         }
-
-
-
     }
 }

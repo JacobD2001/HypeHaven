@@ -12,23 +12,22 @@ namespace HypeHaven.Controllers
         private readonly IReviewRepository _reviewRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReviewController"/> class.
+        /// </summary>
+        /// <param name="reviewRepository">The review repository.</param>
+        /// <param name="httpContextAccessor">The HTTP context accessor.</param>
         public ReviewController(IReviewRepository reviewRepository, IHttpContextAccessor httpContextAccessor)
         {
             _reviewRepository = reviewRepository;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        /*[HttpPost]
-        public async Task<IActionResult> Create(Review review)
-        {
-            if (ModelState.IsValid)
-            {
-                _reviewRepository.Add(review);
-                return RedirectToAction("Detail", "Product", new { id = review.ProductId });
-            }
-            return View(review);
-        }*/
-
+        /// <summary>
+        /// Returns the view for the Edit page.
+        /// </summary>
+        /// <param name="id">The ID of the review to edit.</param>
+        /// <returns>The Edit view.</returns>
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -55,6 +54,12 @@ namespace HypeHaven.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Updates the specified review.
+        /// </summary>
+        /// <param name="id">The ID of the review to update.</param>
+        /// <param name="editReviewVM">The edit review view model.</param>
+        /// <returns>The Detail view.</returns>
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditReviewViewModel editReviewVM)
         {
@@ -79,7 +84,11 @@ namespace HypeHaven.Controllers
             return View(editReviewVM);
         }
 
-        //this method deletes review
+        /// <summary>
+        /// Returns the view for the Delete page.
+        /// </summary>
+        /// <param name="id">The ID of the review to delete.</param>
+        /// <returns>The Delete view.</returns>
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -104,10 +113,13 @@ namespace HypeHaven.Controllers
                 return View(deleteReviewVM);
             }
             return View();
-
-
         }
 
+        /// <summary>
+        /// Deletes the specified review.
+        /// </summary>
+        /// <param name="id">The ID of the review to delete.</param>
+        /// <returns>The Detail view.</returns>
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteReview(int id)
         {
@@ -121,5 +133,5 @@ namespace HypeHaven.Controllers
         }
 
     }
- 
+
 }
