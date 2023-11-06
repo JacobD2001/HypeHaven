@@ -4,19 +4,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
         private readonly HypeHavenContext _context;
 
-        public CategoryRepository(HypeHavenContext context)
+        public CategoryRepository(HypeHavenContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+      /*  public async Task<IEnumerable<Category>> GetAll()
         {
             return await _context.Categories.ToListAsync();
-        }
+        }*/
 
         //Implemented(from IRepository)
         #region NotImplemented       

@@ -8,20 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly HypeHavenContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFavoriteProductRepository _favoriteProductRepository;
 
-        public ProductRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor, IFavoriteProductRepository favoriteProductRepository)
+        public ProductRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor, IFavoriteProductRepository favoriteProductRepository) : base(context) 
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
             _favoriteProductRepository = favoriteProductRepository;
         }
 
-        public bool Add(Product product)
+     /*   public bool Add(Product product)
         {
             _context.Add(product);
             return Save();
@@ -36,7 +36,7 @@ namespace HypeHaven.Repositories
         public async Task<IEnumerable<Product>> GetAll()
         {
             return await _context.Products.ToListAsync();
-        }
+        }*/
 
         public async Task<IEnumerable<Product>> GetAllForSpecifedBrand(int id)
         {
@@ -74,7 +74,7 @@ namespace HypeHaven.Repositories
                 .AsNoTracking().FirstOrDefaultAsync(p => p.ProductId == id);
         }
 
-        public bool Save()
+       /* public bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
@@ -84,7 +84,7 @@ namespace HypeHaven.Repositories
         {
             _context.Update(product);
             return Save();
-        }
+        }*/
 
 
         public async Task<IEnumerable<Product>> Search(string searchTerm)

@@ -5,18 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
-    public class CartItemRepository : ICartItemRepository
+    public class CartItemRepository : Repository<CartItem>, ICartItemRepository
     {
         private readonly HypeHavenContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CartItemRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor)
+        public CartItemRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public bool Add(CartItem cartItem)
+      /*  public bool Add(CartItem cartItem)
         {
             _context.Add(cartItem);
             return Save();
@@ -26,7 +26,7 @@ namespace HypeHaven.Repositories
         {
             _context.Remove(cartItem);
             return Save();
-        }
+        }*/
 
         public async Task<IEnumerable<CartItem>> GetAllForSpecifedUser()
         {
@@ -52,7 +52,7 @@ namespace HypeHaven.Repositories
         }
 
 
-        public bool Save()
+      /*  public bool Save()
         {
             var saved = _context.SaveChanges();  
             return saved > 0 ? true : false; 
@@ -62,6 +62,6 @@ namespace HypeHaven.Repositories
         {
             _context.Update(cartItem);
             return Save();
-        }
+        }*/
     }
 }

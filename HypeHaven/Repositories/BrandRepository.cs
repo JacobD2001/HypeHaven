@@ -6,19 +6,19 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace HypeHaven.Repositories
 {
-    public class BrandRepository : IBrandRepository
+    public class BrandRepository : Repository<Brand>, IBrandRepository
     {
         private readonly HypeHavenContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public BrandRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor)
+        public BrandRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor) : base(context) //calling constructor from base class(repository)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public bool Add(Brand brand)
+     /*   public bool Add(Brand brand)
         {
             _context.Add(brand);
             return Save();
@@ -33,7 +33,7 @@ namespace HypeHaven.Repositories
         public async Task<IEnumerable<Brand>> GetAll()
         {
             return await _context.Brands.ToListAsync();
-        }
+        }*/
 
         public async Task<IEnumerable<Brand>> GetAllForSpecifedUser()
         {
@@ -59,7 +59,7 @@ namespace HypeHaven.Repositories
           .AsNoTracking().FirstOrDefaultAsync(b => b.BrandId == id);
         }
 
-        public bool Save()
+       /* public bool Save()
         {
             var saved = _context.SaveChanges(); //savechanges returns int 
             return saved > 0 ? true : false; //if saved > 0 return true, else return false 
@@ -69,7 +69,7 @@ namespace HypeHaven.Repositories
         {
             _context.Update(brand);
             return Save();
-        }
+        }*/
 
         public async Task<IEnumerable<Brand>> Search(string searchTerm)
         {

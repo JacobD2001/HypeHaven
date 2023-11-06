@@ -4,18 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
-    public class ReviewRepository : IReviewRepository
+    public class ReviewRepository : Repository<Review>, IReviewRepository
     {
         private readonly HypeHavenContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ReviewRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor)
+        public ReviewRepository(HypeHavenContext context, IHttpContextAccessor httpContextAccessor) :base(context)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public bool Add(Review review)
+      /*  public bool Add(Review review)
         {
             _context.Add(review);
             return Save();
@@ -25,7 +25,7 @@ namespace HypeHaven.Repositories
         {
             _context.Remove(review);
             return Save();
-        }
+        }*/
 
 
         public async Task<Review> GetReviewByIdAsync(int id)
