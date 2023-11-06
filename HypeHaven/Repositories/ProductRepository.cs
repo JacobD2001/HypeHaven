@@ -204,6 +204,12 @@ namespace HypeHaven.Repositories
         {
             return products.Where(p => p.CategoryId == categoryId);
         }
+
+        //implemented (from IRepository)
+        public Task<IEnumerable<Product>> GetAllForSpecifedUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

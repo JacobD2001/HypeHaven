@@ -2,13 +2,13 @@
 
 namespace HypeHaven.Interfaces
 {
-    public interface IReviewRepository
+    public interface IReviewRepository : IRepository<Review>
     {
         //Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId);
-        bool Add(Review review);
+       /* bool Add(Review review);
         bool Update(Review review);
         bool Delete(Review review);
-        bool Save();
+        bool Save();*/
         Task<Review> GetReviewByIdAsync(int id);
 
     }

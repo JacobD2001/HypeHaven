@@ -27,11 +27,43 @@ namespace HypeHaven.Repositories
             return saved > 0 ? true : false;
         }
 
-        //TODO - INCLUDE PROB
         public async Task<Cart> GetCartByUserIdAsync(string userId)
         {
             return await _context.Carts
                 .FirstOrDefaultAsync(c => c.UserId == userId);
         }
+
+        //Implemented(from IRepository)
+        #region NotImplemented
+        public Task<IEnumerable<Cart>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Cart>> GetAllForSpecifedUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Cart> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Cart> GetByIdAsyncNoTracking(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Cart entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Cart entity)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

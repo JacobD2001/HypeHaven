@@ -3,11 +3,13 @@
 namespace HypeHaven.Interfaces
 {
     //this interface is used to abstract the implementation of getall method which is used to retrive all categores from database
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IRepository<Category>
     {
-        Task<IEnumerable<Category>> GetAll();
-        Task<Category> GetByIdAsync(int id);
-        Task<Category> GetByIdAsyncNoTracking(int id);
+        //TODO - delete this interface completly(di?)
+
+        //Task<IEnumerable<Category>> GetAll();
+        //Task<Category> GetByIdAsync(int id);
+        //Task<Category> GetByIdAsyncNoTracking(int id);
 
 
     }

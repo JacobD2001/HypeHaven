@@ -18,6 +18,8 @@ namespace HypeHaven.Repositories
             return await _context.Categories.ToListAsync();
         }
 
+        //Implemented(from IRepository)
+        #region NotImplemented       
         public async Task<Category> GetByIdAsync(int id)
         {
             return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId == id);
@@ -28,5 +30,30 @@ namespace HypeHaven.Repositories
         }
 
 
+        public bool Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Category entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Category>> GetAllForSpecifedUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Add(Category entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Category entity)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

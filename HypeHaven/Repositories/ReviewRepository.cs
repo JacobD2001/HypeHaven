@@ -27,6 +27,7 @@ namespace HypeHaven.Repositories
             return Save();
         }
 
+
         public async Task<Review> GetReviewByIdAsync(int id)
         {
             return await _context.Reviews
@@ -42,6 +43,9 @@ namespace HypeHaven.Repositories
                    .ToListAsync();
            }*/
 
+        //Implemented(from IRepository)
+        #region NotImplemented
+
         public bool Save()
         {
             var saved = _context.SaveChanges();
@@ -53,5 +57,28 @@ namespace HypeHaven.Repositories
             _context.Update(review);
             return Save();
         }
+
+
+        public Task<IEnumerable<Review>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Review>> GetAllForSpecifedUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Review> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Review> GetByIdAsyncNoTracking(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
     }
 }
