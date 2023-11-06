@@ -2,20 +2,16 @@
 
 namespace HypeHaven.Interfaces
 {
+    /// <summary>
+    /// Represents the interface for the brand repository.
+    /// </summary>
     public interface IBrandRepository : IRepository<Brand>
     {
-        //TO DO - delete this interface completly(di?)
-
-        //Task<IEnumerable<Brand>> GetAll();
-        //Task<IEnumerable<Brand>> GetAllForSpecifedUser();
-        //Task<Brand> GetByIdAsync(int id);
-        //Task<Brand> GetByIdAsyncNoTracking(int id);
+        /// <summary>
+        /// Searches for brands that match the specified search term.
+        /// </summary>
+        /// <param name="searchTerm">The search term.</param>
+        /// <returns>The matching brands.</returns>
         Task<IEnumerable<Brand>> Search(string searchTerm);
-
-
-        //bool Add(Brand brand);
-        //bool Update(Brand brand);
-        //bool Delete(Brand brand);
-        //bool Save();
     }
 }

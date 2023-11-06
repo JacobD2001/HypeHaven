@@ -19,7 +19,7 @@ namespace HypeHaven.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IBrandRepository _brandRepository;
         private readonly IPhotoService _photoService;
@@ -36,7 +36,7 @@ namespace HypeHaven.Controllers
         /// <param name="photoService">The photo service.</param>
         /// <param name="favoriteProductRepository">The favorite product repository.</param>
         /// <param name="reviewRepository">The review repository.</param>
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService, IFavoriteProductRepository favoriteProductRepository, IReviewRepository reviewRepository)
+        public ProductController(IProductRepository productRepository, IRepository<Category> categoryRepository, IHttpContextAccessor httpContextAccessor, IBrandRepository brandRepository, IPhotoService photoService, IFavoriteProductRepository favoriteProductRepository, IReviewRepository reviewRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;

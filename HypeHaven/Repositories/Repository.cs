@@ -44,6 +44,16 @@ namespace HypeHaven.Repositories
             return saved > 0 ? true : false;
         }
 
+        public async Task<T> GetByIdAsyncNoTracking(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
         //not implemented
         #region not implemented
         public async Task<IEnumerable<T>> GetAllForSpecifedUser()
@@ -51,7 +61,7 @@ namespace HypeHaven.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<T> GetByIdAsyncNoTracking(int id)
+ /*       public async Task<T> GetByIdAsyncNoTracking(int id)
         {
             throw new NotImplementedException();
         }
@@ -60,7 +70,7 @@ namespace HypeHaven.Repositories
         public async Task<T> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
-        }
+        }*/
         #endregion
 
     }

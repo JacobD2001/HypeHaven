@@ -19,7 +19,7 @@ namespace HypeHaven.Controllers
     public class BrandController : Controller
     {
         private readonly IBrandRepository _brandRepository;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IRepository<Category> _categoryRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IProductRepository _productRepository;
         private readonly IPhotoService _photoService;
@@ -32,7 +32,7 @@ namespace HypeHaven.Controllers
         /// <param name="httpContextAccessor">The HTTP context accessor.</param>
         /// <param name="productRepository">The product repository.</param>
         /// <param name="photoService">The photo service.</param>
-        public BrandController(IBrandRepository brandRepository, ICategoryRepository categoryRepository, IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IPhotoService photoService)
+        public BrandController(IBrandRepository brandRepository, IRepository<Category> categoryRepository, IHttpContextAccessor httpContextAccessor, IProductRepository productRepository, IPhotoService photoService)
         {
             _brandRepository = brandRepository;
             _categoryRepository = categoryRepository;
