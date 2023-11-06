@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
+    /// <summary>
+    /// Represents a  repository for managing products.
+    /// </summary>
     public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly HypeHavenContext _context;
@@ -20,23 +23,6 @@ namespace HypeHaven.Repositories
             _httpContextAccessor = httpContextAccessor;
             _favoriteProductRepository = favoriteProductRepository;
         }
-
-     /*   public bool Add(Product product)
-        {
-            _context.Add(product);
-            return Save();
-        }
-
-        public bool Delete(Product product)
-        {
-            _context.Remove(product);
-            return Save();
-        }
-
-        public async Task<IEnumerable<Product>> GetAll()
-        {
-            return await _context.Products.ToListAsync();
-        }*/
 
         public async Task<IEnumerable<Product>> GetAllForSpecifedBrand(int id)
         {
@@ -51,8 +37,6 @@ namespace HypeHaven.Repositories
                 .Where(r => r.ProductId == ProductId)
                 .ToListAsync();
         }
-
-
 
         public async Task<Product> GetByIdAsync(int id)
         {
@@ -73,19 +57,6 @@ namespace HypeHaven.Repositories
                 .Include(p => p.Reviews)
                 .AsNoTracking().FirstOrDefaultAsync(p => p.ProductId == id);
         }
-
-       /* public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
-        }
-
-        public bool Update(Product product)
-        {
-            _context.Update(product);
-            return Save();
-        }*/
-
 
         public async Task<IEnumerable<Product>> Search(string searchTerm)
         {
@@ -123,7 +94,6 @@ namespace HypeHaven.Repositories
             return product;
         }
 
-
         public async Task<Product> RemoveFromFavoritesAsync(int productId)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
@@ -157,35 +127,6 @@ namespace HypeHaven.Repositories
                 .Where(p => p.IsFavorite && p.UserId == userId)
                 .ToListAsync();
         }
-
-        /* public async Task<IEnumerable<Product>> SortProductsAsync(string sortOrder)
-         {
-             var products = _context.Products.AsQueryable(); //allows using queryable methods, linq expressions
-
-             switch (sortOrder)
-             {
-                 case "Price":
-                     products = products.OrderBy(p => p.Price);
-                     break;
-                 case "price_desc":
-                     products = products.OrderByDescending(p => p.Price);
-                     break;
-                 case "Category":
-                     products = products.OrderBy(p => p.Category.Name); 
-                     break;
-                 case "category_desc":
-                     products = products.OrderByDescending(p => p.Category.Name);
-                     break;
-                 case "date_added_desc":
-                     products = products.OrderByDescending(p => p.DateAdded);
-                     break;
-                 default:
-                     products = products.OrderBy(p => p.DateAdded); //default dateadded asc
-                     break;
-             }
-
-             return await products.ToListAsync();
-         }*/
 
         public async Task<IEnumerable<Product>> SortProductsByPrice(IEnumerable<Product> products, string sortOrder)
         {

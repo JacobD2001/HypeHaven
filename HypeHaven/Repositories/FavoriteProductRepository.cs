@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
+    /// <summary>
+    /// Represents a  repository for managing favorite products.
+    /// </summary>
     public class FavoriteProductRepository : IFavoriteProductRepository
     {
         private readonly HypeHavenContext _context;

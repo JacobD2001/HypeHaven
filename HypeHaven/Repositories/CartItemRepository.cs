@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
+    /// <summary>
+    /// Represents a repository for managing cartItems.
+    /// </summary>
     public class CartItemRepository : Repository<CartItem>, ICartItemRepository
     {
         private readonly HypeHavenContext _context;
@@ -15,18 +18,6 @@ namespace HypeHaven.Repositories
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
-
-      /*  public bool Add(CartItem cartItem)
-        {
-            _context.Add(cartItem);
-            return Save();
-        }
-
-        public bool Delete(CartItem cartItem)
-        {
-            _context.Remove(cartItem);
-            return Save();
-        }*/
 
         public async Task<IEnumerable<CartItem>> GetAllForSpecifedUser()
         {
@@ -50,18 +41,5 @@ namespace HypeHaven.Repositories
             return await _context.CartItems
                 .FirstOrDefaultAsync(ci => ci.CartItemId == cartItemId);
         }
-
-
-      /*  public bool Save()
-        {
-            var saved = _context.SaveChanges();  
-            return saved > 0 ? true : false; 
-        }
-
-        public bool Update(CartItem cartItem)
-        {
-            _context.Update(cartItem);
-            return Save();
-        }*/
     }
 }

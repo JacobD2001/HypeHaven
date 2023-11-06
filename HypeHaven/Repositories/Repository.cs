@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Represents a generic repository for managing entities of type T.
+/// </summary>
 namespace HypeHaven.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
@@ -54,23 +57,12 @@ namespace HypeHaven.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        //not implemented
+        //not implemented(From IRepository)
         #region not implemented
         public async Task<IEnumerable<T>> GetAllForSpecifedUser()
         {
             throw new NotImplementedException();
         }
-
- /*       public async Task<T> GetByIdAsyncNoTracking(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public async Task<T> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }*/
         #endregion
 
     }

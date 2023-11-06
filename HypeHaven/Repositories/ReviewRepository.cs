@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HypeHaven.Repositories
 {
+    /// <summary>
+    /// Represents a repository for managing reviews.
+    /// </summary>
     public class ReviewRepository : Repository<Review>, IReviewRepository
     {
         private readonly HypeHavenContext _context;
@@ -15,19 +18,6 @@ namespace HypeHaven.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-      /*  public bool Add(Review review)
-        {
-            _context.Add(review);
-            return Save();
-        }
-
-        public bool Delete(Review review)
-        {
-            _context.Remove(review);
-            return Save();
-        }*/
-
-
         public async Task<Review> GetReviewByIdAsync(int id)
         {
             return await _context.Reviews
@@ -36,29 +26,8 @@ namespace HypeHaven.Repositories
         .FirstOrDefaultAsync(r => r.ReviewId == id);
         }
 
-        /*   public async Task<IEnumerable<Review>> GetReviewsForSpecifedProduct(int ProductId)
-           {
-               return await _context.Reviews
-                   .Where(r => r.ProductId == ProductId)
-                   .ToListAsync();
-           }*/
-
-        //Implemented(from IRepository)
+        //NotImplemented(from IRepository)
         #region NotImplemented
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
-        }
-
-        public bool Update(Review review)
-        {
-            _context.Update(review);
-            return Save();
-        }
-
-
         public Task<IEnumerable<Review>> GetAll()
         {
             throw new NotImplementedException();

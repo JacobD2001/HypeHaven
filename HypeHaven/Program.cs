@@ -39,7 +39,7 @@ builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection(
 
 // Add services for dependency injection
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
-builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
