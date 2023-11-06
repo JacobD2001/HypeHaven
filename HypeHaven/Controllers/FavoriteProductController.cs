@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HypeHaven.Controllers
 {
+    /// <summary>
+    /// Controller for managing favorite products.
+    /// </summary>
     public class FavoriteProductController : Controller
     {
         private readonly IFavoriteProductRepository _FavoriteProductRepository;

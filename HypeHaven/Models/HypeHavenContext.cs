@@ -7,7 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HypeHaven.models;
-
+/// <summary>
+/// Represents a db structure.
+/// </summary>
 public partial class HypeHavenContext : IdentityDbContext<HypeHavenUser>
 {
     public HypeHavenContext()

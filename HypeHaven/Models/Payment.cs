@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HypeHaven.models;
 
+/// <summary>
+/// Represents a payment.
+/// </summary>
 public partial class Payment
 {
     public int PaymentId { get; set; }

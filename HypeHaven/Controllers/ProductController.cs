@@ -16,6 +16,9 @@ using System.Drawing.Drawing2D;
 
 namespace HypeHaven.Controllers
 {
+    /// <summary>
+    /// Controller for managing products.
+    /// </summary>
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;

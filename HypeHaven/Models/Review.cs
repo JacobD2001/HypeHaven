@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HypeHaven.models;
 
+/// <summary>
+/// Represents a review.
+/// </summary>
 public partial class Review
 {
     public int ReviewId { get; set; }

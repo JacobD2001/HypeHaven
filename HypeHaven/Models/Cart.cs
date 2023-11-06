@@ -1,6 +1,9 @@
 ﻿//PLATNOSC
 namespace HypeHaven.models
 {
+    /// <summary>
+    /// Represents a cart.
+    /// </summary>
     public class Cart
     {
         public int CartId { get; set; }          

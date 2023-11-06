@@ -3,6 +3,9 @@
 
 namespace HypeHaven.models
 {
+    /// <summary>
+    /// Represents a cartItem.
+    /// </summary>
     public class CartItem
     {
         public int CartItemId { get; set; } 

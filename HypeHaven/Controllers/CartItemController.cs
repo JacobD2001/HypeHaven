@@ -8,6 +8,9 @@ using Stripe;
 
 namespace HypeHaven.Controllers
 {
+    /// <summary>
+    /// Controller for managing cart items.
+    /// </summary>
     public class CartItemController : Controller
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HypeHaven.Controllers
 {
+    /// <summary>
+    /// Controller for managing reviews.
+    /// </summary>
     public class ReviewController : Controller
     {
         private readonly IReviewRepository _reviewRepository;

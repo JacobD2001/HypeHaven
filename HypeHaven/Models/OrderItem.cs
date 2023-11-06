@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HypeHaven.models;
 
+/// <summary>
+/// Represents an orderItem.
+/// </summary>
 public partial class OrderItem
 {
     public int OrderItemId { get; set; }

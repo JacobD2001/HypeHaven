@@ -16,6 +16,9 @@ using System.Security.Claims;
 
 namespace HypeHaven.Controllers
 {
+    /// <summary>
+    /// Controller for managing brands.
+    /// </summary>
     public class BrandController : Controller
     {
         private readonly IBrandRepository _brandRepository;

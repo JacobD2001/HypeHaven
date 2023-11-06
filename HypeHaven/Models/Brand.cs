@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HypeHaven.models;
 
+/// <summary>
+/// Represents a brand.
+/// </summary>
 public partial class Brand
 {
     public int BrandId { get; set; }

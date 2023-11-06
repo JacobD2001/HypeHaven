@@ -1,6 +1,9 @@
 ﻿
 namespace HypeHaven.models
 {
+    /// <summary>
+    /// Represents a favoriteProduct.
+    /// </summary>
     public partial class FavoriteProduct
     {
         public int FavoriteProductId { get; set; }

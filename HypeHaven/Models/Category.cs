@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace HypeHaven.models;
 
+/// <summary>
+/// Represents a category.
+/// </summary>
 public partial class Category
 {
     public int CategoryId { get; set; }
