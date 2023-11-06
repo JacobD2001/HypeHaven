@@ -2,6 +2,9 @@
 
 namespace HypeHaven.ViewModels.ReviewViewModels
 {
+    /// <summary>
+    /// View model for editing a review.
+    /// </summary>
     public class EditReviewViewModel
     {
 

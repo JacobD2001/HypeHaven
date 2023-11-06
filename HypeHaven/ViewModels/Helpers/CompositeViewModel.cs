@@ -3,6 +3,9 @@ using HypeHaven.ViewModels.ReviewViewModels;
 
 namespace HypeHaven.ViewModels.Helpers
 {
+    /// <summary>
+    /// Composite View model for merging AddReviewViewModel and ProductDetailViewModel.
+    /// </summary>
     public class CompositeViewModel
     {
         public AddReviewViewModel AddReviewViewModel { get; set; } = null!;

@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HypeHaven.ViewModels.BrandViewModels
 {
+    /// <summary>
+    /// View model for creating a brand.
+    /// </summary>
     public class CreateBrandViewModel
     {
         [Required(ErrorMessage = "Name is required.")]

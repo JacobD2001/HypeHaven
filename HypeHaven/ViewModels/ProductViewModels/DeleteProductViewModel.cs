@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HypeHaven.ViewModels.ProductViewModels
 {
+    /// <summary>
+    /// View model for deleting a product.
+    /// </summary>
     public class DeleteProductViewModel
     {
         public int Id { get; set; }

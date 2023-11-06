@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HypeHaven.ViewModels.ReviewViewModels
 {
+    /// <summary>
+    /// View model for adding a review.
+    /// </summary>
     public class AddReviewViewModel
     {
         [Required(ErrorMessage = "Text is required.")]

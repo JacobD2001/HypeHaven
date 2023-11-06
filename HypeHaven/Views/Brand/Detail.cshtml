@@ -1,17 +1,13 @@
 ﻿@using HypeHaven.models
-
-
 @model Brand
-<!-- Page Content -->
+
 <div class="container">
 
-    <!-- Portfolio Item Heading -->
     <h1 class="my-4">
         @Model.Name
         <small>@Model.Location</small>
     </h1>
 
-    <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-8">
@@ -26,18 +22,19 @@
                 <li>@Model.Location</li>
                 <li>@Model.Email</li>
                 <li>@Model.PhoneNumber</li>
-                 <li><a href="@Model.Instagram"><img src="/assets/instagram.png" alt="Instagram icon"></a></li>
+                <li><a href="@Model.Instagram"><img src="/assets/instagram.png" alt="Instagram icon"></a></li>
                 <li><a href="@Model.Facebook"><img src="/assets/facebook.png" alt="Facebook icon"></a></li>
                 <li><a href="@Model.Pinterest"><img src="/assets/pinterest.png" alt="Pinterest icon"></a></li>
                 <li><a href="@Model.Tiktok"><img src="/assets/tiktok.png" alt="TikTok icon"></a></li>
-@*                <li>@Model.Video</li>
-*@            </ul>
+                @*    <li>@Model.Video</li>
+                *@
+            </ul>
         </div>
         <div class="text-center">
             <h3 class="my-3">@Model.Name Products</h3>
         </div>
 
         <a class="btn btn-primary btn-lg" asp-controller="Product" asp-action="MyProductIndex" asp-route-id="@Model.BrandId">View products</a>
-       
+
 
     </div>

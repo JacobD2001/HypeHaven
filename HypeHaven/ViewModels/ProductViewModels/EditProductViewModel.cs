@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HypeHaven.ViewModels.ProductViewModels
 {
+    /// <summary>
+    /// View model for editing a product.
+    /// </summary>
     public class EditProductViewModel
     {
         public int Id { get; set; }

@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HypeHaven.ViewModels.BrandViewModels
 {
+    /// <summary>
+    /// View model for deleting a brand.
+    /// </summary>
     public class DeleteBrandViewModel
     {
         [Required(ErrorMessage = "Name is required.")]

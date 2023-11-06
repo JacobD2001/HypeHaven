@@ -20,12 +20,6 @@ builder.Services.AddDefaultIdentity<HypeHavenUser>(options => options.SignIn.Req
     .AddEntityFrameworkStores<HypeHavenContext>();
 
 //Add google auth
-/*builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-});*/
-
 //TODO - not safe to store client id and secret in code, TODO - user has to pick a role somehow
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {  
@@ -47,11 +41,7 @@ builder.Services.AddScoped<IReviewRepository , ReviewRepository>();
 builder.Services.AddScoped<ICartItemRepository , CartItemRepository>();
 builder.Services.AddScoped<ICartRepository , CartRepository>();
 
-
 var app = builder.Build();
-
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

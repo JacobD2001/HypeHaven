@@ -1,17 +1,14 @@
 ﻿@using HypeHaven.Helpers;
 @using HypeHaven.ViewModels.Helpers
-
 @model CompositeViewModel
-<!-- Page Content -->
+
 <div class="container">
 
-    <!-- Portfolio Item Heading -->
     <h1 class="my-4">
         @Model.ProductDetailViewModel.Product.Name
         <small>@Model.ProductDetailViewModel.Product.Price PLN </small>
     </h1>
 
-    <!-- Portfolio Item Row -->
     <div class="row">
 
         <div class="col-md-8">
@@ -70,8 +67,6 @@
             <button type="submit" class="btn btn-primary">Submit Review</button>
         </form>
     }
-    <!-- Review Form -->
-
 </div>
 
 <!--Retrive current user id for displaying edit, del buttons-->

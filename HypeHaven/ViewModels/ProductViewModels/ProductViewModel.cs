@@ -3,6 +3,9 @@ using System.Composition.Convention;
 
 namespace HypeHaven.ViewModels.ProductViewModels
 {
+    /// <summary>
+    /// View model for viewing products.
+    /// </summary>
     public class ProductViewModel
     {
         public IEnumerable<Product> Products { get; set; }
