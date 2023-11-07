@@ -33,8 +33,6 @@ public partial class Product
 
     public int CategoryId { get; set; }
     
-    public bool IsFavorite { get; set;} 
-
     public virtual Brand Brand { get; set; } = null!;
     public virtual Category Category { get; set; } = null!;
 
@@ -44,5 +42,6 @@ public partial class Product
 
     public virtual ICollection<Review> Reviews { get; } = new List<Review>();
     public virtual ICollection<CartItem> CartItems { get; } = new List<CartItem>();
+    public virtual ICollection<FavoriteProduct> FavoriteProducts { get; } = new List<FavoriteProduct>();
 
 }

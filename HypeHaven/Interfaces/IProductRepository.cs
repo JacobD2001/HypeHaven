@@ -21,27 +21,7 @@ namespace HypeHaven.Interfaces
         /// <returns>The matching products.</returns>
         Task<IEnumerable<Product>> Search(string searchTerm);
 
-        /// <summary>
-        /// Adds the specified product to the user's favorites.
-        /// </summary>
-        /// <param name="productId">The ID of the product to add.</param>
-        /// <returns>The added product.</returns>
-        Task<Product> AddToFavoritesAsync(int productId);
-
-        /// <summary>
-        /// Removes the specified product from the user's favorites.
-        /// </summary>
-        /// <param name="productId">The ID of the product to remove.</param>
-        /// <returns>The removed product.</returns>
-        Task<Product> RemoveFromFavoritesAsync(int productId);
-
-        /// <summary>
-        /// Gets the user's favorite products.
-        /// </summary>
-        /// <param name="userId">The ID of the user.</param>
-        /// <returns>The user's favorite products.</returns>
-        Task<IEnumerable<Product>> GetFavoriteProducts(string userId);
-
+       
         /// <summary>
         /// Gets the reviews for the specified product.
         /// </summary>

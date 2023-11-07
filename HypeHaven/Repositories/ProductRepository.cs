@@ -65,69 +65,7 @@ namespace HypeHaven.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Product> AddToFavoritesAsync(int productId)
-        {
-            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-
-            // returns true if product is in favorite
-            if (!_favoriteProductRepository.IsFavorite(currentUserId, productId))
-            {
-                // If not, create a FavoriteProduct object
-                var favoriteProduct = new FavoriteProduct
-                {
-                    UserId = currentUserId,
-                    ProductId = productId,
-                };
-
-                _context.FavoriteProducts.Add(favoriteProduct);
-                await _context.SaveChangesAsync();
-            }
-
-            // set the IsFavorite property in the Product model 
-            var product = await _context.Products.FindAsync(productId);
-            if (product != null)
-            {
-                product.IsFavorite = true; // Set the IsFavorite property to true
-                await _context.SaveChangesAsync();
-            }
-
-            return product;
-        }
-
-        public async Task<Product> RemoveFromFavoritesAsync(int productId)
-        {
-            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-
-            // Check if the product is in the user's favorites
-            if (_favoriteProductRepository.IsFavorite(currentUserId, productId))
-            {
-                // Remove the FavoriteProduct 
-                var favoriteProduct = _context.FavoriteProducts.FirstOrDefault(fp => fp.UserId == currentUserId && fp.ProductId == productId);
-                if (favoriteProduct != null)
-                {
-                    _context.FavoriteProducts.Remove(favoriteProduct);
-                    await _context.SaveChangesAsync();
-                }
-            }
-
-            //setting property to false
-            var product = await _context.Products.FindAsync(productId);
-            if (product != null)
-            {
-                product.IsFavorite = false; 
-                await _context.SaveChangesAsync();
-            }
-
-            return product;
-        }
-
-        public async Task<IEnumerable<Product>> GetFavoriteProducts(string userId)
-        {
-            return await _context.Products
-                .Where(p => p.IsFavorite && p.UserId == userId)
-                .ToListAsync();
-        }
-
+      
         public async Task<IEnumerable<Product>> SortProductsByPrice(IEnumerable<Product> products, string sortOrder)
         {
             switch (sortOrder)

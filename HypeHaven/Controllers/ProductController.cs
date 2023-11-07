@@ -56,12 +56,13 @@ namespace HypeHaven.Controllers
         /// <param name="priceSortOrder">The sort order for the price.</param>
         /// <param name="categoryFilter">The ID of the category to filter by.</param>
         /// <param name="searchTerm">The search term to filter by.</param>
+        /// <param name="resetFilters">The string indicating reseting filters</param>
         /// <returns>The Index view.</returns>
         [HttpGet]
         public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter, string searchTerm, string resetFilters)
         {
             var products = await _productRepository.GetAll();
-            var categories = await _categoryRepository.GetAll(); // Replace with your actual category retrieval logic.
+            var categories = await _categoryRepository.GetAll(); 
 
             //clear filters
             if (resetFilters != null)
@@ -109,13 +110,13 @@ namespace HypeHaven.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-                IEnumerable<Product> favoriteProducts = await _productRepository.GetFavoriteProducts(currentUserId);
+                IEnumerable<FavoriteProduct> favoriteProducts = await _favoriteProductRepository.GetFavoriteProductsForSpecifedUser(currentUserId);
                 return View(favoriteProducts);
             }
             else
             {
                 // Handle the case where the user is not authenticated 
-                return View("NotAuthenticated"); 
+                return View("NotAuthenticated");
             }
         }
 
@@ -161,10 +162,17 @@ namespace HypeHaven.Controllers
                 Id = _httpContextAccessor.HttpContext.User.GetUserId(),               
             };
 
+            // Create and populate FavoriteProductViewModel
+            var favoriteProductViewModel = new FavoriteProductViewModel
+            {
+                IsFavorite = _favoriteProductRepository.IsFavorite(_httpContextAccessor.HttpContext.User.GetUserId(), product.ProductId)
+            };
+
             var viewModel = new CompositeViewModel
             {
                 ProductDetailViewModel = productDetailViewModel,
                 AddReviewViewModel = addReviewViewModel,
+                FavoriteProductViewModel = favoriteProductViewModel,
                 HttpContextAccessor= _httpContextAccessor
             };
       
@@ -465,7 +473,16 @@ namespace HypeHaven.Controllers
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             if (!_favoriteProductRepository.IsFavorite(currentUserId, productId))
             {
-                var product = await _productRepository.AddToFavoritesAsync(productId);
+                var FavoriteProduct = new FavoriteProduct
+                {
+                    UserId = currentUserId,
+                    ProductId = productId,
+                    IsFavorite = true
+                };
+                
+                
+                _favoriteProductRepository.Add(FavoriteProduct);
+
             }
 
 
@@ -481,9 +498,13 @@ namespace HypeHaven.Controllers
         public async Task<IActionResult> RemoveFromFavorites(int productId)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            if (_favoriteProductRepository.IsFavorite(currentUserId, productId))
+
+            var FavoriteProduct = _favoriteProductRepository.GetUserFavoriteProduct(currentUserId, productId);
+
+            if (FavoriteProduct != null)
             {
-                var product = await _productRepository.RemoveFromFavoritesAsync(productId);
+                FavoriteProduct.IsFavorite = false;
+                _favoriteProductRepository.Delete(FavoriteProduct);
             }
 
             return RedirectToAction("Index");

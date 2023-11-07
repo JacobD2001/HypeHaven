@@ -1,4 +1,5 @@
-﻿using HypeHaven.ViewModels.ProductViewModels;
+﻿using HypeHaven.models;
+using HypeHaven.ViewModels.ProductViewModels;
 using HypeHaven.ViewModels.ReviewViewModels;
 
 namespace HypeHaven.ViewModels.Helpers
@@ -11,5 +12,7 @@ namespace HypeHaven.ViewModels.Helpers
         public AddReviewViewModel AddReviewViewModel { get; set; } = null!;
         public ProductDetailViewModel ProductDetailViewModel { get; set; } = null!;
         public IHttpContextAccessor HttpContextAccessor { get; set; }
+        public FavoriteProductViewModel FavoriteProductViewModel { get; set; }
+
     }
 }

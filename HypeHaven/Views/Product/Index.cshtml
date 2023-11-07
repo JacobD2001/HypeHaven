@@ -84,24 +84,7 @@
                                                 <p>Please log in to add this product to your cart.</p>
                                             }
                                         </form>
-
-                                        @if (User.Identity.IsAuthenticated)
-                                        {
-                                            if (item.IsFavorite)
-                                            {
-                                                <form asp-controller="Product" asp-action="RemoveFromFavorites" method="post">
-                                                    <input type="hidden" name="productId" value="@item.ProductId" />
-                                                    <button type="submit" class="btn btn-success btn-sm">Remove from fav</button>
-                                                </form>
-                                            }
-                                            else
-                                            {
-                                                <form asp-controller="Product" asp-action="AddToFavorites" method="post">
-                                                    <input type="hidden" name="productId" value="@item.ProductId" />
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Add to fav</button>
-                                                </form>
-                                            }
-                                        }
+                   
                                     </div>
                                 </div>
                             </div>

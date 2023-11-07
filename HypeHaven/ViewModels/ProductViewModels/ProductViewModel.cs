@@ -14,6 +14,7 @@ namespace HypeHaven.ViewModels.ProductViewModels
         public string PriceSortOrder { get; set; }
         public string SearchTerm { get; set; }
 
+
     }
 
 }
