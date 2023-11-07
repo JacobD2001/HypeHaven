@@ -1,7 +1,11 @@
-﻿ body {
+﻿body {
+    background-image: url('/Assets/mdnBackground.png');
     background-color: #141414;
     color: #FFFFFF;
     font-family: Arial, sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .display-4 {
@@ -37,5 +41,4 @@ h2 {
     color: #FFFFFF;
     transition: background-color 0.3s, color 0.3s;
 }
-
 

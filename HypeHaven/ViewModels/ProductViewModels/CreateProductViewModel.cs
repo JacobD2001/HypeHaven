@@ -11,31 +11,38 @@ namespace HypeHaven.ViewModels.ProductViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
-        [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
+        [StringLength(50, ErrorMessage = "Name cannot be longer than 50 characters.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
-        [StringLength(500, ErrorMessage = "Description cannot be longer than 500 characters.")]
+        [StringLength(100, ErrorMessage = "Description cannot be longer than 250 characters.")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Price is required.")]
-        [Range(0, double.MaxValue, ErrorMessage = "Price must be a positive number.")]
+        [Range(0, 1000000, ErrorMessage = "Price must be a positive number and can't be bigger than 1000000.")]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Image is required.")]
         public IFormFile Image { get; set; } = null!;
 
-        [StringLength(50, ErrorMessage = "Size cannot be longer than 50 characters.")]
-        public string? Size { get; set; }
+        public List<string> Size { get; } = new List<string>
+        {
+            "Small",
+            "Medium",
+            "Large",
+            "Extra Large"
+        };
+        
+        public string SelectedSize { get; set; }
 
-        [StringLength(50, ErrorMessage = "Color cannot be longer than 50 characters.")]
+        [StringLength(25, ErrorMessage = "Color cannot be longer than 25 characters.")]
         public string? Color { get; set; }
 
-        [StringLength(50, ErrorMessage = "Material cannot be longer than 50 characters.")]
+        [StringLength(25, ErrorMessage = "Material cannot be longer than 25 characters.")]
         public string? Material { get; set; }
 
         [Required(ErrorMessage = "Quantity is required.")]
-        [Range(0, int.MaxValue, ErrorMessage = "Quantity must be a positive integer.")]
+        [Range(0, 1000000, ErrorMessage = "Quantity must be a positive integer.")]
         public int Quantity { get; set; }
 
         public int CategoryId { get; set; }

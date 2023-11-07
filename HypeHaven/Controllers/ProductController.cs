@@ -237,7 +237,7 @@ namespace HypeHaven.Controllers
                     Description = productVM.Description,
                     Price = productVM.Price,
                     Image = result.Url.ToString(),
-                    Size = productVM.Size,
+                    Size = productVM.SelectedSize,
                     Color = productVM.Color,
                     Material = productVM.Material,
                     Quantity = productVM.Quantity,
@@ -283,7 +283,7 @@ namespace HypeHaven.Controllers
                     Description = product.Description,
                     Price = product.Price,
                     URL = product.Image,
-                    Size = product.Size,
+                    SelectedSize = product.Size,
                     Color = product.Color,
                     Material = product.Material,
                     Quantity = product.Quantity,
@@ -310,6 +310,7 @@ namespace HypeHaven.Controllers
             //as no tracking
             var curProduct = await _productRepository.GetByIdAsyncNoTracking(id);
             var result = await _photoService.AddPhotoAsync(productVM.Image);
+            var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
             if (curProduct == null)
                 return NotFound();
@@ -317,6 +318,7 @@ namespace HypeHaven.Controllers
             {
                 _ = _photoService.DeletePhotoAsync(curProduct.Image);
             }
+
 
             if (ModelState.IsValid)
             {
@@ -330,12 +332,13 @@ namespace HypeHaven.Controllers
                     Description = productVM.Description,
                     Price = productVM.Price,
                     Image = result.Url.ToString(),
-                    Size = productVM.Size,
+                    Size = productVM.SelectedSize,
                     Color = productVM.Color,
                     Material = productVM.Material,
                     Quantity = productVM.Quantity,
                     CategoryId = category.CategoryId,
-                    BrandId = brand.BrandId
+                    BrandId = brand.BrandId,
+                    UserId = currentUserId
                 };
 
                 _productRepository.Update(product);

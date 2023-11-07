@@ -9,24 +9,25 @@ namespace HypeHaven.ViewModels.BrandViewModels
     public class CreateBrandViewModel
     {
         [Required(ErrorMessage = "Name is required.")]
-        [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters.")]
+        [StringLength(20, ErrorMessage = "Name cannot be longer than 20 characters.")]
         public string Name { get; set; } = null!;
 
-        [StringLength(500, ErrorMessage = "Description cannot be longer than 500 characters.")]
+        [StringLength(100, ErrorMessage = "Description cannot be longer than 500 characters.")]
         public string? Description { get; set; }
 
-        [StringLength(100, ErrorMessage = "Location cannot be longer than 100 characters.")]
+        [StringLength(20, ErrorMessage = "Location cannot be longer than 20 characters.")]
         public string? Location { get; set; }
 
         [Required(ErrorMessage = "Image is required.")]
         public IFormFile Image { get; set; }
 
+        [StringLength(30, ErrorMessage = "Email cannot be longer than 30 characters.")]
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid email address.")]
         public string? Email { get; set; }
 
+        [StringLength(15, ErrorMessage = "Phone number cannot be longer than 15 characters.")]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Phone number can only contain numbers.")]
         public string? PhoneNumber { get; set; }
-
 
         [Url(ErrorMessage = "Invalid Instagram URL.")]
         public string? Instagram { get; set; }

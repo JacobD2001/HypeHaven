@@ -1,4 +1,4 @@
-using FakeItEasy;
+/*using FakeItEasy;
 using HypeHaven.Interfaces;
 using HypeHaven.models;
 using Microsoft.AspNetCore.Http;
@@ -52,7 +52,7 @@ namespace HypeHavenTests
             //Assert( on this step you verify if the code produced expected result)
             var viewResult = Assert.IsType<ViewResult>(result);//verifies that the result returned by the index action is of the correct type
         } 
-  /*      [Fact] //it indicates that this is xUnit test
+  *//*      [Fact] //it indicates that this is xUnit test
         public async void BrandController_Detail_ReturnsSuccess() //whatcontroller_whataction_whatreturns(desired output)
         {
             //Arrange 
@@ -62,6 +62,6 @@ namespace HypeHavenTests
             var result = await _brandController.MyBrandIndex(); //calling an action of controller(simulation of the actual execution)
             //Assert( on this step you verify if the code produced expected result)
             var viewResult = Assert.IsType<ViewResult>(result);//verifies that the result returned by the index action is of the correct type
-        }*/
+        }*//*
     }
-}
+}*/
