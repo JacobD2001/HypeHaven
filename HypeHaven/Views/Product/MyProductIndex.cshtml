@@ -20,14 +20,16 @@
                         <img class="card-img-top" src="@item.Image" height="225" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">@item.Name</p>
-                            <p class="card-text">@item.Description</p>
+                            <p class="card-text">@item.Price PLN</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary"><i class="fas fa-info-circle"></i>View</a>
                                     @if (User.Identity.IsAuthenticated && User.IsInRole("vendor") && item.UserId == User.GetUserId())
                                     {
-                                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">Delete</a>
+                                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-edit"></i>Edit</a>
+                                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-trash-alt"></i>Delete</a>
                                     }
                                 </div>
                             </div>

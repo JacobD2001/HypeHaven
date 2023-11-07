@@ -42,3 +42,40 @@ h2 {
     transition: background-color 0.3s, color 0.3s;
 }
 
+
+
+.display-4 {
+    font-size: 6rem;
+    letter-spacing: 0.5rem;
+    margin-top: 10rem;
+}
+
+h2 {
+    font-size: 3rem;
+    letter-spacing: 0.2rem;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    background-color: #312F7E;
+    border-color: #312F7E;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+}
+
+.btn-secondary {
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    color: #141414;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+}
+
+.btn:hover {
+    background-color: #141414;
+    border-color: #141414;
+    color: #FFFFFF;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+

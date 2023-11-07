@@ -4144,6 +4144,7 @@ textarea.form-control-lg {
     align-items: center;
     justify-content: space-between;
     padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+    background-color: grey;
 }
 
     .navbar > .container,
@@ -12155,6 +12156,7 @@ textarea.form-control-lg {
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
+    background-color: #d9534f;
 }
 
 .navbar-nav .nav-link {
@@ -12300,3 +12302,16 @@ th {
 .card .h6 {
     color: inherit;
 }
+
+/*override some props*/
+/* Set the navbar background color to grey */
+/*.navbar {
+    background-color: #393c40;*/ /* You can use any grey color you prefer */
+/*}*/
+
+    /* Set the text color for links in the navbar (optional) */
+    /*.navbar a.nav-link {
+        color: #000;*/ /* You can change the text color to your preference */
+    /*}*/
+
+/* Add other styles or overrides as needed */

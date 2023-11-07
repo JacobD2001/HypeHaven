@@ -2,15 +2,20 @@
 @model (IEnumerable<Product> products, string searchTerm, int? categoryFilter, string priceSortOrder, IEnumerable<Category> categories)
 
 <form action="@Url.Action("Search", "Product")" method="get">
-    <!-- Search input -->
-    <div class="form-group">
-        <label for="searchTerm">Search Products:</label>
-        <input type="text" name="searchTerm" class="form-control" placeholder="Search Products..." value="@Model.searchTerm">
+    <div class="form-group d-flex">
+        <label for="searchTerm"><i class="fas fa-search"></i> Search Products:</label>
+        <div class="input-group">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Search Products..." value="@Model.searchTerm">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- Filter by Price -->
-    <div class="form-group">
-        <label for="priceSortOrder">Sort by Price:</label>
+    <div class="form-group d-flex">
+        <label for="priceSortOrder"><i class="fas fa-sort-amount-up"></i> Sort by Price:</label>
         <select id="priceSortOrder" name="priceSortOrder" class="form-control">
             <option value="">Default</option>
             <option value="Price">Price (Low to High)</option>
@@ -19,9 +24,8 @@
         </select>
     </div>
 
-    <!-- Filter by Category -->
-    <div class="form-group">
-        <label for="categoryFilter">Filter by Category:</label>
+    <div class="form-group d-flex">
+        <label for="categoryFilter" class="mr-2"><i class="fas fa-filter"></i> Filter by Category:</label>
         <select id="categoryFilter" name="categoryFilter" class="form-control">
             <option value="">All categories</option>
             @foreach (var category in Model.categories)
@@ -31,17 +35,22 @@
         </select>
     </div>
 
-    <!-- Search and Filter Button -->
-    <button type="submit" class="btn btn-primary">Search and Filter</button>
+    <button type="submit" class="btn btn-primary d-none d-md-block">
+        <i class="fas fa-search"></i> Search and Filter
+    </button>
 </form>
 
-<!--Reset filters form-->
+<!-- Reset filters form -->
 <form asp-controller="Product" asp-action="Index" method="get">
-    <button type="submit" class="btn btn-secondary" name="resetFilters">Reset Filters</button>
+    <button type="submit" class="btn btn-secondary" name="resetFilters">
+        <i class="fas fa-undo"></i> Reset Filters
+    </button>
 </form>
-<!--info about filters-->
-<div>
-    <h3>Current Filters:</h3>
+
+
+<!-- Info about filters -->
+
+<div class="current-filters">
     @if (!string.IsNullOrEmpty(Model.searchTerm))
     {
         <p>Search Term: @Model.searchTerm</p>
@@ -49,7 +58,24 @@
 
     @if (!string.IsNullOrEmpty(Model.priceSortOrder) && Model.priceSortOrder != "Default")
     {
-        <p>Sort by Price: @Model.priceSortOrder</p>
+        string priceSortDisplay;
+        switch (Model.priceSortOrder)
+        {
+            case "price":
+                priceSortDisplay = "Price (Low to High)";
+                break;
+            case "price_desc":
+                priceSortDisplay = "Price (High to Low)";
+                break;
+            case "date_added_desc":
+                priceSortDisplay = "Date Added (Newest First)";
+                break;
+            default:
+                priceSortDisplay = "Default";
+                break;
+        }
+
+        <p>Sort by Price: @priceSortDisplay</p>
     }
 
     @if (Model.categoryFilter.HasValue)
@@ -66,7 +92,6 @@
 @if (!Model.products.Any())
 {
     <h1>No products found for @Model.searchTerm</h1>
-
 }
 else
 {
@@ -75,7 +100,6 @@ else
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
-
                 @foreach (var item in Model.products)
                 {
                     <div class="col-md-4">
@@ -86,7 +110,13 @@ else
                                 <p class="card-text">@item.Description</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"
+                                           type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-info-circle"></i> View
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -96,5 +126,4 @@ else
             </div>
         </div>
     </div>
-
 }

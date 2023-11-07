@@ -1,10 +1,9 @@
-﻿<h1>Here delete reviews</h1>
-@using HypeHaven.ViewModels.ReviewViewModels
+﻿@using HypeHaven.ViewModels.ReviewViewModels
 
 @model DeleteReviewViewModel
 @if (User.Identity.IsAuthenticated)
 {
-    <h3>Delete a Review</h3>
+    <h1>Delete a Review</h1>
     <form method="post">
         <input type="hidden" id="Id" name="Id" asp-for="@Model.Id" />
         <input type="hidden" id="ProductId" name="ProductId" asp-for="@Model.ProductId" />

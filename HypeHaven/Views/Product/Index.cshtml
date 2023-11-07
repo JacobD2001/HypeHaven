@@ -2,14 +2,23 @@
 @model ProductViewModel
 
 <h1>Products</h1>
-@* Search and Filter Form *@
+
+<!-- Search and Filter Form -->
 <form asp-controller="Product" asp-action="Index" method="get">
     <div class="form-group">
-        <label for="searchTerm">Search Products:</label>
-        <input type="text" name="searchTerm" class="form-control" placeholder="Search Products..." value="@Model.SearchTerm">
+        <label for="searchTerm"><i class="fas fa-search"></i> Search Products:</label>
+        <div class="input-group">
+            <input type="text" name="searchTerm" class="form-control" placeholder="Search Products..." value="@Model.SearchTerm">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
     </div>
+
     <div class="form-group">
-        <label for="priceSortOrder">Sort by Price:</label>
+        <label for="priceSortOrder"><i class="fas fa-sort-amount-up"></i> Sort by Price:</label>
         <select id="priceSortOrder" name="priceSortOrder" class="form-control">
             <option value="">Default</option>
             <option value="Price">Price (Low to High)</option>
@@ -17,8 +26,9 @@
             <option value="date_added_desc">Date Added (Newest First)</option>
         </select>
     </div>
-    <div class="form-group">
-        <label for="categoryFilter">Filter by Category:</label>
+
+    <div class="form-group d-flex align-items-center">
+        <label for="categoryFilter" class="mr-2"><i class="fas fa-filter"></i> Filter by Category:</label>
         <select id="categoryFilter" name="categoryFilter" class="form-control">
             <option value="">All categories</option>
             @foreach (var category in Model.Categories)
@@ -27,23 +37,25 @@
             }
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Search and Filter</button>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i> Search and Filter
+    </button>
+    <button type="submit" class="btn btn-secondary" name="resetFilters">
+        <i class="fas fa-undo"></i> Reset Filters
+    </button>
 </form>
-<!--Reset filters form-->
-<form asp-controller="Product" asp-action="Index" method="get">
-    <button type="submit" class="btn btn-secondary" name="resetFilters">Reset Filters</button>
-</form>
-<!--info about filters-->
-<div>
-    <h3>Current Filters:</h3>
+
+<!-- Info about filters -->
+<div class="current-filters">
     @if (!string.IsNullOrEmpty(Model.SearchTerm))
     {
-        <p>Search Term: @Model.SearchTerm</p>
+        <p><i class="fas fa-search"></i> Search Term: @Model.SearchTerm</p>
     }
 
     @if (!string.IsNullOrEmpty(Model.PriceSortOrder) && Model.PriceSortOrder != "Default")
     {
-        <p>Sort by Price: @Model.PriceSortOrder</p>
+        <p><i class="fas fa-sort-amount-up"></i> Sort by Price: @Model.PriceSortOrder</p>
     }
 
     @if (Model.SelectedCategoryId.HasValue)
@@ -51,12 +63,12 @@
         var selectedCategory = Model.Categories.FirstOrDefault(c => c.CategoryId == Model.SelectedCategoryId.Value);
         if (selectedCategory != null)
         {
-            <p>Category Filter: @selectedCategory.Name</p>
+            <p><i class="fas fa-filter"></i> Category Filter: @selectedCategory.Name</p>
         }
     }
 </div>
-<!--view(value sortOrder passed to controller than using method from repo values in switch)-->
-@*Displaying products*@
+
+<!-- Displaying products -->
 <div class="album py-5 bg-light">
     <div class="container">
         <div class="row">
@@ -69,22 +81,25 @@
                             <img class="card-img-top" src="@item.Image" height="225" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">@item.Name</p>
-                                <p class="card-text">@item.Description</p>
+                                <p class="card-text">@item.Price PLN</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <a type="btn btn-success" asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId" type="button" class="btn btn-sm btn-outline-secondary">
+                                            <i class="fas fa-info-circle"></i> View
+                                        </a>
                                         <form asp-controller="CartItem" asp-action="AddToCart" method="post">
                                             <input type="hidden" asp-for="@item.ProductId" name="productId" />
                                             @if (User.Identity.IsAuthenticated)
                                             {
-                                                <input type="submit" value="Add to Cart" class="btn btn-primary" />
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                                </button>
                                             }
                                             else
                                             {
                                                 <p>Please log in to add this product to your cart.</p>
                                             }
                                         </form>
-                   
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +107,6 @@
                     </div>
                 }
             }
-
         </div>
     </div>
 </div>

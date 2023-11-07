@@ -3,7 +3,7 @@
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("vendor"))
 {
-    <h2>Create Product</h2>
+    <h2>Add Product</h2>
 
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" id="Categories" name="Categories" asp-for="Categories" />
@@ -31,19 +31,24 @@
             <span asp-validation-for="Image" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label for="SelectedSize">Size</label>
-            <select asp-for="SelectedSize" asp-items="new SelectList(Model.Size)">
-                <option value="">Select a size</option>
-            </select>
-            <span asp-validation-for="SelectedSize" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="SelectedSize">Size</label>
+                    <select asp-for="SelectedSize" asp-items="new SelectList(Model.Size)">
+                        <option value="">Select a size</option>
+                    </select>
+                    <span asp-validation-for="SelectedSize" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="SelectedColor">Color</label>
+                    <select asp-for="SelectedColor" asp-items="new SelectList(Model.ColorPalette)">
+                        <option value="">Select a color</option>
+                    </select>
+                    <span asp-validation-for="SelectedColor" class="text-danger"></span>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="SelectedColor">Color</label>
-            <select asp-for="SelectedColor" asp-items="new SelectList(Model.ColorPalette)">
-                <option value="">Select a color</option>
-            </select>
-            <span asp-validation-for="SelectedColor" class="text-danger"></span>
-        </div>
+
         <div class="form-group">
             <label for="Material">Material</label>
             <input asp-for="Material" class="form-control" />
@@ -80,10 +85,13 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Add Product" class="btn btn-primary" />
             </div>
 
     </form>
+
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+
 }
 
 

@@ -5,7 +5,7 @@
 
     <h1 class="my-4">
         @Model.Name
-        <small>@Model.Location</small>
+        <small><i class="fas fa-map-marker-alt"></i>@Model.Location</small>
     </h1>
 
     <div class="row">
@@ -18,23 +18,16 @@
             <h3 class="my-3">@Model.Name</h3>
             <p>@Model.Description</p>
             <h3 class="my-3">About @Model.Name</h3>
-            <ul>
-                <li>@Model.Location</li>
-                <li>@Model.Email</li>
-                <li>@Model.PhoneNumber</li>
-                <li><a href="@Model.Instagram"><img src="/assets/instagram.png" alt="Instagram icon"></a></li>
-                <li><a href="@Model.Facebook"><img src="/assets/facebook.png" alt="Facebook icon"></a></li>
-                <li><a href="@Model.Pinterest"><img src="/assets/pinterest.png" alt="Pinterest icon"></a></li>
-                <li><a href="@Model.Tiktok"><img src="/assets/tiktok.png" alt="TikTok icon"></a></li>
-                @*    <li>@Model.Video</li>
-                *@
+            <ul class="list-inline">
+                <li><small><i class="fas fa-map-marker-alt"></i> @Model.Location</small></li>
+                <li><small><i class="fas fa-envelope"></i> @Model.Email</small></li>
+                <li><small><i class="fas fa-phone"></i> @Model.PhoneNumber</small></li>
+                <li class="list-inline-item"><a href="@Model.Instagram"><img src="/assets/instagram.png" alt="Instagram icon"></a><a href="@Model.Facebook"><img src="/assets/facebook.png" alt="Facebook icon"></a><a href="@Model.Pinterest"><img src="/assets/pinterest.png" alt="Pinterest icon"></a><a href="@Model.Tiktok"><img src="/assets/tiktok.png" alt="TikTok icon"></a></li>
             </ul>
         </div>
-        <div class="text-center">
-            <h3 class="my-3">@Model.Name Products</h3>
-        </div>
 
-        <a class="btn btn-primary btn-lg" asp-controller="Product" asp-action="MyProductIndex" asp-route-id="@Model.BrandId">View products</a>
-
+        <a class="btn btn-primary btn-lg" asp-controller="Product" asp-action="MyProductIndex" asp-route-id="@Model.BrandId">View @Model.Name products</a>
 
     </div>
+
+</div>

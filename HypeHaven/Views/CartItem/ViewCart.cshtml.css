@@ -1,0 +1,78 @@
+﻿/* Apply some basic styles to the page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Style the alert message */
+.alert {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Style the table */
+.table {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .table th, .table td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    /* Style the table header row */
+    .table thead {
+        background-color: #f8f9fa;
+    }
+
+    /* Style the image within the table */
+    .table img {
+        max-width: 130px;
+        max-height: 150px;
+    }
+
+/* Style the quantity input */
+table form input[type="number"] {
+    width: 50px;
+}
+
+/* Style the buttons */
+table form button {
+    background-color: #0b0c0d;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+    table form button[type="submit"] {
+        background-color: #28a745;
+    }
+
+/* Style the Checkout button */
+div form button[type="submit"] {
+    background-color: #0b0c0d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Add space between the table and the Checkout button */
+table + div {
+    margin-top: 20px;
+}

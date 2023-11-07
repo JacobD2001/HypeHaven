@@ -25,7 +25,7 @@ namespace HypeHaven.ViewModels.BrandViewModels
         [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid email address.")]
         public string? Email { get; set; }
 
-        [StringLength(15, ErrorMessage = "Phone number cannot be longer than 15 characters.")]
+        [StringLength(9, ErrorMessage = "Phone number cannot be longer than 9 characters.")]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Phone number can only contain numbers.")]
         public string? PhoneNumber { get; set; }
 

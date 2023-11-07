@@ -479,14 +479,11 @@ namespace HypeHaven.Controllers
                     ProductId = productId,
                     IsFavorite = true
                 };
-                
-                
+                             
                 _favoriteProductRepository.Add(FavoriteProduct);
-
             }
 
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Detail", new { id = productId });
         }
 
         /// <summary>
@@ -507,7 +504,7 @@ namespace HypeHaven.Controllers
                 _favoriteProductRepository.Delete(FavoriteProduct);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Detail", new { id = productId });
         }
 
 
