@@ -34,6 +34,11 @@
     <!-- Search and Filter Button -->
     <button type="submit" class="btn btn-primary">Search and Filter</button>
 </form>
+
+<!--Reset filters form-->
+<form asp-controller="Product" asp-action="Index" method="get">
+    <button type="submit" class="btn btn-secondary" name="resetFilters">Reset Filters</button>
+</form>
 <!--info about filters-->
 <div>
     <h3>Current Filters:</h3>

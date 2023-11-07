@@ -58,23 +58,35 @@ namespace HypeHaven.Controllers
         /// <param name="searchTerm">The search term to filter by.</param>
         /// <returns>The Index view.</returns>
         [HttpGet]
-        public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter, string searchTerm)
+        public async Task<IActionResult> Index(string priceSortOrder, int? categoryFilter, string searchTerm, string resetFilters)
         {
             var products = await _productRepository.GetAll();
             var categories = await _categoryRepository.GetAll(); // Replace with your actual category retrieval logic.
 
-            if (!string.IsNullOrEmpty(priceSortOrder))
+            //clear filters
+            if (resetFilters != null)
             {
-                // Apply price sorting
-                products = await _productRepository.SortProductsByPrice(products, priceSortOrder);
+                priceSortOrder = null;
+                categoryFilter = null;
+                searchTerm = null;
             }
-
-            if (categoryFilter.HasValue)
+            else
             {
-                // Apply category filtering
-                products = await _productRepository.FilterProductsByCategory(products, categoryFilter.Value);
-            }
+                if (!string.IsNullOrEmpty(priceSortOrder))
+                {
+                    // Apply price sorting
+                    products = await _productRepository.SortProductsByPrice(products, priceSortOrder);
+                }
 
+                if (categoryFilter.HasValue)
+                {
+                    // Apply category filtering
+                    products = await _productRepository.FilterProductsByCategory(products, categoryFilter.Value);
+                }
+                if (!string.IsNullOrWhiteSpace(searchTerm))
+                    return RedirectToAction("Search", "Product", new { searchTerm, categoryFilter, priceSortOrder });
+            }
+          
             var viewModel = new ProductViewModel
             {
                 Products = products,
@@ -84,10 +96,7 @@ namespace HypeHaven.Controllers
                 SearchTerm = searchTerm
             };
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-                return RedirectToAction("Search", "Product", new { searchTerm, categoryFilter, priceSortOrder }); 
-    
-                return View(viewModel);
+            return View(viewModel);
         }
 
         /// <summary>
