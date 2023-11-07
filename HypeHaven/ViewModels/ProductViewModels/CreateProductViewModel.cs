@@ -32,11 +32,19 @@ namespace HypeHaven.ViewModels.ProductViewModels
             "Large",
             "Extra Large"
         };
-        
+
         public string SelectedSize { get; set; }
 
-        [StringLength(25, ErrorMessage = "Color cannot be longer than 25 characters.")]
-        public string? Color { get; set; }
+        public List<string> ColorPalette { get; } = new List<string>
+        {
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "blue",
+        };
+
+        public string? SelectedColor { get; set; }
 
         [StringLength(25, ErrorMessage = "Material cannot be longer than 25 characters.")]
         public string? Material { get; set; }
