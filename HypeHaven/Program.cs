@@ -7,6 +7,7 @@ using HypeHaven.Repositories;
 using HypeHaven.NewFolder;
 using Stripe;
 using HypeHaven.Helpers.Models;
+using HypeHaven.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HypeHavenContextConnection") ?? throw new InvalidOperationException("Connection string 'HypeHavenContextConnection' not found.");
@@ -30,6 +31,8 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection("Stripe"));
+
 
 // Add services for dependency injection
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();

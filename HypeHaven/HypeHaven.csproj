@@ -8,13 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="NewFolder\**" />
     <Compile Remove="Views\AspNetRole\**" />
-    <Content Remove="NewFolder\**" />
     <Content Remove="Views\AspNetRole\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
     <EmbeddedResource Remove="Views\AspNetRole\**" />
-    <None Remove="NewFolder\**" />
     <None Remove="Views\AspNetRole\**" />
   </ItemGroup>
 
