@@ -54,9 +54,9 @@ This application is hosted on Azure. You can access the live version [here](YOUR
 ![brands](https://github.com/JacobD2001/HypeHaven/assets/93675889/21ae2a78-0d6c-49d7-88c8-ad0faf1d4487)
 ![products](https://github.com/JacobD2001/HypeHaven/assets/93675889/3685eb9e-c2a2-46d0-8224-4bc180af86e6)
 
-## Demo Video(soon)
+## Demo Video
 
-[![Demo Video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Watch the video](https://imgur.com/QN7f7FI.png)](https://www.loom.com/share/9376935d56ef4f26a724c334e83d27a8?sid=9506036b-2487-4c20-a8a9-8948e7bda389)
 
 ## Author
 
