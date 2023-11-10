@@ -137,6 +137,12 @@ namespace HypeHaven.Controllers
 
                 item.Product.Quantity -= item.Quantity;
                 _productRepository.Update(item.Product);
+
+                //TO DO: Handle the case when payment is failed and the quantity of the product should be returned
+                if(item.Product.Quantity <= 0)
+                {
+                    _productRepository.Delete(item.Product);
+                }
             }
 
             var service = new SessionService();
@@ -150,7 +156,8 @@ namespace HypeHaven.Controllers
         /// <summary>
         /// Displays the order confirmation page if the payment was successful, otherwise displays the order failed page.
         /// </summary>
-        public IActionResult OrderConfirmation()
+        [HttpGet]
+        public async Task<IActionResult> OrderConfirmation()
         {
             var service = new SessionService();
             Session session = service.Get(TempData["Session"].ToString());
