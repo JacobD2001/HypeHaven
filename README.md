@@ -1,19 +1,65 @@
-# HypeHaven
-### Każdy użytkownik bez logowania ma wgląd na główny panel aplikacji skąd może przejść do przeglądania firm bądź ich produktów lub zalogować/zarejestrować się.![image](https://user-images.githubusercontent.com/93675889/218998597-ee885396-6855-40bb-bff5-cc8742477e90.png)
-### Przeglądanie firm![image](https://user-images.githubusercontent.com/93675889/218998855-0fd5f5ac-bc4d-49f4-8f3e-531f4deaa86d.png)
-### Przeglądanie produktów(wszystkich) ![image](https://user-images.githubusercontent.com/93675889/218999066-949a3b9b-07a1-4b6c-a100-2297ead61577.png)
-### Okno rejestracji![image](https://user-images.githubusercontent.com/93675889/218999203-322e3983-7272-47e1-aad5-cb3a082583c5.png)
-### Jeżeli jakaś firma spodoba się użytkownikowi może wejść w jej profil założony na stronie, gdzie znajduje się dokładny opis firmy wraz ze zdjęciem danymi kontaktowymi oraz linkami do social mediów firmy.![image](https://user-images.githubusercontent.com/93675889/218999579-a89cc9da-a8a1-4b1a-a13e-41e29f5316af.png)
-### Z tego poziomu po kliknięciu w 'View products' wyświetlą się produkty odpowiadające tylko tej firmie.![image](https://user-images.githubusercontent.com/93675889/218999753-22d062a3-bf9d-4bda-8773-6dce2798a430.png)
-### Następnie użytkownik może zobaczyć detale produktu który przyciągnie jego uwage, gdzie znajdują się wszystkie potrzebne informacje.![image](https://user-images.githubusercontent.com/93675889/219000243-00ef1ff2-e8aa-464f-8a77-75e9cd965781.png)
-### Stąd może też kupić produkt.
-![image](https://user-images.githubusercontent.com/93675889/219000363-e1a97cb3-a4d5-4ba9-80ef-16b5c16acb39.png)
-# Rejestracja
-### Przy rejestracji użytkownik wybiera czy jest sprzedawcą czy kupującym, zgodnie z tym dostaje odpowiednia uprawnienia.![image](https://user-images.githubusercontent.com/93675889/219000872-afd68c84-7192-4dad-a96b-355371e78a3e.png)
-### Jeżeli użytkownik jest sprzedawcą ma dostęp do zakładki MyBrands skąd może wykonywać wszystkie potrzebne operacje dla sprzedawcy. Pojawiają się tutaj również opcje dodawania, edytowania czy usuwania firm oraz produktów im odpowiadającym. ![image](https://user-images.githubusercontent.com/93675889/219001138-2b533f21-3f70-488c-bff5-4b931ab18248.png)![image](https://user-images.githubusercontent.com/93675889/219001340-f6c33f98-bd7b-4a5b-a4b1-cb6b86bd4080.png)![image](https://user-images.githubusercontent.com/93675889/219001386-23d57fd0-023b-42a0-93a4-f2bc59620689.png)![image](https://user-images.githubusercontent.com/93675889/219001414-58768b84-57ef-4814-ac92-065e577e3272.png)
-:hole: Aplikacja jest ciągle rozszerzana i rozwijana :hole:
+# Niche Clothing Marketplace
+
+[![Azure Deployment](https://img.shields.io/badge/Azure-Deployed-brightgreen)](AZURE_LINK) - Coming Soon
+
+A niche clothing marketplace built with ASP.NET Core MVC, .NET 7.0, and a variety of modern technologies. This platform aims to empower small clothing businesses by providing a centralized hub for niche clothing brands. It supports local economies and helps consumers discover unique, locally-made clothing.
+
+![home](https://github.com/JacobD2001/HypeHaven/assets/93675889/41a15597-f07c-4434-9e89-babe77e6e682)
+![proddetail](https://github.com/JacobD2001/HypeHaven/assets/93675889/e96e9c67-f20c-40ca-9652-f7bd4a14a0ab)
+
+## Features
+
+- User registration and authentication with the option to log in via Google
+- Role-based registration: Vendors and Customers
+- All CRUD operations for brands, products, reviews based on the user's role
+- Users can browse products, add to favorites, make purchases, use filters and sorting options, rate products and leave reviews
+- Search functionality to find specific both products and brands
+- Integration with Stripe API for secure payment processing
+- Cloudinary API for efficient photo management
+- ViewModels data validation 
+- SQL database and Identity Framework for data storage and user management
+
+## Technologies Used
+
+- ASP.NET Core MVC
+- .NET 7.0
+- SQL Database
+- Identity Framework
+- Entity Framework
+- Google External Service
+- Cloudinary API
+- Stripe API
+- Azure hosted(coming soon)
+
+## Unit Testing
+
+The application includes comprehensive unit tests created using xUnit and Moq for robust code quality.
+
+## Deployment(coming soon)
+
+This application is hosted on Azure. You can access the live version [here](YOUR_AZURE_LINK).
+
+## Future Enhancements
+
+- Social sharing features
+- ChatGPT integration
+- Advanced search filters
+- User notifications
+- Real e-mail service authentication
 
 
 
+## Screenshots
+
+![brands](https://github.com/JacobD2001/HypeHaven/assets/93675889/21ae2a78-0d6c-49d7-88c8-ad0faf1d4487)
+![products](https://github.com/JacobD2001/HypeHaven/assets/93675889/3685eb9e-c2a2-46d0-8224-4bc180af86e6)
+
+## Demo Video
+
+[![Watch the video](https://imgur.com/QN7f7FI.png)](https://www.loom.com/share/9376935d56ef4f26a724c334e83d27a8?sid=9506036b-2487-4c20-a8a9-8948e7bda389)
+
+## Author
+
+- [Jakub Dzikowski](https://github.com/JacobD2001)
 
 
