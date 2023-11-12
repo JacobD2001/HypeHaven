@@ -37,7 +37,8 @@ The application includes comprehensive unit tests created using xUnit and Moq fo
 
 ## Deployment
 
-This application is hosted on Azure. You can access the live version [here](https://hypehaven.azurewebsites.net/).
+This application is hosted on Azure. You can access the live version [here](https://hypehaven.azurewebsites.net/).  
+(until I don't run out of free azure credits)
 
 ## Future Enhancements
 
