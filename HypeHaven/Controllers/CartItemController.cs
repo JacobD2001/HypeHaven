@@ -103,7 +103,7 @@ namespace HypeHaven.Controllers
                 return RedirectToAction("Index", "Product");
             }
 
-            var domain = "https://localhost:7143/";
+            var domain = "https://hypehaven.azurewebsites.net/";
 
             var options = new SessionCreateOptions
             {
