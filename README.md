@@ -1,6 +1,6 @@
 # Niche Clothing Marketplace
 
-[![Azure Deployment](https://img.shields.io/badge/Azure-Deployed-brightgreen)](AZURE_LINK) - Coming Soon
+[![Azure Deployment](https://img.shields.io/badge/Azure-Deployed-brightgreen)](https://hypehaven.azurewebsites.net/)
 
 A niche clothing marketplace built with ASP.NET Core MVC, .NET 7.0, and a variety of modern technologies. This platform aims to empower small clothing businesses by providing a centralized hub for niche clothing brands. It supports local economies and helps consumers discover unique, locally-made clothing.
 
@@ -35,9 +35,9 @@ A niche clothing marketplace built with ASP.NET Core MVC, .NET 7.0, and a variet
 
 The application includes comprehensive unit tests created using xUnit and Moq for robust code quality.
 
-## Deployment(coming soon)
+## Deployment
 
-This application is hosted on Azure. You can access the live version [here](YOUR_AZURE_LINK).
+This application is hosted on Azure. You can access the live version [here](https://hypehaven.azurewebsites.net/).
 
 ## Future Enhancements
 
