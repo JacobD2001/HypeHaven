@@ -89,7 +89,7 @@ namespace HypeHaven.Controllers
         public async Task<IActionResult> Create()
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
-            var brandViewModel = new CreateBrandViewModel
+            var brandViewModel = new BrandViewModel
             {
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
                 Id = currentUserId
@@ -104,7 +104,7 @@ namespace HypeHaven.Controllers
         /// <returns>The Index view.</returns>
         [HttpPost]
         [Authorize(Roles = "vendor")]
-        public async Task<IActionResult> Create(CreateBrandViewModel brandVM)
+        public async Task<IActionResult> Create(BrandViewModel brandVM)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
@@ -162,7 +162,7 @@ namespace HypeHaven.Controllers
             {
                 var category = await _categoryRepository.GetByIdAsync(brand.CategoryId);
 
-                var brandVM = new EditBrandViewModel
+                var brandVM = new BrandViewModel
                 {
                     Name = brand.Name,
                     Description = brand.Description,
@@ -195,7 +195,7 @@ namespace HypeHaven.Controllers
         /// <returns>The Index view.</returns>
         [HttpPost]
         [Authorize(Roles = "vendor")]
-        public async Task<IActionResult> Edit(int id, EditBrandViewModel brandVM)
+        public async Task<IActionResult> Edit(int id, BrandViewModel brandVM)
         {
             var curBrand = await _brandRepository.GetByIdAsyncNoTracking(id);
             if (curBrand == null) return View("Error");
@@ -254,7 +254,7 @@ namespace HypeHaven.Controllers
 
             if (brand.UserId == currentUserId)
             {
-                var brandVM = new DeleteBrandViewModel
+                var brandVM = new BrandViewModel
                 {
                     Name = brand.Name,
                     Description = brand.Description,
