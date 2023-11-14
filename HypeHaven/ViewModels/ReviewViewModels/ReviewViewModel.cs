@@ -6,7 +6,7 @@ namespace HypeHaven.ViewModels.ReviewViewModels
     /// <summary>
     /// View model for adding a review.
     /// </summary>
-    public class AddReviewViewModel
+    public class ReviewViewModel
     {
         [Required(ErrorMessage = "Text is required.")]
         [StringLength(100, ErrorMessage = "Text cannot be longer than 100 characters.")]

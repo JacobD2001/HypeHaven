@@ -121,7 +121,7 @@ namespace HypeHavenTests.ControllerTests
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result); //Is of type viewresult = the action method returns a view
-            var model = Assert.IsAssignableFrom<CreateBrandViewModel>(viewResult.ViewData.Model); //If the correct view model is being used<createbrandviewmodel>
+            var model = Assert.IsAssignableFrom<BrandViewModel>(viewResult.ViewData.Model); //If the correct view model is being used<createbrandviewmodel>
             Assert.Equal(categories.Count, model.Categories.Count()); //checking if it the action is correctly populating viewmodel
         }
 
@@ -129,7 +129,7 @@ namespace HypeHavenTests.ControllerTests
         public async Task Create_WithValidModel_AddsBrandAndRedirectsToIndex()
         {
             // Arrange
-            var brandVM = new CreateBrandViewModel { CategoryId = 1 };
+            var brandVM = new BrandViewModel { CategoryId = 1 };
             var brand = new Brand();
 
             var imageUploadResult = new ImageUploadResult { Url = new Uri("http://example.com") };
@@ -170,7 +170,7 @@ namespace HypeHavenTests.ControllerTests
         public async Task Create_WithInvalidModel_ReturnsViewWithBrandViewModel()
         {
             // Arrange
-            var brandVM = new CreateBrandViewModel { CategoryId = 1 };
+            var brandVM = new BrandViewModel { CategoryId = 1 };
             _categoryRepositoryMock.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Category> { new Category() });
             _brandController.ModelState.AddModelError("Name", "Required");
 
@@ -188,7 +188,7 @@ namespace HypeHavenTests.ControllerTests
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<CreateBrandViewModel>(viewResult.ViewData.Model);
+            var model = Assert.IsAssignableFrom<BrandViewModel>(viewResult.ViewData.Model);
             Assert.Equal(1, model.Categories.Count());
         }
 
@@ -214,7 +214,7 @@ namespace HypeHavenTests.ControllerTests
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<EditBrandViewModel>(viewResult.ViewData.Model);
+            var model = Assert.IsAssignableFrom<BrandViewModel>(viewResult.ViewData.Model);
             Assert.Equal(brand.Name, model.Name);
         }
 
@@ -222,7 +222,7 @@ namespace HypeHavenTests.ControllerTests
         public async Task Edit_WithValidModel_UpdatesBrandAndRedirectsToIndex()
         {
             // Arrange
-            var brandVM = new EditBrandViewModel { CategoryId = 1 };
+            var brandVM = new BrandViewModel { CategoryId = 1 };
             var brand = new Brand { BrandId = 1, UserId = "1" };
 
             //set up the repository and photo service for mocking
@@ -255,7 +255,7 @@ namespace HypeHavenTests.ControllerTests
         public async Task Edit_WithInvalidModel_ReturnsViewWithBrandViewModel()
         {
             // Arrange
-            var brandVM = new EditBrandViewModel { CategoryId = 1 };
+            var brandVM = new BrandViewModel { CategoryId = 1 };
             var brand = new Brand { BrandId = 1, UserId = "1" };
             _brandRepositoryMock.Setup(repo => repo.GetByIdAsyncNoTracking(brand.BrandId)).ReturnsAsync(brand);
             _categoryRepositoryMock.Setup(repo => repo.GetAll()).ReturnsAsync(new List<Category> { new Category() });
@@ -275,7 +275,7 @@ namespace HypeHavenTests.ControllerTests
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<EditBrandViewModel>(viewResult.ViewData.Model);
+            var model = Assert.IsAssignableFrom<BrandViewModel>(viewResult.ViewData.Model);
             Assert.Equal(1, model.Categories.Count());
         }
 
@@ -302,7 +302,7 @@ namespace HypeHavenTests.ControllerTests
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<DeleteBrandViewModel>(viewResult.ViewData.Model);
+            var model = Assert.IsAssignableFrom<BrandViewModel>(viewResult.ViewData.Model);
             Assert.Equal(brand.Name, model.Name);
         }
 

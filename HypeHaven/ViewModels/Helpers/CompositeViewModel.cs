@@ -9,7 +9,7 @@ namespace HypeHaven.ViewModels.Helpers
     /// </summary>
     public class CompositeViewModel
     {
-        public AddReviewViewModel AddReviewViewModel { get; set; } = null!;
+        public ReviewViewModel AddReviewViewModel { get; set; } = null!;
         public ProductDetailViewModel ProductDetailViewModel { get; set; } = null!;
         public IHttpContextAccessor HttpContextAccessor { get; set; }
         public FavoriteProductViewModel FavoriteProductViewModel { get; set; }

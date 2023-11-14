@@ -42,7 +42,7 @@ namespace HypeHaven.Controllers
 
             if (review.UserId == currentUserId)
             {
-                var editReviewVM = new EditReviewViewModel
+                var editReviewVM = new ReviewViewModel
                 {
                     Text = review.Text,
                     Rating = review.Rating,
@@ -64,7 +64,7 @@ namespace HypeHaven.Controllers
         /// <param name="editReviewVM">The edit review view model.</param>
         /// <returns>The Detail view.</returns>
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditReviewViewModel editReviewVM)
+        public async Task<IActionResult> Edit(int id, ReviewViewModel editReviewVM)
         {
             var curReview = await _reviewRepository.GetReviewByIdAsync(id);
 
@@ -104,7 +104,7 @@ namespace HypeHaven.Controllers
 
             if (review.UserId == currentUserId)
             {
-                var deleteReviewVM = new DeleteReviewViewModel
+                var deleteReviewVM = new ReviewViewModel
                 {
                     Text = review.Text,
                     Rating = review.Rating,

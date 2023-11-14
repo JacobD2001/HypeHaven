@@ -155,7 +155,7 @@ namespace HypeHaven.Controllers
             };
 
             // Create and populate AddReviewViewModel
-            var addReviewViewModel = new AddReviewViewModel
+            var addReviewViewModel = new ReviewViewModel
             {
                 ProductId = product.ProductId, 
                 BrandId = product.BrandId,
@@ -185,7 +185,7 @@ namespace HypeHaven.Controllers
         /// <param name="AddReviewVM">The AddReviewViewModel to add.</param>
         /// <returns>The Detail view.</returns>
         [HttpPost]
-        public async Task<IActionResult> AddReview(AddReviewViewModel AddReviewVM) 
+        public async Task<IActionResult> AddReview(ReviewViewModel AddReviewVM) 
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId(); //here take current user id
             AddReviewVM.Id = currentUserId; //set current user id to review
@@ -222,7 +222,7 @@ namespace HypeHaven.Controllers
             //current user is adding a product
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
             var productModel = new Product { Brand = new Brand { Id = currentUserId } };
-            var productViewModel = new CreateProductViewModel
+            var productViewModel = new CrudProductViewModel
             {
                 BrandId = productModel.BrandId,
                 Categories = (List<Category>)await _categoryRepository.GetAll(),
@@ -237,7 +237,7 @@ namespace HypeHaven.Controllers
         /// <param name="productVM">The CreateProductViewModel to add.</param>
         /// <returns>The Index view.</returns>
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductViewModel productVM)
+        public async Task<IActionResult> Create(CrudProductViewModel productVM)
         {
             var currentUserId = _httpContextAccessor.HttpContext.User.GetUserId();
 
@@ -294,7 +294,7 @@ namespace HypeHaven.Controllers
 
             if (product.UserId == currentUserId)
             {
-                var productViewModel = new EditProductViewModel
+                var productViewModel = new CrudProductViewModel
                 {
                     Name = product.Name,
                     Description = product.Description,
@@ -322,7 +322,7 @@ namespace HypeHaven.Controllers
         /// <param name="productVM">The EditProductViewModel to edit.</param>
         /// <returns>The Index view.</returns>
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditProductViewModel productVM)
+        public async Task<IActionResult> Edit(int id, CrudProductViewModel productVM)
         {
             //as no tracking
             var curProduct = await _productRepository.GetByIdAsyncNoTracking(id);
@@ -390,14 +390,14 @@ namespace HypeHaven.Controllers
 
             if (product.UserId == currentUserId)
             {
-                var productViewModel = new DeleteProductViewModel
+                var productViewModel = new CrudProductViewModel
                 {
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price,
                     URL = product.Image,
-                    Size = product.Size,
-                    Color = product.Color,
+                    SelectedSize = product.Size,
+                    SelectedColor = product.Color,
                     Material = product.Material,
                     Quantity = product.Quantity,
                     CategoryId = category.CategoryId,

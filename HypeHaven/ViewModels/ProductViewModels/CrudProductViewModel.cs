@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace HypeHaven.ViewModels.ProductViewModels
 {
     /// <summary>
-    /// View model for creating a product.
+    /// View model for products.
     /// </summary>
-    public class CreateProductViewModel
+    public class CrudProductViewModel
     {
         public int Id { get; set; }
 
@@ -15,7 +15,7 @@ namespace HypeHaven.ViewModels.ProductViewModels
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Description is required.")]
-        [StringLength(100, ErrorMessage = "Description cannot be longer than 250 characters.")]
+        [StringLength(100, ErrorMessage = "Description cannot be longer than 100 characters.")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Price is required.")]
@@ -61,5 +61,7 @@ namespace HypeHaven.ViewModels.ProductViewModels
         public List<Category> Categories { get; set; }
         [Required(ErrorMessage = "Brand is required.")]
         public List<Brand> Brands { get; set; }
+
+        public string? URL { get; set; }
     }
 }
